@@ -7,7 +7,7 @@ public class main {
 	public static void main(String[] args) {
 		
 		String wpsURL = "http://localhost:8010/wps/WebProcessingService";
-		String wpsProcessID = "pillar.authoritativedata.BufferDataComparison";
+		String wpsProcessID = "pillar.authoritativedata.AuthoritativeDataComparison";
 		String catalogURL = "http://localhost:8010/geonetwork";
 		
 		 String variable3 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_cities&outputformat=gml3";

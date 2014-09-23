@@ -70,6 +70,7 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
                                 describeProcessDocument, wpsInputs, inputFeatureCollection);
                 
                 Object metadata = outputs.get("metadata");
+                Object inputData = outputs.get("result");
                 
                 if (metadata instanceof GenericFileDataBinding){
                 	
@@ -84,6 +85,13 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
              	 //  insertGVQMetadata(metaFile, catalogURL);
               
          	    
+                }
+                if(inputData instanceof GTVectorDataBinding){
+                	
+                		System.out.println("inputData = GTVECTORDATABINDING");
+                		
+                		FeatureCollection out = ((GTVectorDataBinding) inputData).getPayload();
+                		System.out.println(out.size());
                 }
                
                 
