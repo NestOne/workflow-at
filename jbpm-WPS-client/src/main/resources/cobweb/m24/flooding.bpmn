@@ -16,54 +16,12 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" sourceRef="_1" targetRef="Task_3"/>
-    <bpmn2:task id="Task_4" tns:taskName="BufferedAuthoritativeDataComparison" tns:displayName="Buffered Data Comparison" tns:icon="icons/world.png" name="BufferedAuthoritativeDataComparison">
-      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_5">
-        <bpmn2:dataInput id="_DataInput_14" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="_DataInput_15" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
-        <bpmn2:dataInput id="_DataInput_16" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
-        <bpmn2:dataInput id="_DataInput_17" itemSubjectRef="ItemDefinition_3" name="wpsCarriedData"/>
-        <bpmn2:dataOutput id="DataOutput_4" itemSubjectRef="ItemDefinition_3" name="output"/>
-        <bpmn2:inputSet id="_InputSet_8"/>
-        <bpmn2:inputSet id="_InputSet_9" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_14</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_15</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_16</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_17</bpmn2:dataInputRefs>
-        </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_5">
-          <bpmn2:dataOutputRefs>DataOutput_4</bpmn2:dataOutputRefs>
-        </bpmn2:outputSet>
-      </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_14">
-        <bpmn2:sourceRef>variable1</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_14</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_15">
-        <bpmn2:sourceRef>variable5</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_15</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_16">
-        <bpmn2:sourceRef>variable4</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_16</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_17">
-        <bpmn2:sourceRef>output</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_17</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
-        <bpmn2:sourceRef>DataOutput_4</bpmn2:sourceRef>
-        <bpmn2:targetRef>output</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-    </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" sourceRef="Task_4" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="Task_3"/>
     <bpmn2:task id="Task_3" tns:taskName="AuthoritativeDataComparison" tns:displayName="Authoritative Data Comparison" tns:icon="icons/world.png" name="AuthoritativeDataComparison">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_4">
         <bpmn2:dataInput id="_DataInput_10" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
         <bpmn2:dataInput id="_DataInput_11" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
@@ -102,7 +60,7 @@
         <bpmn2:targetRef>output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" sourceRef="Task_3" targetRef="Task_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Flooding process">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.sample.bpmn.flooding">
@@ -112,9 +70,6 @@
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="462.0" y="112.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="Task_4">
-        <dc:Bounds height="50.0" width="110.0" x="294.0" y="118.0"/>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
         <dc:Bounds height="50.0" width="110.0" x="120.0" y="128.0"/>
       </bpmndi:BPMNShape>
@@ -123,17 +78,10 @@
         <di:waypoint xsi:type="dc:Point" x="43.0" y="153.0"/>
         <di:waypoint xsi:type="dc:Point" x="120.0" y="153.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_Task_4">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="230.0" y="153.0"/>
-        <di:waypoint xsi:type="dc:Point" x="258.0" y="153.0"/>
-        <di:waypoint xsi:type="dc:Point" x="258.0" y="143.0"/>
-        <di:waypoint xsi:type="dc:Point" x="294.0" y="143.0"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="404.0" y="143.0"/>
-        <di:waypoint xsi:type="dc:Point" x="430.0" y="143.0"/>
-        <di:waypoint xsi:type="dc:Point" x="430.0" y="130.0"/>
-        <di:waypoint xsi:type="dc:Point" x="462.0" y="130.0"/>
+        <di:waypoint xsi:type="dc:Point" x="480.0" y="153.0"/>
+        <di:waypoint xsi:type="dc:Point" x="480.0" y="148.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -30,7 +30,9 @@ import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 
-import com.sample.ExecuteResponseAnalyser;
+import cobweb.m24.ExecuteResponseAnalyser;
+import cobweb.m24.ExecuteRequestBuilder;
+
 
 public class GenericWPSClient {
 	
@@ -83,7 +85,7 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
              	  System.out.println("GENERIC DATA " + xmlGenericData.getBaseFile(true).toString());
              	   
              	   File metaFile = parseXMLFromWPS(xmlGenericData);
-             	   insertGVQMetadata(metaFile, catalogURL);
+             	  // insertGVQMetadata(metaFile, catalogURL);
               
          	    
                 }

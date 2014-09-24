@@ -24,9 +24,9 @@
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for cobweb.m24ls.
- */
-package com.sample;
+ * Public License for cobweb.m24package org.n52.WPSExample;**/
+
+package cobweb.m24;
 
 import java.io.IOException;
 import java.io.InputStream;

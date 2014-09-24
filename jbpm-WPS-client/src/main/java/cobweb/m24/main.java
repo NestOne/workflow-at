@@ -2,6 +2,8 @@ package cobweb.m24;
 
 import java.util.HashMap;
 
+import org.geotools.feature.FeatureCollection;
+
 public class main {
 
 	public static void main(String[] args) {
@@ -15,10 +17,12 @@ public class main {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		
+		FeatureCollection fc = null;
+		
 		map.put("inputObservations", variable3);
 		map.put("inputAuthoritativeData", variable4);
 		
-		AuthoritativeWPSClient client = new AuthoritativeWPSClient();
+		GenericWPSClient client = new GenericWPSClient(wpsURL, wpsProcessID, map, catalogURL, fc);
 		// TODO Auto-generated method stub
 
 	}

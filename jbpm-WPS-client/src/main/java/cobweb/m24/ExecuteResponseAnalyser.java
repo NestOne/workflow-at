@@ -25,8 +25,7 @@
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.**/
-
-package com.sample;
+package cobweb.m24;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -59,8 +58,6 @@ import org.slf4j.LoggerFactory;
  * @author foerster
  *
  */
-
-
 public class ExecuteResponseAnalyser {
 	
 

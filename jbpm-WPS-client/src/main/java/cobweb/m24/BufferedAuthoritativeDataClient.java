@@ -11,6 +11,7 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
 
 
+
 public class BufferedAuthoritativeDataClient implements WorkItemHandler{
 
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
