@@ -18,7 +18,7 @@ public class main {
 		map.put("inputObservations", variable3);
 		map.put("inputAuthoritativeData", variable4);
 		
-		GenericWPSClient client = new GenericWPSClient(wpsURL, wpsProcessID,map, catalogURL, null );
+		AuthoritativeWPSClient client = new AuthoritativeWPSClient();
 		// TODO Auto-generated method stub
 
 	}

@@ -26,7 +26,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for cobweb.m24ls.
  */
-package cobweb.m24;
+package com.sample;
 
 import java.io.IOException;
 import java.io.InputStream;
