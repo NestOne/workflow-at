@@ -45,7 +45,6 @@ import org.geotools.feature.FeatureCollection;
 	"wpsURL" : new StringDataType(),
 	"catalogURL" : new StringDataType(),	
         "wpsInputs" : new HashMap(),
-	"wpsCarriedData" : new FeatureCollection(),
       ],
      
      "icon" : "icons/world.png",
