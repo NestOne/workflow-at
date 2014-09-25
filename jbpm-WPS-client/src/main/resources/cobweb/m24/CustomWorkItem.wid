@@ -1,0 +1,43 @@
+import org.drools.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import java.util.HashMap;
+import org.geotools.feature.FeatureCollection; 
+
+[
+  [
+    "name" : "HelloProcessExtension",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "HelloProcessExtension"
+  ]
+  [
+	"name" : "AuthoritativeDataComparison",
+     	"parameters" : [
+	"wpsURL" : new StringDataType(),
+	"catalogURL" : new StringDataType(),	
+    "wpsInputs" : new HashMap(),
+   ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Authoritative Data Comparison"
+  ]
+
+[
+	"name" : "BufferedAuthoritativeDataComparison",
+     	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+        "wpsInputs" : new HashMap(),
+        "wpsCarriedData" : new FeatureCollection();
+       ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Buffered Data Comparison"	
+
+]
+
