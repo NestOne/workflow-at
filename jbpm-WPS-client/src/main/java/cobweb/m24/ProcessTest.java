@@ -84,7 +84,7 @@ public class ProcessTest {
 	
 	
 	public static void main (String[] args){
-	try{	
+	
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
 		//KieBase kbase = kContainer.getKieBase("kbase");
@@ -130,14 +130,12 @@ public class ProcessTest {
 		 ksession.startProcess("com.sample.bpmn.flooding", params);
 		 
 	}
-	catch (Exception e){
-		System.out.println("Exception " + e);
-	}
+	
 
 		 	//manager.disposeRuntimeEngine(engine);
 		 	//System.exit(0);
 		
-	}
+	
     private static RuntimeManager createRuntimeManager(KieBase kbase) {
 		JBPMHelper.startH2Server();
 		JBPMHelper.setupDataSource();

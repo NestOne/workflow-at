@@ -11,7 +11,7 @@
     <bpmn2:property id="variable3" itemSubjectRef="ItemDefinition_2"/>
     <bpmn2:property id="variable4" itemSubjectRef="ItemDefinition_2"/>
     <bpmn2:property id="variable5" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="output" itemSubjectRef="ItemDefinition_1"/>
+    <bpmn2:property id="output" itemSubjectRef="ItemDefinition_3"/>
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -85,7 +85,7 @@
         <bpmn2:targetRef>_DataInput_26</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="Task_2" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_1" name="">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
     </bpmn2:endEvent>

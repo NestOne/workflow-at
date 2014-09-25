@@ -20,7 +20,7 @@ public class BufferedAuthoritativeDataClient implements WorkItemHandler{
 		String wpsProcessID = "pillar.authoritativedata.BufferDataComparison";
 		String catalogURL = (String) workItem.getParameter("catalogURL");
 		
-		//FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");
+		FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");
 		
 		HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
 		
@@ -28,7 +28,7 @@ public class BufferedAuthoritativeDataClient implements WorkItemHandler{
 		
 		System.out.println("Buffered Authoritative Data " + output);
 		
-		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL, null);
+		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL,fc);
 		
 		Map<String, Object> results = new HashMap<String,Object>();
 	

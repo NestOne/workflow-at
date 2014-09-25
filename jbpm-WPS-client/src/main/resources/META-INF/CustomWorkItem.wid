@@ -20,7 +20,7 @@ import org.geotools.feature.FeatureCollection;
      	"parameters" : [
 	"wpsURL" : new StringDataType(),
 	"catalogURL" : new StringDataType(),	
-        "wpsInputs" : new HashMap(),
+    "wpsInputs" : new HashMap(),
    ],
      
      "icon" : "icons/world.png",
@@ -30,8 +30,8 @@ import org.geotools.feature.FeatureCollection;
 [
 	"name" : "BufferedAuthoritativeDataComparison",
      	"parameters" : [
-	"wpsURL" : new StringDataType(),
-	"catalogURL" : new StringDataType(),	
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
         "wpsInputs" : new HashMap(),
         "wpsCarriedData" : new FeatureCollection();
        ],
@@ -40,14 +40,4 @@ import org.geotools.feature.FeatureCollection;
     "displayName" : "Buffered Data Comparison"	
 
 ]
-[
-	"name" : "LineOfSightComparison",
-     	"parameters" : [
-	"wpsURL" : new StringDataType(),
-	"catalogURL" : new StringDataType(),	
-        "wpsInputs" : new HashMap(),
-      ],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Calculate Line of Sight"    
-]
+

@@ -33,9 +33,9 @@ public class AuthoritativeDataClient implements WorkItemHandler{
 			
 			System.out.println("authoritative data output " + fcOut.toString());
 			
-			//results.put("output", fcOut);
+			results.put("output", fcOut);
 			
-			results.put("output", "SomeString");
+			//results.put("output", "SomeString");
 			
 			manager.completeWorkItem(workItem.getId(), results);
 		}
