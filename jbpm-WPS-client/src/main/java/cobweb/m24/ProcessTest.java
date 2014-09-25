@@ -84,15 +84,16 @@ public class ProcessTest {
 	
 	
 	public static void main (String[] args){
-		
+	try{	
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
-		KieBase kbase = kContainer.getKieBase("kbase");
+		//KieBase kbase = kContainer.getKieBase("kbase");
+		KieSession ksession = kContainer.newKieSession("ksession-process");
 
-		RuntimeManager manager = createRuntimeManager(kbase);
+	/**	RuntimeManager manager = createRuntimeManager(kbase);
 		RuntimeEngine engine = manager.getRuntimeEngine(null);
 		KieSession ksession = engine.getKieSession();
-		TaskService taskService = engine.getTaskService();
+		TaskService taskService = engine.getTaskService();**/
 
 		
 
@@ -114,7 +115,7 @@ public class ProcessTest {
 		 wpsInputsAuth1.put("inputAuthoritativeData", variable4);
 
 		 HashMap<String, Object> wpsInputsAuth2 = new HashMap<String, Object>();
-		 //wpsInputsAuth2.put("inputObservations", variable3);
+		 wpsInputsAuth2.put("inputObservations", variable3);
 		 wpsInputsAuth2.put("inputAuthoritativeData", variable5);
 		 wpsInputsAuth2.put("bufferSize", variable6);
 
@@ -127,9 +128,14 @@ public class ProcessTest {
 		 params.put("variable5", "http://localhost:8010/geonetwork");
 
 		 ksession.startProcess("com.sample.bpmn.flooding", params);
+		 
+	}
+	catch (Exception e){
+		System.out.println("Exception " + e);
+	}
 
-		 	manager.disposeRuntimeEngine(engine);
-		 	System.exit(0);
+		 	//manager.disposeRuntimeEngine(engine);
+		 	//System.exit(0);
 		
 	}
     private static RuntimeManager createRuntimeManager(KieBase kbase) {

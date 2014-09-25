@@ -21,17 +21,21 @@ public class AuthoritativeDataClient implements WorkItemHandler{
 			String wpsProcessID = "pillar.authoritativedata.AuthoritativeDataComparison";
 			String catalogURL = (String) workItem.getParameter("catalogURL");
 			
-			FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");
+			//FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");
 
 			HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
 			
-			GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL,fc);
+			GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL,null);
 			
 			Map<String, Object> results = new HashMap<String,Object>();
 		
 			FeatureCollection fcOut = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
 			
-			results.put("output", fcOut);
+			System.out.println("authoritative data output " + fcOut.toString());
+			
+			//results.put("output", fcOut);
+			
+			results.put("output", "SomeString");
 			
 			manager.completeWorkItem(workItem.getId(), results);
 		}
