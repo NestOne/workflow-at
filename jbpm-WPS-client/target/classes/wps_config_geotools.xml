@@ -10,7 +10,7 @@
         <Format mimetype="text/xml; subtype=gml/3.0.0" schema="http://schemas.opengis.net/gml/3.0.0/base/feature.xsd"/>
         <Format mimetype="text/xml; subtype=gml/3.0.1" schema="http://schemas.opengis.net/gml/3.0.1/base/feature.xsd"/>
         <Format mimetype="text/xml; subtype=gml/3.1.0" schema="http://schemas.opengis.net/gml/3.1.0/base/feature.xsd"/>
-        <Format mimetype="text/xml; subtype=gml/3.1.1" schema="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd"/>
+        <Format mimetype="text/xml; subtype=gml/3.1.1" schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
       </Parser>
       <Parser name="GML32BasicParser" className="org.n52.wps.io.datahandler.parser.GML32BasicParser" active="true">
         <Format mimetype="text/xml" schema="http://schemas.opengis.net/gml/3.2.1/base/feature.xsd"/>

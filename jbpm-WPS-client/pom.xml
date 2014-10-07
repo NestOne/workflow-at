@@ -218,6 +218,12 @@
 		<artifactId>slf4j-simple</artifactId>
 	<version>1.7.5</version>
 </dependency>
+
+ <dependency>
+           <groupId>org.twitter4j</groupId>
+           <artifactId>twitter4j-core</artifactId>
+           <version>[4.0,)</version>
+       </dependency>
     
      
   </dependencies>

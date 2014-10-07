@@ -18,7 +18,7 @@ public class LineOfSightClient implements WorkItemHandler {
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
 		String wpsURL = (String) workItem.getParameter("wpsURL");
-		String wpsProcessID = "pillar.authoritativedata.LineOfSight";
+		String wpsProcessID = "pillar.lbs.LineOfSight";
 		String catalogURL = (String) workItem.getParameter("catalogURL");
 		
 		//FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");

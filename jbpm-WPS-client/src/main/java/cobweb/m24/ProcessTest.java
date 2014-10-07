@@ -101,7 +101,8 @@ public class ProcessTest {
                  (WorkItemHandler) new AuthoritativeDataClient());
 		 ksession.getWorkItemManager().registerWorkItemHandler("BufferedAuthoritativeDataComparison",
 					(WorkItemHandler) new BufferedAuthoritativeDataClient());
-
+		 ksession.getWorkItemManager().registerWorkItemHandler("LineOfSight", 
+				 (WorkItemHandler) new LineOfSightClient());
 
 
 
@@ -118,7 +119,11 @@ public class ProcessTest {
 		 wpsInputsAuth2.put("inputObservations", variable3);
 		 wpsInputsAuth2.put("inputAuthoritativeData", variable5);
 		 wpsInputsAuth2.put("bufferSize", variable6);
-
+		 
+		 HashMap<String, Object> wpsInputsLBS = new HashMap<String, Object>();
+		 wpsInputsLBS.put("inputObservations", variable3);
+		 
+		 
 
 		 Map<String, Object> params = new HashMap<String, Object>();
 		 params.put("variable1", "http://localhost:8010/wps/WebProcessingService?");
@@ -126,6 +131,7 @@ public class ProcessTest {
 		 params.put("variable3", wpsInputsAuth1);
 		 params.put("variable4", wpsInputsAuth2);
 		 params.put("variable5", "http://localhost:8010/geonetwork");
+		 params.put("variable6", wpsInputsLBS);
 
 		 ksession.startProcess("com.sample.bpmn.flooding", params);
 		 
