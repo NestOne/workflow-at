@@ -9,43 +9,49 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import org.kie.api.runtime.process.WorkItemManager;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
-
-
-
-public class BufferedAuthoritativeDataClient implements WorkItemHandler{
-
+public class GenericWorkItemHandlerClient implements WorkItemHandler {
+	
+	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		
+			
 		String wpsURL = (String) workItem.getParameter("wpsURL");
-		String wpsProcessID = "pillar.authoritativedata.BufferDataComparison";
+		String wpsProcessID = (String) workItem.getParameter("processDescription");
 		String catalogURL = (String) workItem.getParameter("catalogURL");
 		
-		FeatureCollection fc = (FeatureCollection) workItem.getParameter("wpsCarriedData");
+		
 		
 		HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
 		
-		String output = (String) workItem.getParameter("output");
+		FeatureCollection fc = null;
 		
-		System.out.println("Buffered Authoritative Data " + output);
+		if(workItem.getParameter("inputCarriedData")!=null){
+		
+			fc = (FeatureCollection) workItem.getParameter("inputCarriedData");
+			
+			System.out.println("WPS WORKITEM HANDLER " + wpsProcessID + " " + fc.size());
+			wpsInputs.remove("inputObservations");
+			wpsInputs.put("inputObservations", fc);
+		
+		}
+		
+		//String output = (String) workItem.getParameter("output");
 		
 		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
 		
 		Map<String, Object> results = new HashMap<String,Object>();
 	
-		FeatureCollection outFc = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
+			FeatureCollection result = ((GTVectorDataBinding) wpsClient.getOutputs().get("result")).getPayload();
+			FeatureCollection qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
 		
-		results.put("output", outFc);
+		results.put("result", result);
+		results.put("qual_result", qual_result);
 		
 		manager.completeWorkItem(workItem.getId(), results);
-		
 	}
-
+	
+	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-		
-		
+		// TODO Auto-generated method stub
 		
 	}
-	
-	
-
 }

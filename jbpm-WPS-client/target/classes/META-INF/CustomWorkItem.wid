@@ -1,56 +1,168 @@
 import org.drools.process.core.datatype.impl.type.ObjectDataType;
 import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.FloatDataType;
+import org.drools.process.core.datatype.impl.type.BooleanDataType;
 import java.util.HashMap;
 import org.geotools.feature.FeatureCollection; 
-
 [
-  [
-    "name" : "HelloProcessExtension",
-     "parameters" : [
-         "param1" : new StringDataType(),
-         "param2" : new StringDataType(),
-         "param3" : new StringDataType(),
-      ],
+	[
+	"name" : "PointInPolygon",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"wpsInputs" : new HashMap(),
+		"inputCarriedData" : new FeatureCollection(),
+   	],
      
      "icon" : "icons/world.png",
-    "displayName" : "HelloProcessExtension"
-  ]
-  [
-	"name" : "AuthoritativeDataComparison",
-     	"parameters" : [
-	"wpsURL" : new StringDataType(),
-	"catalogURL" : new StringDataType(),	
-    "wpsInputs" : new HashMap(),
-   ],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Authoritative Data Comparison"
-  ]
+    "displayName" : "Point in polygon"
+]
 
 [
-	"name" : "BufferedAuthoritativeDataComparison",
+	"name" : "PointInBuffer",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
-        "wpsInputs" : new HashMap(),
-        "wpsCarriedData" : new FeatureCollection();
-       ],
+    	"wpsInputs" : new HashMap(),
+		"inputCarriedData" : new FeatureCollection(),
+ 	],
      
      "icon" : "icons/world.png",
-    "displayName" : "Buffered Data Comparison"	
+    "displayName" : "Point in Buffer"
 
 ]
 
 [
-	"name" : "LineOfSight",
+	"name" : "NumberOfNeighbourSimilarFeatures",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
-        "wpsInputs" : new HashMap(),
-        "wpsCarriedData" : new FeatureCollection();
+    	"inputObservations" : new StringDataType(),
+		"inputAuthoritativeData" : new StringDataType(),
+		"inputCarriedData" : new FeatureCollection(),
+		"inputDistance" : new FloatDataType(),
+		"minNumber" : new FloatDataType(),
+		"fieldName" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Neighbour similar features"
+
+]
+
+[
+	"name" : "NumberOfNeighbourNamedFeatures",
+     	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"inputObservations" : new StringDataType(),
+		"inputAuthoritativeData" : new StringDataType(),
+		"inputCarriedData" : new FeatureCollection(),
+		"inputDistance" : new FloatDataType(),
+		"minNumber" : new FloatDataType(),
+		"fieldName" : new StringDataType(),
+		"featureName" : new StringDataType(),
        ],
      
      "icon" : "icons/world.png",
-    "displayName" : "Line of Sight"	
+    "displayName" : "Neighbour named features"
 
+]
+[
+	"name" : "ValueRange",
+     	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"inputObservations" : new StringDataType(),
+		"maxRange" : new FloatDataType(),
+		"minRange" : new FloatDataType(),
+		"attributeName" : new StringDataType(),
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Value of an attribute range"
+
+]
+[
+	"name" : "CountTweetsWithLocation",
+     	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"inputLocation" : new StringDataType(),
+		"dataSince" : new StringDataType(),
+		"searchTerm" : new StringDataType(),
+		"inputDistance" : new FloatDataType(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Count Tweets with Location"
+
+]
+[
+	"name" : "AttributeRange",
+     	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"wpsInputs" : new HashMap(),
+    	"processDescription" : new StringDataType(),
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Attribute Range Check"
+]
+
+[
+	"name" : "FilterOnAttribute",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"wpsInputs" : new HashMap(),
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+    "icon" : "icons/world.png",
+    "displayName" : "Filter on attribute value"
+
+]
+
+[
+	"name" : "PositionBoundingBox",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"inputObservations" : new StringDataType(),
+		"minX" : new FloatDataType(),
+		"minY" : new FloatDataType(),
+		"maxX" : new FloatDataType(),
+		"maxY" : new FloatDataType(), 
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+    "icon" : "icons/world.png",
+    "displayName" : "Get observations within a bounding box"
+
+]
+[
+	"name" : "GetSpatialAccuracy",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),	
+    	"inputObservations" : new StringDataType(),
+		"UUIDField" : new StringDataType(),
+		"inputSatelliteNumberField" : new StringDataType(),
+		"inputAccuracyField" new StringDataType(),
+		"minSatNum" : new FloatDataType(),
+		"minAcc" : new FloatDataType(),
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Calculate spatial accuracy"
+
+	]
 ]

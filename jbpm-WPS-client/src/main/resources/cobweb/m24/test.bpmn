@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="BooleanDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_3" structureRef="FeatureCollection"/>
+  <bpmn2:process id="com.sample.bpmn" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="Sample Process" isExecutable="true" processType="Private">
+    <bpmn2:startEvent id="_1" name="">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="_1" targetRef="Task_1"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:task id="Task_1" tns:taskName="FilterOnAttribute" tns:displayName="Filter on attribute value" tns:icon="icons/world.png" name="FilterOnAttribute">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_10">
+        <bpmn2:dataInput id="_DataInput_32" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_33" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_34" itemSubjectRef="ItemDefinition_1" name="inputObservations"/>
+        <bpmn2:dataInput id="_DataInput_35" itemSubjectRef="ItemDefinition_1" name="fieldName"/>
+        <bpmn2:dataInput id="_DataInput_36" itemSubjectRef="ItemDefinition_1" name="featureName"/>
+        <bpmn2:dataInput id="_DataInput_37" itemSubjectRef="ItemDefinition_2" name="include"/>
+        <bpmn2:dataInput id="_DataInput_38" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:inputSet id="_InputSet_18"/>
+        <bpmn2:inputSet id="_InputSet_19" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_32</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_33</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_34</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_35</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_36</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_37</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_38</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_10"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_32">
+        <bpmn2:targetRef>_DataInput_32</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_33">
+        <bpmn2:targetRef>_DataInput_33</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_34">
+        <bpmn2:targetRef>_DataInput_34</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_35">
+        <bpmn2:targetRef>_DataInput_35</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_36">
+        <bpmn2:targetRef>_DataInput_36</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_37">
+        <bpmn2:targetRef>_DataInput_37</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_38">
+        <bpmn2:targetRef>_DataInput_38</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_1" targetRef="EndEvent_1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.sample.bpmn">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
+        <dc:Bounds height="36.0" width="36.0" x="29.0" y="119.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="480.0" y="220.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
+        <dc:Bounds height="50.0" width="110.0" x="190.0" y="154.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="47.0" y="155.0"/>
+        <di:waypoint xsi:type="dc:Point" x="47.0" y="179.0"/>
+        <di:waypoint xsi:type="dc:Point" x="190.0" y="179.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="179.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="179.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="220.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

@@ -5,6 +5,7 @@ package clients.test;
 import it.geosolutions.geonetwork.GNClient;
 import it.geosolutions.geonetwork.exception.GNLibException;
 import it.geosolutions.geonetwork.exception.GNServerException;
+import it.geosolutions.geonetwork.op.GNMetadataGet;
 import it.geosolutions.geonetwork.util.GNInsertConfiguration;
 
 import java.io.BufferedReader;
@@ -20,6 +21,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.DataType;
@@ -30,6 +33,7 @@ import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 import net.opengis.wps.x100.ProcessDescriptionType.DataInputs;
 
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.xmlbeans.XmlOptions;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
@@ -38,6 +42,7 @@ import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
 import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataDocument;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataType;
+import org.jdom.Element;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.io.data.GenericFileData;
@@ -46,6 +51,8 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import cobweb.m24.ExecuteRequestBuilder;
 import cobweb.m24.ExecuteResponseAnalyser;
@@ -57,7 +64,7 @@ public class TestClient {
 
         	String wpsURL = "http://localhost:8010/wps/WebProcessingService";
 
-            String processID = "pillar.authoritativedata.PointInPolygon";
+            String processID = "pillar.cleaning.AttributeRange";
 
 
                 try {
@@ -91,17 +98,21 @@ public class TestClient {
                         
                         inputs.put(
                                 "inputObservations",
-                                "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_cities&outputFormat=GML2"
+                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=gml3"
                                 );
-                        inputs.put("inputAuthoritativeData", 
-                        		"http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputFormat=GML2"
-                        		);
+                        inputs.put("attributeRange", "7,10");
+                        inputs.put("attributeName", "satNum");
+                        
+                        
+                       // inputs.put("inputAuthoritativeData", 
+                        //		"http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputFormat=GML2"
+                        	//	);
                        
                         //inputs.put("inputName", "Canopy.out");
                        // inputs.put("inputMetName", "Dalby1.met");
                          
                         
-                        Object [] data = new Object[2];
+                        Object [] data = new Object[3];
                         
                         
                         data = executeProcess(wpsURL, processID,
@@ -158,7 +169,7 @@ public class TestClient {
                             }
                            
                            fw.close();
-                    	/**   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                    	   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                			   DocumentBuilder builder =
                			            factory.newDocumentBuilder();
                			   Document tempXML = builder.newDocument();
@@ -170,9 +181,9 @@ public class TestClient {
                            
                            System.out.println("LIST LENGTH " + list.getLength());
                            
-                           insertMetdataValues(newFile, "http://localhost:8080/geonetwork");
+                           insertMetdataValues(newFile, "http://localhost:8010/geonetwork");
 
-                    	   **/
+                    	   
                        }
                        
                         
@@ -250,8 +261,8 @@ public class TestClient {
                                                         .addComplexData(
                                                                         inputName,
                                                                         data,
-                                                                        "http://schemas.opengis.net/gml/2.1.1/feature.xsd",
-                                                                        null, "text/xml; subtype=gml/2.1.1");
+                                                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                                                                        null, "text/xml; subtype=gml/3.1.0");
                                 }
                                 
                                 if(inputName.equals("inputMet")){
@@ -287,8 +298,8 @@ public class TestClient {
                                                         .addComplexDataReference(
                                                                         inputName,
                                                                         (String) inputValue,
-                                                                        "http://schemas.opengis.net/gml/2.1.1/feature.xsd",
-                                                                        null, "text/xml; subtype=gml/2.1.1");
+                                                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                                                                        null, "text/xml; subtype=gml/3.1.0");
                                 }
 
                                 if (inputValue == null && input.getMinOccurs().intValue() > 0) {
@@ -297,20 +308,20 @@ public class TestClient {
                                 }
                         }
                 }
-                executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/2.1.1", "result");
+                executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
                 executeBuilder.setSchemaForOutput(
-                                "http://schemas.opengis.net/gml/2.1.1/feature.xsd",
+                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                                 "result");
                 
                         
-                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/2.1.1", "qual_result");
+                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
                         executeBuilder.setSchemaForOutput(
-                                        "http://schemas.opengis.net/gml/2.1.1/feature.xsd",
+                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                                 "qual_result");
                 
                // executeBuilder.setEncodingForOutput("base64", "output");
                 
-              //  executeBuilder.setMimeTypeForOutput("text/plain", "output");
+                executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
                // executeBuilder.setEncodingForOutput("UTF-8", "output");
              
               //  executeBuilder.setSchemaForOutput("http://schemas.geoviqua.org/GVQ/4.0/GeoViQua_DataQuality.xsd", 
@@ -340,6 +351,9 @@ public class TestClient {
                         Object data2 = analyser.getComplexData("qual_result", 
                         		GTVectorDataBinding.class);
                         
+                        Object data3 = analyser.getComplexData("metadata", 
+                        		GenericFileDataBinding.class);
+                        
                        // Object data3 = dataType.getLiteralData().getStringValue();
                         
                       /**  dataReturn[0] = (IData) data;
@@ -347,7 +361,7 @@ public class TestClient {
                         dataReturn[1] = (IData) data2;**/
                         System.out.println(dataType.toString());
                       
-                        dataReturn[0] = (String) data;
+                        dataReturn[0] = (GenericFileDataBinding) data3;
                         
                        
                        
@@ -356,7 +370,7 @@ public class TestClient {
                 throw new Exception("Exception: " + responseObject.toString());
         }
         
-       /** public void insertMetdataValues(File xmlDocument, String url){
+       public void insertMetdataValues(File xmlDocument, String url){
         	
         	ArrayList< ? > validationErrors = new ArrayList<Object>();
         	XmlOptions options; 
@@ -408,12 +422,17 @@ public class TestClient {
         		          
         		String un = "admin";
         		String pw = "admin";
+        		
         	//	File sampleDocument = new File("/Users/lgzsam/Downloads/c9ef44fc-5974-41e2-a425-f9634963ba81/metadata/metadata.xml");
-        		 GNClient client = new GNClient(url, un, pw);
+        		 GNClient client = new GNClient(url,un,pw);
+        		 
+        		 
         		 //PostMethod loginMethod = new PostMethod(url + "/srv/eng/login.form");
-             	
+        		 
+             		//client.login(un, pw);
         		 	GNInsertConfiguration cfg = new GNInsertConfiguration();
 	        	    cfg.setCategory("datasets");
+	        	    
 	        	    cfg.setGroup("1"); // group 1 is usually "all"
 	        	    cfg.setStyleSheet("_none_");
 	        	    cfg.setValidate(Boolean.FALSE);
@@ -422,7 +441,7 @@ public class TestClient {
 
 	        	    System.out.println("Metadata created with id " + id);
         		 
-        		
+        	
 	
 			} catch (GNLibException e) {
 				// TODO Auto-generated catch block
@@ -437,7 +456,32 @@ public class TestClient {
 			
 
         }
-        **/
+       
+       public Document getMetadataRecord(String UUID, String url){
+    	   Document metadataRecord = null;
+    	   String un = "admin";
+   			String pw = "admin";
+    	   GNClient client = new GNClient(url, un,pw);
+    	   
+    	   //GNMetadataGet get = new GNMetadataGet();
+    	   
+   	     
+   	    	try {
+				Element id = client.get(UUID);
+				
+				System.out.println(id.toString());
+			} catch (GNLibException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GNServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	   
+    	   return metadataRecord;
+    	   
+       }
+        
         
 
         public static void main(String[] args) {

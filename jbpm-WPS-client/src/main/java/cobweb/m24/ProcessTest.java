@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.geotools.feature.FeatureCollection;
 import org.jbpm.process.instance.impl.demo.SystemOutWorkItemHandler;
 import org.jbpm.runtime.manager.impl.SimpleRegisterableItemsFactory;
 import org.jbpm.test.JBPMHelper;
@@ -94,46 +95,64 @@ public class ProcessTest {
 		RuntimeEngine engine = manager.getRuntimeEngine(null);
 		KieSession ksession = engine.getKieSession();
 		TaskService taskService = engine.getTaskService();**/
+		
+		ksession.getWorkItemManager().registerWorkItemHandler("FilterOnAttribute", 
+	             (WorkItemHandler) new GenericWorkItemHandlerClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("PointInPolygon", 
+				(WorkItemHandler) new GenericWorkItemHandlerClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("AttributeRange",
+				(WorkItemHandler) new GenericWorkItemHandlerClient());
+		
+		//variables for FilterOnAttribute
+		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
+		String processId = "pillar.cleaning.FilterOnAttribute";
+		String catalogURL = "http://localhost:8010/geonetwork";
+		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srsName=EPSG:4236";
+		String fieldName = "fieldconta";
+		String featureName = "DownyBirch";
+		String include = "true";
+		
+		HashMap<String, Object> wpsInputs = new HashMap<String, Object>();
+		wpsInputs.put("inputObservations", inputObservations);
+		wpsInputs.put("fieldName", fieldName);
+		wpsInputs.put("featureName", featureName);
+		wpsInputs.put("include", include);
+		
+		//variables for PointInPolygon
+		HashMap<String, Object> wpsPolygonInputs = new HashMap<String, Object>();
+		
+		String processIdP = "pillar.authoritativedata.PointInPolygon";
+		String processIdA = "pillar.cleaning.AttributeRange";
 
+	
+		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3";
+		//wpsPolygonInputs.put("inputObservations", inputObservations);
+		wpsPolygonInputs.put("inputAuthoritativeData", inputAuthoritativeData);
+		
+		//variables for ArrtibuteRange
+		HashMap<String, Object> wpsAttributeInputs = new HashMap<String, Object>();
+		
+		//wpsAttributeInputs.put("inputObservations",  inputObservations);
+		wpsAttributeInputs.put("attributeName", "satNum");
+		wpsAttributeInputs.put("minRange", "3");
+		wpsAttributeInputs.put("maxRange", "10");
+		
+		
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("wpsURL", wpsURL);
+		params.put("catalogURL", catalogURL);
+		params.put("processDescription", processId);
+		params.put("wpsInputs", wpsInputs);
+		params.put("PolyProcessDescription", processIdP);
+		params.put("PolyInputs", wpsPolygonInputs);
+		params.put("bufferProcessDescription", processIdA);
+		params.put("bufferInputs", wpsAttributeInputs);
+		
 		
 
-		 ksession.getWorkItemManager().registerWorkItemHandler("AuthoritativeDataComparison", 
-                 (WorkItemHandler) new AuthoritativeDataClient());
-		 ksession.getWorkItemManager().registerWorkItemHandler("BufferedAuthoritativeDataComparison",
-					(WorkItemHandler) new BufferedAuthoritativeDataClient());
-		 ksession.getWorkItemManager().registerWorkItemHandler("LineOfSight", 
-				 (WorkItemHandler) new LineOfSightClient());
-
-
-
-		 String variable3 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_cities&outputformat=gml3";
-		 String variable4 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputformat=gml3";
-		 String variable5 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputformat=gml3";
-		 String variable6 = "0.01";
-
-		 HashMap<String, Object> wpsInputsAuth1 = new HashMap<String, Object>();
-		 wpsInputsAuth1.put("inputObservations", variable3);
-		 wpsInputsAuth1.put("inputAuthoritativeData", variable4);
-
-		 HashMap<String, Object> wpsInputsAuth2 = new HashMap<String, Object>();
-		 wpsInputsAuth2.put("inputObservations", variable3);
-		 wpsInputsAuth2.put("inputAuthoritativeData", variable5);
-		 wpsInputsAuth2.put("bufferSize", variable6);
-		 
-		 HashMap<String, Object> wpsInputsLBS = new HashMap<String, Object>();
-		 wpsInputsLBS.put("inputObservations", variable3);
-		 
-		 
-
-		 Map<String, Object> params = new HashMap<String, Object>();
-		 params.put("variable1", "http://localhost:8010/wps/WebProcessingService?");
-		 params.put("variable2", "pillar.authoritativedata.AuthoritativeDataComparison");
-		 params.put("variable3", wpsInputsAuth1);
-		 params.put("variable4", wpsInputsAuth2);
-		 params.put("variable5", "http://localhost:8010/geonetwork");
-		 params.put("variable6", wpsInputsLBS);
-
-		 ksession.startProcess("com.sample.bpmn.flooding", params);
+		ksession.startProcess("com.sample.bpmn.flooding", params);
 		 
 	}
 	
@@ -153,5 +172,43 @@ public class ProcessTest {
 			//.newSingletonRuntimeManager(builder.get(), "com.sample:example:1.0");
 				.newSingletonRuntimeManager(builder.get(), "cobweb.m24:example:1.0");
 	}
+    
+
+	/** ksession.getWorkItemManager().registerWorkItemHandler("AuthoritativeDataComparison", 
+             (WorkItemHandler) new AuthoritativeDataClient());
+	 ksession.getWorkItemManager().registerWorkItemHandler("BufferedAuthoritativeDataComparison",
+				(WorkItemHandler) new BufferedAuthoritativeDataClient());
+	 ksession.getWorkItemManager().registerWorkItemHandler("LineOfSight", 
+			 (WorkItemHandler) new LineOfSightClient());
+
+
+
+	String variable3 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_cities&outputformat=gml3";
+	 String variable4 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputformat=gml3";
+	 String variable5 = "http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputformat=gml3";
+	 String variable6 = "0.01";
+
+	 HashMap<String, Object> wpsInputsAuth1 = new HashMap<String, Object>();
+	 wpsInputsAuth1.put("inputObservations", variable3);
+	 wpsInputsAuth1.put("inputAuthoritativeData", variable4);
+
+	 HashMap<String, Object> wpsInputsAuth2 = new HashMap<String, Object>();
+	 wpsInputsAuth2.put("inputObservations", variable3);
+	 wpsInputsAuth2.put("inputAuthoritativeData", variable5);
+	 wpsInputsAuth2.put("bufferSize", variable6);
+	 
+	 HashMap<String, Object> wpsInputsLBS = new HashMap<String, Object>();
+	 wpsInputsLBS.put("inputObservations", variable3);
+	 
+	 
+
+	 Map<String, Object> params = new HashMap<String, Object>();
+	 params.put("variable1", "http://localhost:8010/wps/WebProcessingService?");
+	 params.put("variable2", "pillar.authoritativedata.AuthoritativeDataComparison");
+	 params.put("variable3", wpsInputsAuth1);
+	 params.put("variable4", wpsInputsAuth2);
+	 params.put("variable5", "http://localhost:8010/geonetwork");
+	 params.put("variable6", wpsInputsLBS);**/
+
 
 }

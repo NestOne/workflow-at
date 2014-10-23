@@ -25,7 +25,7 @@ public class AuthoritativeDataClient implements WorkItemHandler{
 
 			HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
 			
-			GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL,null);
+			GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
 			
 			Map<String, Object> results = new HashMap<String,Object>();
 		
