@@ -18,151 +18,275 @@
     <bpmn2:property id="qual_result_output" itemSubjectRef="ItemDefinition_3"/>
     <bpmn2:property id="PolyProcessDescription" itemSubjectRef="ItemDefinition_1"/>
     <bpmn2:property id="PolyInputs" itemSubjectRef="ItemDefinition_2"/>
-    <bpmn2:task id="Task_3" tns:taskName="PointInPolygon" tns:displayName="Point in polygon" tns:icon="icons/world.png" name="PointInPolygon">
-      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_13">
-        <bpmn2:dataInput id="_DataInput_50" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="_DataInput_51" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_52" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
-        <bpmn2:dataInput id="_DataInput_53" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
-        <bpmn2:dataInput id="_DataInput_54" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
-        <bpmn2:dataOutput id="DataOutput_3" itemSubjectRef="ItemDefinition_3" name="result"/>
-        <bpmn2:dataOutput id="DataOutput_4" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
-        <bpmn2:inputSet id="_InputSet_24"/>
-        <bpmn2:inputSet id="_InputSet_25" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_50</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_51</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_52</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_53</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_54</bpmn2:dataInputRefs>
+    <bpmn2:property id="spatialAccPD" itemSubjectRef="ItemDefinition_1"/>
+    <bpmn2:property id="spatialAccInputs" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:property id="GetSpatialInputs" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:property id="GetSpatialProcessId" itemSubjectRef="ItemDefinition_1"/>
+    <bpmn2:property id="TwitterPD" itemSubjectRef="ItemDefinition_1"/>
+    <bpmn2:property id="TwitterInputs" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:startEvent id="_1" name="">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="_1" targetRef="Task_4"/>
+    <bpmn2:task id="Task_4" tns:taskName="Pillar 1 - Get Spatial Accuracy" tns:displayName="Calculate spatial accuracy" tns:icon="icons/world.png" name="Pillar 1 - Get Spatial Accuracy">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_22">
+        <bpmn2:dataInput id="_DataInput_97" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_98" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_99" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_100" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_101" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_9" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_10" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_42"/>
+        <bpmn2:inputSet id="_InputSet_43" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_97</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_98</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_99</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_100</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_101</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_13">
-          <bpmn2:dataOutputRefs>DataOutput_3</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_4</bpmn2:dataOutputRefs>
+        <bpmn2:outputSet id="_OutputSet_22">
+          <bpmn2:dataOutputRefs>DataOutput_9</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_10</bpmn2:dataOutputRefs>
         </bpmn2:outputSet>
       </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_50">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_97">
         <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_50</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_97</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_51">
-        <bpmn2:sourceRef>PolyProcessDescription</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_51</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_52">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_98">
         <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_52</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_98</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_53">
-        <bpmn2:sourceRef>PolyInputs</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_53</bpmn2:targetRef>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_99">
+        <bpmn2:sourceRef>GetSpatialProcessId</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_99</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_54">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_100">
+        <bpmn2:sourceRef>GetSpatialInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_100</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_101">
         <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_54</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_101</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
-        <bpmn2:sourceRef>DataOutput_3</bpmn2:sourceRef>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_9">
+        <bpmn2:sourceRef>DataOutput_9</bpmn2:sourceRef>
         <bpmn2:targetRef>result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
-        <bpmn2:sourceRef>DataOutput_4</bpmn2:sourceRef>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_10">
+        <bpmn2:sourceRef>DataOutput_10</bpmn2:sourceRef>
         <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" name="" sourceRef="Task_3" targetRef="Task_1"/>
-    <bpmn2:startEvent id="_1" name="">
-      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="_1" targetRef="Task_2"/>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:task id="Task_1" tns:taskName="AttributeRange" tns:displayName="Attribute Range Check" tns:icon="icons/world.png" name="AttributeRange">
-      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="Task_4" targetRef="Task_7"/>
+    <bpmn2:task id="Task_7" tns:taskName="Pillar 2 - Filter on attribute" tns:displayName="Filter on attribute value" tns:icon="icons/world.png" name="Pillar 2 - Filter on attribute">
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_18">
-        <bpmn2:dataInput id="_DataInput_79" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="_DataInput_80" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
-        <bpmn2:dataInput id="_DataInput_81" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
-        <bpmn2:dataInput id="_DataInput_82" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_83" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
-        <bpmn2:inputSet id="_InputSet_34"/>
-        <bpmn2:inputSet id="_InputSet_35" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_79</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_80</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_81</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_82</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_83</bpmn2:dataInputRefs>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_23">
+        <bpmn2:dataInput id="_DataInput_102" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_103" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_104" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_105" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_106" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_7" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_8" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_44"/>
+        <bpmn2:inputSet id="_InputSet_45" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_102</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_103</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_104</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_105</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_106</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_18"/>
+        <bpmn2:outputSet id="_OutputSet_23">
+          <bpmn2:dataOutputRefs>DataOutput_7</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_8</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
       </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_79">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_102">
         <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_79</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_102</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_80">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_103">
+        <bpmn2:sourceRef>processDescription</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_103</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_104">
         <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_80</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_104</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_81">
-        <bpmn2:sourceRef>bufferInputs</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_81</bpmn2:targetRef>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_105">
+        <bpmn2:sourceRef>wpsInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_105</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_82">
-        <bpmn2:sourceRef>bufferProcessDescription</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_82</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_83">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_106">
         <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_83</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_106</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_7">
+        <bpmn2:sourceRef>DataOutput_7</bpmn2:sourceRef>
+        <bpmn2:targetRef>result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_8">
+        <bpmn2:sourceRef>DataOutput_8</bpmn2:sourceRef>
+        <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" name="" sourceRef="Task_1" targetRef="EndEvent_1"/>
-    <bpmn2:task id="Task_2" tns:taskName="FilterOnAttribute" tns:displayName="Filter on attribute value" tns:icon="icons/world.png" name="FilterOnAttribute">
+    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" name="" sourceRef="Task_7" targetRef="Task_8"/>
+    <bpmn2:task id="Task_8" tns:taskName="Pillar 4 - Point In Polygon" tns:displayName="Point in polygon" tns:icon="icons/world.png" name="Pillar 4 - Point In Polygon">
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_24">
+        <bpmn2:dataInput id="_DataInput_107" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_108" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_109" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_110" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_111" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_11" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_12" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_46"/>
+        <bpmn2:inputSet id="_InputSet_47" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_107</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_108</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_109</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_110</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_111</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_24">
+          <bpmn2:dataOutputRefs>DataOutput_11</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_12</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_107">
+        <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_107</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_108">
+        <bpmn2:sourceRef>PolyProcessDescription</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_108</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_109">
+        <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_109</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_110">
+        <bpmn2:sourceRef>PolyInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_110</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_111">
+        <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_111</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_11">
+        <bpmn2:sourceRef>DataOutput_11</bpmn2:sourceRef>
+        <bpmn2:targetRef>result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_12">
+        <bpmn2:sourceRef>DataOutput_12</bpmn2:sourceRef>
+        <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" name="" sourceRef="Task_8" targetRef="Task_9"/>
+    <bpmn2:task id="Task_9" tns:taskName="Pillar 2 - Attribute Range Check" tns:displayName="Attribute Range Check" tns:icon="icons/world.png" name="Pillar 2 - Attribute Range Check">
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_25">
+        <bpmn2:dataInput id="_DataInput_112" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_113" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_114" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_115" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_116" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_13" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_14" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_48"/>
+        <bpmn2:inputSet id="_InputSet_49" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_112</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_113</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_114</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_115</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_116</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_25">
+          <bpmn2:dataOutputRefs>DataOutput_13</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_14</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_112">
+        <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_112</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_113">
+        <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_113</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_114">
+        <bpmn2:sourceRef>bufferInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_114</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_115">
+        <bpmn2:sourceRef>bufferProcessDescription</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_115</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_116">
+        <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_116</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_13">
+        <bpmn2:sourceRef>DataOutput_13</bpmn2:sourceRef>
+        <bpmn2:targetRef>result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_14">
+        <bpmn2:sourceRef>DataOutput_14</bpmn2:sourceRef>
+        <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="Task_9" targetRef="Task_1"/>
+    <bpmn2:task id="Task_1" tns:taskName="Pillar 6 - Count Tweets with location" tns:displayName="Count Tweets with Location" tns:icon="icons/world.png" name="Pillar 6 - Count Tweets with location">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_11">
-        <bpmn2:dataInput id="_DataInput_40" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="_DataInput_41" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_42" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
-        <bpmn2:dataInput id="_DataInput_43" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
-        <bpmn2:dataInput id="_DataInput_44" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_27">
+        <bpmn2:dataInput id="_DataInput_121" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_122" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_123" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_124" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_125" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
         <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="ItemDefinition_3" name="result"/>
         <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
-        <bpmn2:inputSet id="_InputSet_20"/>
-        <bpmn2:inputSet id="_InputSet_21" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_40</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_41</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_42</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_43</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_44</bpmn2:dataInputRefs>
+        <bpmn2:inputSet id="_InputSet_52"/>
+        <bpmn2:inputSet id="_InputSet_53" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_121</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_122</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_123</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_124</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_125</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_11">
+        <bpmn2:outputSet id="_OutputSet_27">
           <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
           <bpmn2:dataOutputRefs>DataOutput_2</bpmn2:dataOutputRefs>
         </bpmn2:outputSet>
       </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_40">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_121">
         <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_40</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_121</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_41">
-        <bpmn2:sourceRef>processDescription</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_41</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_42">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_122">
         <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_42</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_122</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_43">
-        <bpmn2:sourceRef>wpsInputs</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_43</bpmn2:targetRef>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_123">
+        <bpmn2:sourceRef>TwitterInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_123</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_44">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_124">
+        <bpmn2:sourceRef>TwitterPD</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_124</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_125">
         <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_44</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_125</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
         <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
@@ -173,46 +297,110 @@
         <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="Task_1" targetRef="Task_10"/>
+    <bpmn2:task id="Task_10" tns:taskName="Store results in WFS-T" tns:displayName="StoreResultInWFS" tns:icon="icons/world.png" name="Store results in WFS-T">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_26">
+        <bpmn2:dataInput id="_DataInput_117" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_118" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_119" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_120" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:inputSet id="_InputSet_50"/>
+        <bpmn2:inputSet id="_InputSet_51" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_117</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_118</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_119</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_120</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_26"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_117">
+        <bpmn2:sourceRef>wpsURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_117</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_118">
+        <bpmn2:sourceRef>catalogURL</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_118</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_119">
+        <bpmn2:sourceRef>wpsInputs</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_119</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_120">
+        <bpmn2:sourceRef>qual_result_output</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_120</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_12" tns:priority="1" name="" sourceRef="Task_10" targetRef="EndEvent_1"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
+    </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Flooding process">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.sample.bpmn.flooding">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
-        <dc:Bounds height="36.0" width="36.0" x="17.0" y="160.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="0.0" y="190.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="613.0" y="140.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="570.0" y="257.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
-        <dc:Bounds height="73.0" width="138.0" x="250.0" y="160.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="Task_4">
+        <dc:Bounds height="50.0" width="110.0" x="50.0" y="179.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_7" bpmnElement="Task_7">
+        <dc:Bounds height="50.0" width="110.0" x="180.0" y="179.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_8" bpmnElement="Task_8">
+        <dc:Bounds height="50.0" width="110.0" x="180.0" y="319.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_9" bpmnElement="Task_9">
+        <dc:Bounds height="50.0" width="110.0" x="300.0" y="250.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
-        <dc:Bounds height="63.0" width="125.0" x="427.0" y="165.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="364.0" y="160.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
-        <dc:Bounds height="71.0" width="131.0" x="97.0" y="165.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_Task_10" bpmnElement="Task_10">
+        <dc:Bounds height="50.0" width="110.0" x="430.0" y="250.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
-        <di:waypoint xsi:type="dc:Point" x="35.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="35.0" y="200.0"/>
-        <di:waypoint xsi:type="dc:Point" x="97.0" y="200.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_4">
+        <di:waypoint xsi:type="dc:Point" x="36.0" y="208.0"/>
+        <di:waypoint xsi:type="dc:Point" x="42.0" y="208.0"/>
+        <di:waypoint xsi:type="dc:Point" x="42.0" y="204.0"/>
+        <di:waypoint xsi:type="dc:Point" x="50.0" y="204.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
-        <di:waypoint xsi:type="dc:Point" x="228.0" y="200.0"/>
-        <di:waypoint xsi:type="dc:Point" x="237.0" y="200.0"/>
-        <di:waypoint xsi:type="dc:Point" x="237.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="250.0" y="196.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_Task_7">
+        <di:waypoint xsi:type="dc:Point" x="160.0" y="204.0"/>
+        <di:waypoint xsi:type="dc:Point" x="169.0" y="204.0"/>
+        <di:waypoint xsi:type="dc:Point" x="169.0" y="204.0"/>
+        <di:waypoint xsi:type="dc:Point" x="180.0" y="204.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_Task_1">
-        <di:waypoint xsi:type="dc:Point" x="388.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="405.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="405.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="427.0" y="196.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_7" targetElement="BPMNShape_Task_8">
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="229.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="299.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="299.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="319.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="552.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="631.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="631.0" y="176.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="BPMNShape_Task_8" targetElement="BPMNShape_Task_9">
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="319.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="275.0"/>
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="275.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="BPMNShape_Task_10" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="540.0" y="275.0"/>
+        <di:waypoint xsi:type="dc:Point" x="553.0" y="275.0"/>
+        <di:waypoint xsi:type="dc:Point" x="553.0" y="275.0"/>
+        <di:waypoint xsi:type="dc:Point" x="570.0" y="275.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_9" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="355.0" y="250.0"/>
+        <di:waypoint xsi:type="dc:Point" x="355.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="364.0" y="185.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_10">
+        <di:waypoint xsi:type="dc:Point" x="419.0" y="210.0"/>
+        <di:waypoint xsi:type="dc:Point" x="419.0" y="275.0"/>
+        <di:waypoint xsi:type="dc:Point" x="430.0" y="275.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -67,16 +67,16 @@
         <dc:Bounds height="36.0" width="36.0" x="480.0" y="220.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
-        <dc:Bounds height="50.0" width="110.0" x="190.0" y="154.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="90.0" y="150.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
         <di:waypoint xsi:type="dc:Point" x="47.0" y="155.0"/>
-        <di:waypoint xsi:type="dc:Point" x="47.0" y="179.0"/>
-        <di:waypoint xsi:type="dc:Point" x="190.0" y="179.0"/>
+        <di:waypoint xsi:type="dc:Point" x="47.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="90.0" y="175.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="300.0" y="179.0"/>
-        <di:waypoint xsi:type="dc:Point" x="498.0" y="179.0"/>
+        <di:waypoint xsi:type="dc:Point" x="200.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="175.0"/>
         <di:waypoint xsi:type="dc:Point" x="498.0" y="220.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

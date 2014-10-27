@@ -96,11 +96,17 @@ public class ProcessTest {
 		KieSession ksession = engine.getKieSession();
 		TaskService taskService = engine.getTaskService();**/
 		
-		ksession.getWorkItemManager().registerWorkItemHandler("FilterOnAttribute", 
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 2 - Filter on attribute", 
 	             (WorkItemHandler) new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler("PointInPolygon", 
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 4 - Point In Polygon", 
 				(WorkItemHandler) new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler("AttributeRange",
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 2 - Attribute Range Check",
+				(WorkItemHandler) new GenericWorkItemHandlerClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("Store results in WFS-T", 
+				(WorkItemHandler) new StoreWFSWorkItemHandlerClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 1 - Get Spatial Accuracy", 
+				(WorkItemHandler) new GenericWorkItemHandlerClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 6 - Count Tweets with location",
 				(WorkItemHandler) new GenericWorkItemHandlerClient());
 		
 		//variables for FilterOnAttribute
@@ -123,6 +129,8 @@ public class ProcessTest {
 		
 		String processIdP = "pillar.authoritativedata.PointInPolygon";
 		String processIdA = "pillar.cleaning.AttributeRange";
+		String processIdG = "pillar.lbs.GetSpatialAccuracy";
+		String processIdT = "pillar.bigdata.CountTweetsWithLocation";
 
 	
 		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3";
@@ -133,12 +141,28 @@ public class ProcessTest {
 		HashMap<String, Object> wpsAttributeInputs = new HashMap<String, Object>();
 		
 		//wpsAttributeInputs.put("inputObservations",  inputObservations);
-		wpsAttributeInputs.put("attributeName", "satNum");
-		wpsAttributeInputs.put("minRange", "3");
-		wpsAttributeInputs.put("maxRange", "10");
+		wpsAttributeInputs.put("attributeName", "temperatur");
+		wpsAttributeInputs.put("minRange", "24");
+		wpsAttributeInputs.put("maxRange", "31");
 		
+		//variables for GetSpatialAccuracy
+		HashMap<String, Object> wpsGetSpatialInputs = new HashMap<String, Object>();
+		wpsGetSpatialInputs.put("inputObservations", inputObservations);
+		wpsGetSpatialInputs.put("UUIDField", "name");
+		wpsGetSpatialInputs.put("inputSatelliteNumberField", "satNum");
+		wpsGetSpatialInputs.put("inputAccuracyField", "accuracy");
+		wpsGetSpatialInputs.put("minSatNum", "4");
+		wpsGetSpatialInputs.put("minAcc", "4");
 		
+		//variables for Count tweets process
+		HashMap<String, Object> wpsTwitter = new HashMap<String, Object>();
+		wpsTwitter.put("inputLocation", "52.56585, -3.82793");
+		wpsTwitter.put("inputDistance", "1000");
+		wpsTwitter.put("searchTerm", "#flooding");
+		wpsTwitter.put("dateSince", "2014-10-23");
 		
+
+
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("wpsURL", wpsURL);
@@ -149,6 +173,11 @@ public class ProcessTest {
 		params.put("PolyInputs", wpsPolygonInputs);
 		params.put("bufferProcessDescription", processIdA);
 		params.put("bufferInputs", wpsAttributeInputs);
+		params.put("GetSpatialInputs", wpsGetSpatialInputs);
+		params.put("GetSpatialProcessId", processIdG);
+		params.put("TwitterPD", processIdT);
+		params.put("TwitterInputs", wpsTwitter);
+		
 		
 		
 

@@ -62,9 +62,9 @@ public class TestClient {
 
         public void testExecute() {
 
-        	String wpsURL = "http://localhost:8010/wps/WebProcessingService";
+        	String wpsURL = "http://cobweb.gis.geo.tu-dresden.de:8080/wps/WebProcessingService?";
 
-            String processID = "pillar.cleaning.AttributeRange";
+            String processID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
 
 
                 try {
@@ -97,11 +97,11 @@ public class TestClient {
                        // inputs.put("dateSince", "2014-09-30");
                         
                         inputs.put(
-                                "inputObservations",
-                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=gml3"
+                                "IN_REFERENCE",
+                                "http://cobweb.gis.geo.tu-dresden.de/wfs?service=wfs&amp;version=1.1.0&amp;request=GetFeature&amp;typename=sampleObs&amp;maxfeatures=1000"
                                 );
-                        inputs.put("attributeRange", "7,10");
-                        inputs.put("attributeName", "satNum");
+                        inputs.put("IN_TARGET", "http://lle.wales.gov.uk/services/cobweb/wfs?SERVICE=WFS&amp;VERSION=1.1.0&amp;REQUEST=GetFeature&amp;TYPENAME=cobweb:dyfi_biosphere&amp;srsName=urn:x-ogc:def:crs:EPSG:4326&amp;filter=%3CPropertyIsEqualTo%3E%3CPropertyName%3Eclass_name%3C/PropertyName%3E%3CLiteral%3EWoodland%3C/Literal%3E%3C/PropertyIsEqualTo%3E");
+                        inputs.put("IN_THRESHOLD", "0.005");
                         
                         
                        // inputs.put("inputAuthoritativeData", 
@@ -264,32 +264,6 @@ public class TestClient {
                                                                         "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                                                                         null, "text/xml; subtype=gml/3.1.0");
                                 }
-                                
-                                if(inputName.equals("inputMet")){
-                                	System.out.println("HERE1 " + inputName);
-                                	
-                                	IData data = new GenericFileDataBinding(new GenericFileData(
-                                			((GenericFileData) inputValue).getBaseFile(true),"text/plain"));
-                             
-                                	executeBuilder.addComplexData(inputName, 
-                                			data, null, null, "text/plain");
-                                	
-                                	
-                                	
-                                }
-                                
-                                if(inputName.equals("input")){
-                                	
-                                	System.out.println("HERE 2 " + inputName);
-                                	IData data = new GenericFileDataBinding(new GenericFileData(
-                                			((GenericFileData) inputValue).getBaseFile(true),
-                                			"text/xml"));
-                                	
-                                	executeBuilder.addComplexData(inputName, 
-                                			data, null, null, "text/plain");
-                                
-                                }
-                                
                               
                                 // Complexdata Reference
                                 if (inputValue instanceof String) {
@@ -308,20 +282,20 @@ public class TestClient {
                                 }
                         }
                 }
-                executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
-                executeBuilder.setSchemaForOutput(
-                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                "result");
+              //  executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
+                //executeBuilder.setSchemaForOutput(
+                  //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                    //            "result");
                 
                         
-                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
-                        executeBuilder.setSchemaForOutput(
-                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                "qual_result");
+                        executeBuilder.setMimeTypeForOutput("text/turtle","qual_result");
+                       // executeBuilder.setSchemaForOutput(
+                         //               "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                           //     "qual_result");
                 
                // executeBuilder.setEncodingForOutput("base64", "output");
                 
-                executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
+               // executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
                // executeBuilder.setEncodingForOutput("UTF-8", "output");
              
               //  executeBuilder.setSchemaForOutput("http://schemas.geoviqua.org/GVQ/4.0/GeoViQua_DataQuality.xsd", 
@@ -345,14 +319,14 @@ public class TestClient {
                        
                         Object[] dataReturn = new Object[3];
                         
-                        Object data =  analyser.getComplexData("result",
+                        Object data =  analyser.getComplexData("OUT_RELATIONS",
                                 GTVectorDataBinding.class);
                         
-                        Object data2 = analyser.getComplexData("qual_result", 
+                        /**Object data2 = analyser.getComplexData("qual_result", 
                         		GTVectorDataBinding.class);
                         
                         Object data3 = analyser.getComplexData("metadata", 
-                        		GenericFileDataBinding.class);
+                        		GenericFileDataBinding.class);**/
                         
                        // Object data3 = dataType.getLiteralData().getStringValue();
                         
@@ -361,7 +335,7 @@ public class TestClient {
                         dataReturn[1] = (IData) data2;**/
                         System.out.println(dataType.toString());
                       
-                        dataReturn[0] = (GenericFileDataBinding) data3;
+                        dataReturn[0] = (GenericFileDataBinding) data;
                         
                        
                        

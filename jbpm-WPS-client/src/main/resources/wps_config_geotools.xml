@@ -385,11 +385,11 @@
         <Property name="Geoserver_port" active="true">8181</Property>
         <Property name="Geoserver_username" active="true">admin</Property>
       </Generator>
-      <Generator name="WFSGenerator" className="org.n52.wps.io.datahandler.generator.GeoserverWFSGenerator" active="false">
+      <Generator name="WFSGenerator" className="org.n52.wps.io.datahandler.generator.GeoserverWFSGenerator" active="true">
         <Format mimetype="application/WFS"/>
-        <Property name="Geoserver_host" active="true">localhost</Property>
+        <Property name="Geoserver_host" active="true">grasp.nottingham.ac.uk</Property>
         <Property name="Geoserver_password" active="true">geoserver</Property>
-        <Property name="Geoserver_port" active="true">8181</Property>
+        <Property name="Geoserver_port" active="true">8010</Property>
         <Property name="Geoserver_username" active="true">admin</Property>
       </Generator>
       <Generator name="WCSGenerator" className="org.n52.wps.io.datahandler.generator.GeoserverWCSGenerator" active="false">

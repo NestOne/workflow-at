@@ -6,7 +6,7 @@ import java.util.HashMap;
 import org.geotools.feature.FeatureCollection; 
 [
 	[
-	"name" : "PointInPolygon",
+	"name" : "Pillar 4 - Point In Polygon",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
@@ -20,7 +20,7 @@ import org.geotools.feature.FeatureCollection;
 ]
 
 [
-	"name" : "PointInBuffer",
+	"name" : "Pillar 4 - Point In Buffer",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
@@ -35,7 +35,7 @@ import org.geotools.feature.FeatureCollection;
 ]
 
 [
-	"name" : "NumberOfNeighbourSimilarFeatures",
+	"name" : "Pillar 4 - Number of similar features by distance",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
@@ -53,7 +53,7 @@ import org.geotools.feature.FeatureCollection;
 ]
 
 [
-	"name" : "NumberOfNeighbourNamedFeatures",
+	"name" : "Pillar 4 - Number of named features by distance",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
@@ -71,7 +71,7 @@ import org.geotools.feature.FeatureCollection;
 
 ]
 [
-	"name" : "ValueRange",
+	"name" : "Pillar 3 - Check value range",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
@@ -87,14 +87,13 @@ import org.geotools.feature.FeatureCollection;
 
 ]
 [
-	"name" : "CountTweetsWithLocation",
+	"name" : "Pillar 6 - Count Tweets with location",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
-    	"inputLocation" : new StringDataType(),
-		"dataSince" : new StringDataType(),
-		"searchTerm" : new StringDataType(),
-		"inputDistance" : new FloatDataType(), 
+    	"wpsInputs" : new HashMap(),
+    	"processDescription" : new StringDataType(),
+		"inputCarriedData" : new FeatureCollection(), 
 	],
      
      "icon" : "icons/world.png",
@@ -102,7 +101,7 @@ import org.geotools.feature.FeatureCollection;
 
 ]
 [
-	"name" : "AttributeRange",
+	"name" : "Pillar 2 - Attribute Range Check",
      	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
@@ -116,7 +115,7 @@ import org.geotools.feature.FeatureCollection;
 ]
 
 [
-	"name" : "FilterOnAttribute",
+	"name" : "Pillar 2 - Filter on attribute",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
@@ -131,7 +130,7 @@ import org.geotools.feature.FeatureCollection;
 ]
 
 [
-	"name" : "PositionBoundingBox",
+	"name" : "Pillar 1 - Filter for bounding box",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),	
@@ -148,21 +147,43 @@ import org.geotools.feature.FeatureCollection;
 
 ]
 [
-	"name" : "GetSpatialAccuracy",
+	"name" : "Pillar 1 - Get Spatial Accuracy",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"inputObservations" : new StringDataType(),
-		"UUIDField" : new StringDataType(),
-		"inputSatelliteNumberField" : new StringDataType(),
-		"inputAccuracyField" new StringDataType(),
-		"minSatNum" : new FloatDataType(),
-		"minAcc" : new FloatDataType(),
+		"catalogURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),	
+    	"wpsInputs" : new HashMap(),
 		"inputCarriedData" : new FeatureCollection(), 
 	],
      
      "icon" : "icons/world.png",
     "displayName" : "Calculate spatial accuracy"
+
+	]
+	[
+	"name" : "Store results in WFS-T",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),
+		"wpsInputs" : new HashMap(),	
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "StoreResultInWFS"
+
+	]
+[
+	"name" : "Conflation - Geometry Distance",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"catalogURL" : new StringDataType(),
+		"wpsInputs" : new HashMap(),	
+		"inputCarriedData" : new FeatureCollection(), 
+	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "StoreResultInWFS"
 
 	]
 ]

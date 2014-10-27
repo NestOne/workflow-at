@@ -22,7 +22,6 @@ import net.opengis.wps.x100.InputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
-import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
@@ -35,7 +34,7 @@ import cobweb.m24.ExecuteResponseAnalyser;
 import cobweb.m24.ExecuteRequestBuilder;
 
 
-public class GenericWPSClient {
+public class StoreWFSClient {
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -46,7 +45,7 @@ public class GenericWPSClient {
 	FeatureCollection inputFeatureCollection;
 	
 	
-public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Object> wpsInputs, String catalogURL){
+public StoreWFSClient(String wpsURL, String wpsProcessID, HashMap<String,Object> wpsInputs, String catalogURL){
 	
 	this.wpsURL = wpsURL;
 	this.wpsProcessID = wpsProcessID;
@@ -99,17 +98,11 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
                 		
                 		FeatureCollection out = ((GTVectorDataBinding) result).getPayload();
                 		System.out.println("result number " + out.size());
-                		SimpleFeatureIterator fit = (SimpleFeatureIterator) out.features();
-                		System.out.println("result F " + fit.next().toString());
-                		fit.close();
                 }
                 
                 if(qual_result instanceof GTVectorDataBinding){
                 	FeatureCollection qual_out = ((GTVectorDataBinding) qual_result).getPayload();
                 	System.out.println("qual result number " + qual_out.size());
-                	SimpleFeatureIterator fit = (SimpleFeatureIterator) qual_out.features();
-            		System.out.println("result F " + fit.next().toString());
-            		fit.close();
                 }
                
                 
@@ -225,15 +218,12 @@ public HashMap<String, Object> executeProcess(String url, String processID,
             }
         }
         
-        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
-        executeBuilder.setSchemaForOutput(
-                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                        "result");
-        
-        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
-        executeBuilder.setSchemaForOutput(
-                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                        "qual_result");
+      //  executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
+        //executeBuilder.setSchemaForOutput(
+          //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+            //            "result");
+        //DO WE NEED A PROPER SCHEMA IN HERE?
+        executeBuilder.setMimeTypeForOutput("application/WFS", "qual_result");
         
         //executeBuilder.setMimeTypeForOutput("text/plain", "metadata"); 
            
@@ -254,16 +244,16 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                              
                 Object[] dataReturn = new Object[3];
                 
-                Object data =  analyser.getComplexData("result",
-                        GTVectorDataBinding.class);
+                //Object data =  analyser.getComplexData("result",
+                  //      GTVectorDataBinding.class);
                 
-                result.put("result", data);
+               // result.put("result", data);
                 
-                Object data2 = analyser.getComplexData("qual_result", 
-                		GTVectorDataBinding.class);
+               // Object data2 = analyser.getComplexData("qual_result", 
+                //		GTVectorDataBinding.class);
                 
-                System.out.println("HERE 6 " + data2.toString());
-                result.put("qual_result", data2);
+               // System.out.println("HERE 6 " + data2.toString());
+                //result.put("qual_result", data2);
                 
                // Object data3 = analyser.getComplexData("metadata",
                 //		GenericFileDataBinding.class);
