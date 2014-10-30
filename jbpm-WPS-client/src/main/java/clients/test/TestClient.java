@@ -62,7 +62,7 @@ public class TestClient {
 
         public void testExecute() {
 
-        	String wpsURL = "http://cobweb.gis.geo.tu-dresden.de:8080/wps/WebProcessingService?";
+        	String wpsURL = "http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?";
 
             String processID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
 
@@ -97,10 +97,10 @@ public class TestClient {
                        // inputs.put("dateSince", "2014-09-30");
                         
                         inputs.put(
-                                "IN_REFERENCE",
-                                "http://cobweb.gis.geo.tu-dresden.de/wfs?service=wfs&amp;version=1.1.0&amp;request=GetFeature&amp;typename=sampleObs&amp;maxfeatures=1000"
+                                "IN_TARGET",
+                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srsName=EPSG:4236&maxFeatures=10"
                                 );
-                        inputs.put("IN_TARGET", "http://lle.wales.gov.uk/services/cobweb/wfs?SERVICE=WFS&amp;VERSION=1.1.0&amp;REQUEST=GetFeature&amp;TYPENAME=cobweb:dyfi_biosphere&amp;srsName=urn:x-ogc:def:crs:EPSG:4326&amp;filter=%3CPropertyIsEqualTo%3E%3CPropertyName%3Eclass_name%3C/PropertyName%3E%3CLiteral%3EWoodland%3C/Literal%3E%3C/PropertyIsEqualTo%3E");
+                        inputs.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3");
                         inputs.put("IN_THRESHOLD", "0.005");
                         
                         
@@ -288,10 +288,10 @@ public class TestClient {
                     //            "result");
                 
                         
-                        executeBuilder.setMimeTypeForOutput("text/turtle","qual_result");
-                       // executeBuilder.setSchemaForOutput(
-                         //               "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                           //     "qual_result");
+                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","OUT_TARGET");
+                        executeBuilder.setSchemaForOutput(
+                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                                "OUT_TARGET");
                 
                // executeBuilder.setEncodingForOutput("base64", "output");
                 
@@ -319,7 +319,7 @@ public class TestClient {
                        
                         Object[] dataReturn = new Object[3];
                         
-                        Object data =  analyser.getComplexData("OUT_RELATIONS",
+                        Object data =  analyser.getComplexData("OUT_TARGET",
                                 GTVectorDataBinding.class);
                         
                         /**Object data2 = analyser.getComplexData("qual_result", 
@@ -335,7 +335,7 @@ public class TestClient {
                         dataReturn[1] = (IData) data2;**/
                         System.out.println(dataType.toString());
                       
-                        dataReturn[0] = (GenericFileDataBinding) data;
+                        dataReturn[0] = (GTVectorDataBinding) data;
                         
                        
                        

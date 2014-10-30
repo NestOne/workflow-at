@@ -9,7 +9,7 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import org.kie.api.runtime.process.WorkItemManager;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
-public class GenericWorkItemHandlerClient implements WorkItemHandler {
+public class GenericWorkItemHandlerConflationClient implements WorkItemHandler {
 	
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
@@ -29,19 +29,28 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 			fc = (FeatureCollection) workItem.getParameter("inputCarriedData");
 			
 			System.out.println("WPS WORKITEM HANDLER " + wpsProcessID + " " + fc.size());
-			wpsInputs.remove("inputObservations");
-			wpsInputs.put("inputObservations", fc);
+		
+		try{
+				wpsInputs.remove("IN_TARGET");
+			}
+			catch(NullPointerException e){
+				System.out.println("No IN_TARGET");
+			}
+			wpsInputs.put("IN_TARGET", fc);
 		
 		}
 		
+		//wpsInputs.put("IN_TARGET", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srsName=EPSG:4236");
+		
 		//String output = (String) workItem.getParameter("output");
 		
-		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
+		GenericWPSConflationClient wpsClient = new GenericWPSConflationClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
 		
 		Map<String, Object> results = new HashMap<String,Object>();
+		System.out.println("OUTPUTS SIZE " + wpsClient.getOutputs().size());
 	
-			FeatureCollection result = ((GTVectorDataBinding) wpsClient.getOutputs().get("result")).getPayload();
-			FeatureCollection qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
+			FeatureCollection result = ((GTVectorDataBinding) wpsClient.getOutputs().get("OUT_TARGET")).getPayload();
+			FeatureCollection qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("OUT_TARGET")).getPayload();
 		
 		results.put("result", result);
 		results.put("qual_result", qual_result);

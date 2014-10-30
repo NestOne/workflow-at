@@ -178,6 +178,7 @@ import org.geotools.feature.FeatureCollection;
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"catalogURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
 		"wpsInputs" : new HashMap(),	
 		"inputCarriedData" : new FeatureCollection(), 
 	],

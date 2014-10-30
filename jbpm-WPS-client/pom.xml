@@ -52,7 +52,7 @@
 			<name>n52-releases</name>
 			<url>http://52north.org/maven/repo/releases/</url>
 		</repository>
-		<repository>
+		  <repository>
             <id>n52-snapshots</id>
             <name>52n Snapshots</name>
             <url>http://52north.org/maven/repo/snapshots/</url>
@@ -63,6 +63,12 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        
+        
+       
+
+        
+        
   </repositories>
 
   <dependencies>
@@ -177,8 +183,144 @@
     	<groupId>org.n52.wps</groupId>
     	<artifactId>52n-wps-client-lib</artifactId>
     	<version>3.3.0</version>
+    	
 	</dependency>
 	
+
+        <dependency>
+           <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-io-geotools</artifactId>
+            <version>3.3.0-patched-genericfiledatawithgt</version>
+        </dependency>
+       
+    
+<!--  
+
+   <dependency>
+	<groupId>com.vividsolutions</groupId>
+	<artifactId>jts</artifactId>
+	<version>1.11</version>
+</dependency>
+
+
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-main</artifactId>
+<version>8.7</version>
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-arcgrid</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools.xsd</groupId>
+<artifactId>gt-xsd-gml3</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-coverage</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-referencing</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools.xsd</groupId>
+<artifactId>gt-xsd-core</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools.xsd</groupId>
+<artifactId>gt-xsd-kml</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-xml</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-geotiff</artifactId>
+<version>8.7</version>
+
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-epsg-hsql</artifactId>
+<version>8.7</version>
+
+<scope>runtime</scope>
+</dependency>
+<dependency>
+<groupId>org.geotools</groupId>
+<artifactId>gt-geojson</artifactId>
+<version>8.7</version>
+
+</dependency>
+        
+      
+        -->
+	
+	 <!--  
+	<dependency>
+            <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-io</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+         <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-io-impl</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+		<dependency>
+           <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-io-geotools</artifactId>
+            <version>3.3.0-patched-genericfiledatawithgt</version>
+        </dependency>
+        <dependency>
+           <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-io-geotools</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+			<groupId>org.n52.wps</groupId>
+			<artifactId>52n-xml-wps-v100</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+        <dependency>
+          <groupId>org.n52.wps</groupId>
+            <artifactId>52n-wps-algorithm-impl</artifactId>
+            <version>3.3.0</version>
+            <scope>test</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+            <scope>test</scope>
+		</dependency>
+	
+	
+	<dependency>
+    
+    
+    	<groupId>org.n52.wps</groupId>
+    	<artifactId>52n-wps-io-geotools</artifactId>
+    	<version>3.3.0-patched-genericfiledatawithgt</version>
+	</dependency>
+	-->
 	
         <dependency>
             <groupId>org.geoviqua.qim</groupId>

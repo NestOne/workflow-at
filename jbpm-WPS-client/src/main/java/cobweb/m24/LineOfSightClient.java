@@ -14,7 +14,7 @@ public class LineOfSightClient implements WorkItemHandler {
 	
 	
 
-	@Override
+	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
 		String wpsURL = (String) workItem.getParameter("wpsURL");
@@ -43,7 +43,7 @@ public class LineOfSightClient implements WorkItemHandler {
 	
 	
 	
-	@Override
+	
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		manager.abortWorkItem(workItem.getId());
 	}

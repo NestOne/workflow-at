@@ -9,7 +9,7 @@ import org.kie.api.runtime.process.WorkItemManager;
 
 public class StoreWFSWorkItemHandlerClient implements WorkItemHandler{
 
-	@Override
+	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		// TODO Auto-generated method stub
 		String wpsURL = (String) workItem.getParameter("wpsURL");
@@ -29,7 +29,7 @@ public class StoreWFSWorkItemHandlerClient implements WorkItemHandler{
 		
 	}
 	
-	@Override
+	
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		// TODO Auto-generated method stub
 		
