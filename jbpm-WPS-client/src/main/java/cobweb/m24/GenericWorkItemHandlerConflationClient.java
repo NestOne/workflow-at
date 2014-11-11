@@ -30,12 +30,9 @@ public class GenericWorkItemHandlerConflationClient implements WorkItemHandler {
 			
 			System.out.println("WPS WORKITEM HANDLER " + wpsProcessID + " " + fc.size());
 		
-		try{
-				wpsInputs.remove("IN_TARGET");
-			}
-			catch(NullPointerException e){
-				System.out.println("No IN_TARGET");
-			}
+		
+			wpsInputs.remove("IN_TARGET");
+		
 			wpsInputs.put("IN_TARGET", fc);
 		
 		}
@@ -45,9 +42,14 @@ public class GenericWorkItemHandlerConflationClient implements WorkItemHandler {
 		//String output = (String) workItem.getParameter("output");
 		
 		GenericWPSConflationClient wpsClient = new GenericWPSConflationClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
+		HashMap<String, Object> outputs = new HashMap<String, Object>();
+		
+		outputs = wpsClient.getOutputs();
+		
+		System.out.println("outputs " +outputs.size());
 		
 		Map<String, Object> results = new HashMap<String,Object>();
-		System.out.println("OUTPUTS SIZE " + wpsClient.getOutputs().size());
+		//System.out.println("OUTPUTS SIZE " + wpsClient.getOutputs().size());
 	
 			FeatureCollection result = ((GTVectorDataBinding) wpsClient.getOutputs().get("OUT_TARGET")).getPayload();
 			FeatureCollection qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("OUT_TARGET")).getPayload();

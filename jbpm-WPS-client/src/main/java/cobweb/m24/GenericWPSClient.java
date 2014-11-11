@@ -259,8 +259,13 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 
                 result.put("result", data);
                 
-                Object data2 = analyser.getComplexData("qual_result", 
-                		GTVectorDataBinding.class);
+                Object data2 =null;
+                
+                if( analyser.getComplexData("qual_result", GTVectorDataBinding.class)!=null){
+                
+                		data2 = analyser.getComplexData("qual_result", 
+                			GTVectorDataBinding.class);
+                }
                 
                 System.out.println("HERE 6 " + data2.toString());
                 result.put("qual_result", data2);

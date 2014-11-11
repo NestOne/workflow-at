@@ -35,13 +35,19 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 		}
 		
 		//String output = (String) workItem.getParameter("output");
-		
+		//change to test for qual_result = null;
 		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, wpsInputs, catalogURL);
 		
 		Map<String, Object> results = new HashMap<String,Object>();
-	
+		
 			FeatureCollection result = ((GTVectorDataBinding) wpsClient.getOutputs().get("result")).getPayload();
-			FeatureCollection qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
+			
+		FeatureCollection qual_result = null;
+			
+		if (((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload()!=null){
+			 qual_result = ((GTVectorDataBinding) wpsClient.getOutputs().get("qual_result")).getPayload();
+		}
+		
 		
 		results.put("result", result);
 		results.put("qual_result", qual_result);

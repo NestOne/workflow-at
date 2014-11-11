@@ -30,7 +30,7 @@ import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
+
 
 import cobweb.m24.ExecuteResponseAnalyser;
 import cobweb.m24.ExecuteRequestBuilder;
@@ -163,17 +163,19 @@ public ProcessDescriptionType requestDescribeProcess(String url,
 }
 
 public HashMap<String, Object> executeProcess(String url, String processID,
-                ProcessDescriptionType processDescription,
-                
-                
+                ProcessDescriptionType processDescription, 
                 HashMap<String, Object> inputs) throws Exception {
-	org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(
+	
+	
+	ExecuteRequestBuilder executeBuilder = new ExecuteRequestBuilder(
                         processDescription);
         
     for (InputDescriptionType input : processDescription.getDataInputs()
             .getInputArray()) {
     String inputName = input.getIdentifier().getStringValue();
     Object inputValue = inputs.get(inputName);
+   
+    
     if (input.getLiteralData() != null) {
             if (inputValue instanceof String) {
             	
@@ -183,15 +185,15 @@ public HashMap<String, Object> executeProcess(String url, String processID,
     } else if (input.getComplexData() != null) {
             // Complexdata by value
             if (inputValue instanceof FeatureCollection) {
-            	
+            	System.out.println("Feature Collection " + inputName + " ");
                     IData data = new GTVectorDataBinding(
                                     (FeatureCollection) inputValue);
                     executeBuilder
                                     .addComplexData(
                                                     inputName,
                                                     data,
-                                                    "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                                    null, "text/xml; subtype=gml/3.1.0");
+                                                    "http://schemas.opengis.net/gml/3.0.0/base/feature.xsd",
+                                                    null, "text/xml; subtype=gml/3.0.0");
             }
           
             // Complexdata Reference
@@ -201,8 +203,8 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                                     .addComplexDataReference(
                                                     inputName,
                                                     (String) inputValue,
-                                                    "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                                    null, "text/xml; subtype=gml/3.1.0");
+                                                    "http://schemas.opengis.net/gml/3.0.0/base/feature.xsd",
+                                                    null, "text/xml; subtype=gml/3.0.0");
             }
 
             if (inputValue == null && input.getMinOccurs().intValue() > 0) {
@@ -217,10 +219,11 @@ public HashMap<String, Object> executeProcess(String url, String processID,
 //            "result");
 
     
-    executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","OUT_TARGET");
+    executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.0.0","OUT_TARGET");
     executeBuilder.setSchemaForOutput(
-                    "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                    "http://schemas.opengis.net/gml/3.0.0/base/feature.xsd",
             "OUT_TARGET");
+
 
 // executeBuilder.setEncodingForOutput("base64", "output");
 
@@ -246,10 +249,13 @@ if (responseObject instanceof ExecuteResponseDocument) {
   
    DataType dataType = response.getExecuteResponse().getProcessOutputs().getOutputArray(0).getData();
    
-    HashMap<String, Object> dataReturn = new HashMap<String,Object>();
+   System.out.println("data output " + dataType.toString());
+   
+   HashMap<String, Object> dataReturn = new HashMap<String,Object>();
     
-    Object data =  analyser.getComplexData("OUT_TARGET",
+   Object data =  analyser.getComplexData("OUT_TARGET",
             GTVectorDataBinding.class);
+  
     
     /**Object data2 = analyser.getComplexData("qual_result", 
     		GTVectorDataBinding.class);
@@ -266,81 +272,20 @@ if (responseObject instanceof ExecuteResponseDocument) {
     
     dataReturn.put("OUT_TARGET", data);
   
-    
-    
-   
-   
     return dataReturn;
 }
 throw new Exception("Exception: " + responseObject.toString());
 }
+	
+
+
 public HashMap<String, Object> getOutputs(){
 	
-	return outputs;
+		return outputs;
 	
-}
-
-private void insertGVQMetadata(File file, String geonetworkURL) throws GNServerException, GNLibException{
-	
-	            
-		String un = "admin";
-		String pw = "admin";
-		GNClient client = new GNClient(geonetworkURL);
-		client.login(un, pw);
-		 //PostMethod loginMethod = new PostMethod(url + "/srv/eng/login.form");
-     	
-		 	GNInsertConfiguration cfg = new GNInsertConfiguration();
-		 
-    	    cfg.setCategory("datasets");
-    	    cfg.setGroup("1"); // group 1 is usually "all"
-    	    cfg.setStyleSheet("_none_");
-    	    cfg.setValidate(Boolean.FALSE);
-    	     
-    	    long id = client.insertMetadata(cfg, file);
-
-    	    System.out.println("Metadata created with id " + id);
-		 
-		
-
-}
-
-private File parseXMLFromWPS(GenericFileData xmlGenericData){
-	  
-	   File file =  xmlGenericData.getBaseFile(true);
-	   
-	   InputStream fis;
-	try {
-		fis = new FileInputStream(file);
-		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-	 
-		    File newFile = File.createTempFile("temp2", "xml");
-		    
-		    FileWriter fw = new FileWriter(newFile);
-		     
-		     for (String line = br.readLine(); line != null; line = br.readLine()) {                               
-		         String newLine = line.replaceAll("&gt;",">").replaceAll("&lt;", "<").replaceAll("&amp;","&");                               
-		         System.out.println("NEWLINE " + newLine);          
-		         fw.write(newLine);
-
-		      }
-		     fw.close();
-		     fis.close();
-		     return newFile;
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	}
-	  
-     
-  
 
-	
-	return null;
-  	  
-}
+
 
 }
 

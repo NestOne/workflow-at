@@ -2,11 +2,11 @@ package clients.test;
 
 
 
-import it.geosolutions.geonetwork.GNClient;
+/**import it.geosolutions.geonetwork.GNClient;
 import it.geosolutions.geonetwork.exception.GNLibException;
 import it.geosolutions.geonetwork.exception.GNServerException;
 import it.geosolutions.geonetwork.op.GNMetadataGet;
-import it.geosolutions.geonetwork.util.GNInsertConfiguration;
+import it.geosolutions.geonetwork.util.GNInsertConfiguration;**/
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,9 +63,9 @@ public class TestClient {
         public void testExecute() {
 
         	String wpsURL = "http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?";
-
+        	//String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
             String processID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
-
+        	//String processID = "pillar.authoritativedata.PointInBuffer";
 
                 try {
                         ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
@@ -98,10 +98,10 @@ public class TestClient {
                         
                         inputs.put(
                                 "IN_TARGET",
-                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srsName=EPSG:4236&maxFeatures=10"
+                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srs=EPSG:4326"
                                 );
-                        inputs.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3");
-                        inputs.put("IN_THRESHOLD", "0.005");
+                        inputs.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3&srs=EPSG:4326");
+                        inputs.put("IN_THRESHOLD", "1");
                         
                         
                        // inputs.put("inputAuthoritativeData", 
@@ -181,7 +181,7 @@ public class TestClient {
                            
                            System.out.println("LIST LENGTH " + list.getLength());
                            
-                           insertMetdataValues(newFile, "http://localhost:8010/geonetwork");
+                       //    insertMetdataValues(newFile, "http://localhost:8010/geonetwork");
 
                     	   
                        }
@@ -288,6 +288,10 @@ public class TestClient {
                     //            "result");
                 
                         
+                       // executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","result");
+                        //executeBuilder.setSchemaForOutput(
+                          //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                            //    "result");
                         executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","OUT_TARGET");
                         executeBuilder.setSchemaForOutput(
                                         "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
@@ -344,7 +348,7 @@ public class TestClient {
                 throw new Exception("Exception: " + responseObject.toString());
         }
         
-       public void insertMetdataValues(File xmlDocument, String url){
+  /**     public void insertMetdataValues(File xmlDocument, String url){
         	
         	ArrayList< ? > validationErrors = new ArrayList<Object>();
         	XmlOptions options; 
@@ -454,7 +458,7 @@ public class TestClient {
     	   
     	   return metadataRecord;
     	   
-       }
+       }**/
         
         
 

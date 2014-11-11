@@ -31,9 +31,6 @@ public class ProcessTest {
 		RuntimeEngine engine = manager.getRuntimeEngine(null);
 		KieSession ksession = engine.getKieSession();
 		TaskService taskService = engine.getTaskService();**/
-		
-		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 2 - Filter on attribute", 
-	             (WorkItemHandler) new GenericWorkItemHandlerClient());
 		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 4 - Point In Polygon", 
 				(WorkItemHandler) new GenericWorkItemHandlerClient());
 		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 2 - Attribute Range Check",
@@ -46,6 +43,8 @@ public class ProcessTest {
 				(WorkItemHandler) new GenericWorkItemHandlerClient());
 		ksession.getWorkItemManager().registerWorkItemHandler("Conflation - Geometry Distance",
 				(WorkItemHandler) new GenericWorkItemHandlerConflationClient());
+		ksession.getWorkItemManager().registerWorkItemHandler("Pillar 2 - Filter on attribute", 
+	             (WorkItemHandler) new GenericWorkItemHandlerClient());
 		
 		
 		
@@ -54,9 +53,9 @@ public class ProcessTest {
 		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
 		String processId = "pillar.cleaning.FilterOnAttribute";
 		String catalogURL = "http://localhost:8010/geonetwork";
-		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srsName=EPSG:4236";
-		String fieldName = "fieldconta";
-		String featureName = "DownyBirch";
+		String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/FloodingData/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=FloodingData:observations&outputFormat=gml3";
+		String fieldName = "pos_tech";
+		String featureName = "NETWORK";
 		String include = "true";
 		
 		HashMap<String, Object> wpsInputs = new HashMap<String, Object>();
@@ -74,7 +73,7 @@ public class ProcessTest {
 		String processIdT = "pillar.bigdata.CountTweetsWithLocation";
 
 	
-		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3";
+		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Ireland&outputFormat=gml3&srsName=EPSG:4236";
 		//wpsPolygonInputs.put("inputObservations", inputObservations);
 		wpsPolygonInputs.put("inputAuthoritativeData", inputAuthoritativeData);
 		
@@ -82,33 +81,32 @@ public class ProcessTest {
 		HashMap<String, Object> wpsAttributeInputs = new HashMap<String, Object>();
 		
 		//wpsAttributeInputs.put("inputObservations",  inputObservations);
-		wpsAttributeInputs.put("attributeName", "temperatur");
-		wpsAttributeInputs.put("minRange", "24");
-		wpsAttributeInputs.put("maxRange", "31");
+		wpsAttributeInputs.put("attributeName", "pos_sat");
+		wpsAttributeInputs.put("minRange", "0");
+		wpsAttributeInputs.put("maxRange", "100");
 		
 		//variables for GetSpatialAccuracy
 		HashMap<String, Object> wpsGetSpatialInputs = new HashMap<String, Object>();
-		wpsGetSpatialInputs.put("inputObservations", inputObservations);
-		wpsGetSpatialInputs.put("UUIDField", "DevID");
-		wpsGetSpatialInputs.put("inputSatelliteNumberField", "satNum");
-		wpsGetSpatialInputs.put("inputAccuracyField", "accuracy");
-		wpsGetSpatialInputs.put("minSatNum", "4");
-		wpsGetSpatialInputs.put("minAcc", "4");
+	//	wpsGetSpatialInputs.put("inputObservations", inputObservations);
+		wpsGetSpatialInputs.put("inputSatelliteNumberField", "pos_sat");
+		wpsGetSpatialInputs.put("inputAccuracyField", "pos_acc");
+		wpsGetSpatialInputs.put("minSatNum", "0");
+		wpsGetSpatialInputs.put("minAcc", "0");
 		
 		//variables for Count tweets process
 		HashMap<String, Object> wpsTwitter = new HashMap<String, Object>();
 		wpsTwitter.put("inputLocation", "52.56585, -3.82793");
 		wpsTwitter.put("inputDistance", "1000");
 		wpsTwitter.put("searchTerm", "#flooding");
-		wpsTwitter.put("dateSince", "2014-10-23");
+		wpsTwitter.put("dateSince", "2014-11-01");
 		
 		//variables for conflation
 		String conflationWPS = "http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?";
 		String confProcID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
 		HashMap<String, Object> conflationHash = new HashMap<String, Object>();
-		//conflationHash.put("IN_REFERENCE", inputObservations);
-		conflationHash.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3");
-		conflationHash.put("IN_THRESHOLD", "0.1");
+		conflationHash.put("IN_TARGET", inputObservations);
+		conflationHash.put("IN_REFERENCE", inputAuthoritativeData);
+		conflationHash.put("IN_THRESHOLD", "0.05");
 		
 		//System.out.println(conflationHash.get("IN_REFERENCE"));
 		
@@ -132,9 +130,6 @@ public class ProcessTest {
 		params.put("WPSConflationProcessID", confProcID);
 		params.put("WPSConflationVar", conflationHash);
 		
-		
-		
-
 		ksession.startProcess("com.sample.bpmn.flooding", params);
 		 
 	}
