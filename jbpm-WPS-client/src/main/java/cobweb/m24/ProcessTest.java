@@ -53,10 +53,10 @@ public class ProcessTest {
 		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
 		String processId = "pillar.cleaning.FilterOnAttribute";
 		String catalogURL = "http://localhost:8010/geonetwork";
-		String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/FloodingData/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=FloodingData:observations&outputFormat=gml3";
+		String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/FloodingData/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=FloodingData:observations&outputFormat=text/xml;%20subtype=gml/3.1.1";
 		String fieldName = "pos_tech";
 		String featureName = "NETWORK";
-		String include = "true";
+		String include = "false";
 		
 		HashMap<String, Object> wpsInputs = new HashMap<String, Object>();
 		wpsInputs.put("inputObservations", inputObservations);
@@ -87,7 +87,7 @@ public class ProcessTest {
 		
 		//variables for GetSpatialAccuracy
 		HashMap<String, Object> wpsGetSpatialInputs = new HashMap<String, Object>();
-	//	wpsGetSpatialInputs.put("inputObservations", inputObservations);
+		wpsGetSpatialInputs.put("inputObservations", inputObservations);
 		wpsGetSpatialInputs.put("inputSatelliteNumberField", "pos_sat");
 		wpsGetSpatialInputs.put("inputAccuracyField", "pos_acc");
 		wpsGetSpatialInputs.put("minSatNum", "0");
@@ -130,7 +130,7 @@ public class ProcessTest {
 		params.put("WPSConflationProcessID", confProcID);
 		params.put("WPSConflationVar", conflationHash);
 		
-		ksession.startProcess("com.sample.bpmn.flooding", params);
+		ksession.startProcess("cobweb.m24.flooding", params);
 		 
 	}
 	

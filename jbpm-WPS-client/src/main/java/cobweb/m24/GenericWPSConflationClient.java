@@ -185,7 +185,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
     } else if (input.getComplexData() != null) {
             // Complexdata by value
             if (inputValue instanceof FeatureCollection) {
-            	System.out.println("Feature Collection " + inputName + " ");
+            	System.out.println("Feature Collection " + inputName + " " + inputValue);
                     IData data = new GTVectorDataBinding(
                                     (FeatureCollection) inputValue);
                     executeBuilder
@@ -198,7 +198,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
           
             // Complexdata Reference
             if (inputValue instanceof String) {
-       
+            	System.out.println("Feature Collection reference " + inputName + " " + inputValue);
                     executeBuilder
                                     .addComplexDataReference(
                                                     inputName,
