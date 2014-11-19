@@ -1,8 +1,8 @@
 package cobweb.m24;
 
 import java.util.HashMap;
-
 import java.util.HashMap;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -52,10 +52,10 @@ public static void main(String args[]){
 	String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
 	String processId = "pillar.cleaning.FilterOnAttribute";
 	String catalogURL = "http://localhost:8010/geonetwork";
-	String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:anonsurvey&maxFeatures=50&outputFormat=text/xml;%20subtype=gml/3.1.1";
-	String fieldName = "name";
-	String featureName = "notnulls";
-	String include = "false";
+	String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:sid-anonsurvey&maxFeatures=50&outputFormat=text/xml;%20subtype=gml/3.1.1";
+	String fieldName = "Species";
+	String featureName = "Hazel";
+	String include = "true";
 	
 	HashMap<String, Object> wpsInputs = new HashMap<String, Object>();
 	wpsInputs.put("inputObservations", inputObservations);
@@ -72,16 +72,17 @@ public static void main(String args[]){
 	String processIdT = "pillar.bigdata.CountTweetsWithLocation";**/
 
 
-	String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&&outputFormat=gml3";
+	String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3";
 	//wpsPolygonInputs.put("inputObservations", inputObservations);
 	wpsPolygonInputs.put("inputAuthoritativeData", inputAuthoritativeData);
+	wpsPolygonInputs.put("inputObservations", inputObservations);
 	
 	//variables for ArrtibuteRange
 	HashMap<String, Object> wpsAttributeInputs = new HashMap<String, Object>();
 	
 	//wpsAttributeInputs.put("inputObservations",  inputObservations);
 	wpsAttributeInputs.put("attributeName", "pos_acc");
-	wpsAttributeInputs.put("minRange", "20");
+	wpsAttributeInputs.put("minRange", "30");
 	wpsAttributeInputs.put("maxRange", "100");
 	
 	//variables for GetSpatialAccuracy
@@ -92,20 +93,21 @@ public static void main(String args[]){
 	wpsGetSpatialInputs.put("minSatNum", "0");
 	wpsGetSpatialInputs.put("minAcc", "0");
 	
-	//variables for Count tweets process
+	//twitter
 	HashMap<String, Object> wpsTwitter = new HashMap<String, Object>();
 	wpsTwitter.put("inputLocation", "52.56585, -3.82793");
 	wpsTwitter.put("inputDistance", "1000");
-	wpsTwitter.put("searchTerm", "#flooding");
-	wpsTwitter.put("dateSince", "2014-11-01");
+	wpsTwitter.put("searchTerm", "#Hazel");
+	wpsTwitter.put("dateSince", "2014-11-18");
 	
 	//variables for conflation
 	String conflationWPS = "http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?";
 	String confProcID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
 	HashMap<String, Object> conflationHash = new HashMap<String, Object>();
-	conflationHash.put("IN_TARGET", inputObservations);
+	String inputConflationData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&maxFeatures=50&outputFormat=gml3";
+	conflationHash.put("IN_TARGET", inputConflationData);
 	conflationHash.put("IN_REFERENCE", inputAuthoritativeData);
-	conflationHash.put("IN_THRESHOLD", "0.3");
+	conflationHash.put("IN_THRESHOLD", "0");
 	
 	//System.out.println(conflationHash.get("IN_REFERENCE"));
 	
@@ -118,7 +120,7 @@ public static void main(String args[]){
 	params.put("filterOnAttributeMap", wpsInputs);
 	params.put("getSpatialAccuracyMap", wpsGetSpatialInputs);
 	params.put("attributeRangeCheckMap", wpsAttributeInputs);
-
+	params.put("countTweetsWithLocationMap", wpsTwitter);
 	params.put("geometryConflationMap", conflationHash);
 	
 	ksession.startProcess("cobweb.m24.biologicalmonitoring", params);

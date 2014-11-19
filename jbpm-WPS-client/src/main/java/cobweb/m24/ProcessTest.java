@@ -73,7 +73,7 @@ public class ProcessTest {
 		String processIdT = "pillar.bigdata.CountTweetsWithLocation";
 
 	
-		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Ireland&outputFormat=gml3&srsName=EPSG:4236";
+		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&outputFormat=gml3&srsName=EPSG:4236";
 		//wpsPolygonInputs.put("inputObservations", inputObservations);
 		wpsPolygonInputs.put("inputAuthoritativeData", inputAuthoritativeData);
 		
@@ -90,8 +90,8 @@ public class ProcessTest {
 		wpsGetSpatialInputs.put("inputObservations", inputObservations);
 		wpsGetSpatialInputs.put("inputSatelliteNumberField", "pos_sat");
 		wpsGetSpatialInputs.put("inputAccuracyField", "pos_acc");
-		wpsGetSpatialInputs.put("minSatNum", "0");
-		wpsGetSpatialInputs.put("minAcc", "0");
+		wpsGetSpatialInputs.put("minSatNum", "8");
+		wpsGetSpatialInputs.put("minAcc", "8");
 		
 		//variables for Count tweets process
 		HashMap<String, Object> wpsTwitter = new HashMap<String, Object>();

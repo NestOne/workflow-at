@@ -3,6 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="HashMap"/>
   <bpmn2:itemDefinition id="ItemDefinition_3" structureRef="FeatureCollection"/>
+  <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="FloatDataType"/>
   <bpmn2:process id="cobweb.m24.biologicalmonitoring" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="Biological Monitoring Process" isExecutable="true" processType="Private">
     <bpmn2:property id="getSpatialAccuracyMap" itemSubjectRef="ItemDefinition_2"/>
     <bpmn2:property id="filterOnAttributeMap" itemSubjectRef="ItemDefinition_2"/>
@@ -11,11 +12,12 @@
     <bpmn2:property id="geometryConflationMap" itemSubjectRef="ItemDefinition_2"/>
     <bpmn2:property id="result_output" itemSubjectRef="ItemDefinition_3"/>
     <bpmn2:property id="qual_result_output" itemSubjectRef="ItemDefinition_3"/>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
-    </bpmn2:endEvent>
+    <bpmn2:property id="countTweetsWithLocationMap" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:startEvent id="_1" name="">
+      <bpmn2:outgoing>SequenceFlow_23</bpmn2:outgoing>
+    </bpmn2:startEvent>
     <bpmn2:task id="Task_6" tns:taskName="Store results in WFS-T" tns:displayName="StoreResultInWFS" tns:icon="icons/world.png" name="Store results in WFS-T">
-      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_34">
         <bpmn2:dataInput id="_DataInput_156" name="wpsURL"/>
@@ -55,72 +57,139 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" name="" sourceRef="Task_6" targetRef="EndEvent_1"/>
-    <bpmn2:task id="Task_1" tns:taskName="Conflation - Geometry Distance" tns:displayName="StoreResultInWFS" tns:icon="icons/world.png" name="Conflation - Geometry Distance">
-      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_29">
-        <bpmn2:dataInput id="_DataInput_131" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="_DataInput_132" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
-        <bpmn2:dataInput id="_DataInput_133" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_134" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
-        <bpmn2:dataInput id="_DataInput_135" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
-        <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="ItemDefinition_3" name="result"/>
-        <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
-        <bpmn2:inputSet id="_InputSet_56"/>
-        <bpmn2:inputSet id="_InputSet_57" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_131</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_132</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_133</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_134</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_135</bpmn2:dataInputRefs>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:task id="Task_4" tns:taskName="Pillar 2 - Attribute Range Check" tns:displayName="Attribute Range Check" tns:icon="icons/world.png" name="Pillar 2 - Attribute Range Check">
+      <bpmn2:incoming>SequenceFlow_19</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_20</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_45">
+        <bpmn2:dataInput id="_DataInput_211" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_212" itemSubjectRef="ItemDefinition_1" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_213" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_214" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_215" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_14" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_15" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_88"/>
+        <bpmn2:inputSet id="_InputSet_89" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_211</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_212</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_213</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_214</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_215</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_29">
-          <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_2</bpmn2:dataOutputRefs>
+        <bpmn2:outputSet id="_OutputSet_45">
+          <bpmn2:dataOutputRefs>DataOutput_14</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_15</bpmn2:dataOutputRefs>
         </bpmn2:outputSet>
       </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_131">
-        <bpmn2:targetRef>_DataInput_131</bpmn2:targetRef>
-        <bpmn2:assignment id="Assignment_2">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6">http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?</bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4">_DataInput_131</bpmn2:to>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_211">
+        <bpmn2:targetRef>_DataInput_211</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_23">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_55">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_50">_DataInput_211</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_132">
-        <bpmn2:targetRef>_DataInput_132</bpmn2:targetRef>
-        <bpmn2:assignment id="Assignment_3">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">localhost:8010/geonetwork</bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">_DataInput_132</bpmn2:to>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_212">
+        <bpmn2:targetRef>_DataInput_212</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_24">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_58">null</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_56">_DataInput_212</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_133">
-        <bpmn2:targetRef>_DataInput_133</bpmn2:targetRef>
-        <bpmn2:assignment id="Assignment_4">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">de.tudresden.gis.fusion.algorithm.GeometryDistance</bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">_DataInput_133</bpmn2:to>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_213">
+        <bpmn2:sourceRef>attributeRangeCheckMap</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_213</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_214">
+        <bpmn2:targetRef>_DataInput_214</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_26">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_64">pillar.cleaning.AttributeRange</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_62">_DataInput_214</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_134">
-        <bpmn2:sourceRef>geometryConflationMap</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_134</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_135">
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_215">
         <bpmn2:sourceRef>result_output</bpmn2:sourceRef>
-        <bpmn2:targetRef>_DataInput_135</bpmn2:targetRef>
+        <bpmn2:targetRef>_DataInput_215</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
-        <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_14">
+        <bpmn2:sourceRef>DataOutput_14</bpmn2:sourceRef>
         <bpmn2:targetRef>result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
-        <bpmn2:sourceRef>DataOutput_2</bpmn2:sourceRef>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_15">
+        <bpmn2:sourceRef>DataOutput_15</bpmn2:sourceRef>
         <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" name="" sourceRef="Task_1" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_20" tns:priority="1" sourceRef="Task_4" targetRef="Task_8"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_23" tns:priority="1" sourceRef="_1" targetRef="Task_2"/>
+    <bpmn2:task id="Task_2" tns:taskName="Pillar 4 - Point In Polygon" tns:displayName="Point in polygon" tns:icon="icons/world.png" name="Pillar 4 - Point In Polygon">
+      <bpmn2:incoming>SequenceFlow_23</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_40">
+        <bpmn2:dataInput id="_DataInput_184" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_185" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_186" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_187" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_188" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_3" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_4" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_78"/>
+        <bpmn2:inputSet id="_InputSet_79" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_184</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_185</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_186</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_187</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_188</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_40">
+          <bpmn2:dataOutputRefs>DataOutput_3</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_4</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_184">
+        <bpmn2:targetRef>_DataInput_184</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_1">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_184</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_185">
+        <bpmn2:targetRef>_DataInput_185</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_5">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_11">pillar.authoritativedata.PointInPolygon</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_5">_DataInput_185</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_186">
+        <bpmn2:targetRef>_DataInput_186</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_6">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">null</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_13">_DataInput_186</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_187">
+        <bpmn2:sourceRef>pointInPolygonMap</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_187</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_188">
+        <bpmn2:sourceRef>result_output</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_188</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
+        <bpmn2:sourceRef>DataOutput_3</bpmn2:sourceRef>
+        <bpmn2:targetRef>result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
+        <bpmn2:sourceRef>DataOutput_4</bpmn2:sourceRef>
+        <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_17" tns:priority="1" sourceRef="Task_2" targetRef="Task_3"/>
     <bpmn2:task id="Task_3" tns:taskName="Pillar 2 - Filter on attribute" tns:displayName="Filter on attribute value" tns:icon="icons/world.png" name="Pillar 2 - Filter on attribute">
-      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+      <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_19</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_31">
         <bpmn2:dataInput id="_DataInput_141" name="wpsURL"/>
         <bpmn2:dataInput id="_DataInput_142" name="processDescription"/>
@@ -180,11 +249,70 @@
         <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" name="" sourceRef="Task_3" targetRef="Task_6"/>
-    <bpmn2:startEvent id="_1" name="">
-      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="_1" targetRef="Task_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_19" tns:priority="1" sourceRef="Task_3" targetRef="Task_4"/>
+    <bpmn2:task id="Task_8" tns:taskName="Pillar 6 - Count Tweets with location" tns:displayName="Count Tweets with Location" tns:icon="icons/world.png" name="Pillar 6 - Count Tweets with location">
+      <bpmn2:incoming>SequenceFlow_20</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_44">
+        <bpmn2:dataInput id="_DataInput_206" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_207" name="catalogURL"/>
+        <bpmn2:dataInput id="_DataInput_208" itemSubjectRef="ItemDefinition_2" name="wpsInputs"/>
+        <bpmn2:dataInput id="_DataInput_209" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_210" itemSubjectRef="ItemDefinition_3" name="inputCarriedData"/>
+        <bpmn2:dataOutput id="DataOutput_9" itemSubjectRef="ItemDefinition_3" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_10" itemSubjectRef="ItemDefinition_3" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_86"/>
+        <bpmn2:inputSet id="_InputSet_87" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_206</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_207</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_208</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_209</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_210</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_44">
+          <bpmn2:dataOutputRefs>DataOutput_9</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>DataOutput_10</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_206">
+        <bpmn2:targetRef>_DataInput_206</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_16">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_36">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_34">_DataInput_206</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_207">
+        <bpmn2:targetRef>_DataInput_207</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_19">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_39">null</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_37">_DataInput_207</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_208">
+        <bpmn2:sourceRef>countTweetsWithLocationMap</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_208</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_209">
+        <bpmn2:targetRef>_DataInput_209</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_20">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_42">pillar.bigdata.CountTweetsWithLocation</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_40">_DataInput_209</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_210">
+        <bpmn2:sourceRef>result_output</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_210</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_9">
+        <bpmn2:sourceRef>DataOutput_9</bpmn2:sourceRef>
+        <bpmn2:targetRef>result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_10">
+        <bpmn2:sourceRef>DataOutput_10</bpmn2:sourceRef>
+        <bpmn2:targetRef>qual_result_output</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" name="" sourceRef="Task_8" targetRef="Task_6"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Biological Monitoring Process">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.biologicalmonitoring">
@@ -192,36 +320,54 @@
         <dc:Bounds height="36.0" width="36.0" x="73.0" y="60.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="722.0" y="155.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="57.0" y="275.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_6" bpmnElement="Task_6">
-        <dc:Bounds height="50.0" width="110.0" x="586.0" y="233.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="150.0" y="310.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
-        <dc:Bounds height="50.0" width="110.0" x="167.0" y="121.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="Task_4">
+        <dc:Bounds height="50.0" width="110.0" x="455.0" y="245.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
+        <dc:Bounds height="50.0" width="110.0" x="200.0" y="140.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="360.0" y="184.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="400.0" y="140.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
-        <di:waypoint xsi:type="dc:Point" x="91.0" y="96.0"/>
-        <di:waypoint xsi:type="dc:Point" x="91.0" y="146.0"/>
-        <di:waypoint xsi:type="dc:Point" x="167.0" y="146.0"/>
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_Task_8" bpmnElement="Task_8">
+        <dc:Bounds height="50.0" width="110.0" x="280.0" y="245.0"/>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_Task_6" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="696.0" y="258.0"/>
-        <di:waypoint xsi:type="dc:Point" x="740.0" y="258.0"/>
-        <di:waypoint xsi:type="dc:Point" x="740.0" y="191.0"/>
+        <di:waypoint xsi:type="dc:Point" x="150.0" y="335.0"/>
+        <di:waypoint xsi:type="dc:Point" x="75.0" y="335.0"/>
+        <di:waypoint xsi:type="dc:Point" x="75.0" y="311.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_3">
-        <di:waypoint xsi:type="dc:Point" x="222.0" y="171.0"/>
-        <di:waypoint xsi:type="dc:Point" x="222.0" y="209.0"/>
-        <di:waypoint xsi:type="dc:Point" x="360.0" y="209.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_8" targetElement="BPMNShape_Task_6">
+        <di:waypoint xsi:type="dc:Point" x="335.0" y="295.0"/>
+        <di:waypoint xsi:type="dc:Point" x="335.0" y="335.0"/>
+        <di:waypoint xsi:type="dc:Point" x="260.0" y="335.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_Task_6">
-        <di:waypoint xsi:type="dc:Point" x="415.0" y="234.0"/>
-        <di:waypoint xsi:type="dc:Point" x="415.0" y="258.0"/>
-        <di:waypoint xsi:type="dc:Point" x="586.0" y="258.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_17" bpmnElement="SequenceFlow_17" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
+        <di:waypoint xsi:type="dc:Point" x="310.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="165.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_19" bpmnElement="SequenceFlow_19" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_Task_4">
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="245.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_20" bpmnElement="SequenceFlow_20" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_Task_8">
+        <di:waypoint xsi:type="dc:Point" x="455.0" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="390.0" y="270.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_23" bpmnElement="SequenceFlow_23" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
+        <di:waypoint xsi:type="dc:Point" x="91.0" y="96.0"/>
+        <di:waypoint xsi:type="dc:Point" x="91.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="200.0" y="165.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
