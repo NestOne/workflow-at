@@ -1,7 +1,9 @@
 package cobweb.m24;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.geotools.feature.FeatureCollection;
 import org.kie.api.runtime.process.WorkItem;
@@ -13,16 +15,61 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
+		
+		
+		Map<String, Object> inputs = new HashMap<String, Object>();
+		
+		inputs = workItem.getParameters();
+		
+		Iterator<Entry<String, Object>> it = inputs.entrySet().iterator();
+		String wpsURL = new String();
+		String wpsProcessID = new String();
+		
+		HashMap<String, Object>variables = new HashMap<String, Object>();
+		
+		while (it.hasNext()){
 			
-		String wpsURL = (String) workItem.getParameter("wpsURL");
-		String wpsProcessID = (String) workItem.getParameter("processDescription");
-		String catalogURL = (String) workItem.getParameter("catalogURL");
+			Map.Entry<String, Object> pairs = (Map.Entry<String, Object>)it.next();
+			
+			System.out.println(pairs.getKey() + " " + pairs.getValue());
+			if (pairs.getKey().equalsIgnoreCase("wpsURL")){	
+				System.out.println("GWIC HERE 1 " + pairs.getKey() + " " + pairs.getValue());
+
+				
+				wpsURL = (String) pairs.getValue();
+ 			}
+			
+			else if (pairs.getKey().equalsIgnoreCase("processDescription")){
+				
+				System.out.println("GWIC HERE 2 " + pairs.getKey() + " " + pairs.getValue());
+
+				wpsProcessID  = (String) pairs.getValue();
+			}
+			
+			else{				
+				System.out.println("GWIC HERE 3 " + pairs.getKey() + " " + pairs.getValue());
+
+				variables.put(pairs.getKey(), pairs.getValue());
+				
+			}
+			
+			it.remove();
+			
+		}
 		
 		
 		
-		HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
+		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, variables, null);
+		
+		HashMap<String, Object> results = wpsClient.getOutputs();
+		
+		
+		
+		/**HashMap <String, Object> wpsInputs = (HashMap<String, Object>) workItem.getParameter("wpsInputs");
 		
 		FeatureCollection fc = null;
+		
+		
 		
 		if(workItem.getParameter("inputCarriedData")!=null){
 		
@@ -50,7 +97,7 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 		
 		
 		results.put("result", result);
-		results.put("qual_result", qual_result);
+		results.put("qual_result", qual_result);**/
 		
 		manager.completeWorkItem(workItem.getId(), results);
 	}

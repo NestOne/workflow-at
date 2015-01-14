@@ -22,6 +22,7 @@ import net.opengis.wps.x100.InputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
+import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.n52.wps.client.WPSClientException;
@@ -29,10 +30,8 @@ import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 
 import cobweb.m24.ExecuteResponseAnalyser;
-import cobweb.m24.ExecuteRequestBuilder;
 
 
 public class GenericWPSClient {
@@ -194,12 +193,14 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                                                 (String) inputValue);
                         }
                 } else if (input.getComplexData() != null) {
-                	System.out.println("HERE 3 " + inputName );
+                	System.out.println("Generic WPS Client HERE 3 " + inputName + " " + inputValue + " " + inputValue.getClass());
                 	//System.out.println("Here 4 " + inputValue.toString());
                         // Complexdata by value
-                        if (inputValue instanceof FeatureCollection) {
-                                IData data = new GTVectorDataBinding(
-                                                (FeatureCollection) inputValue);
+                        if (inputValue instanceof FeatureCollection || inputValue instanceof GTVectorDataBinding) {
+                        	System.out.println("instance of FeatureCollection || ObjectDataType " + inputName);
+                                //IData data = new GTVectorDataBinding(
+                                  //              (FeatureCollection) inputValue);
+                                IData data = (IData) inputValue;
                                 executeBuilder
                                                 .addComplexData(
                                                                 (String) inputName,
@@ -209,6 +210,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                         }
                         // Complexdata Reference
                         if (inputValue instanceof String) {
+                        	System.out.println("instance of string " + inputName);
                                 executeBuilder
                                                 .addComplexDataReference(
                                                                 inputName,
