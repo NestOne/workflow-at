@@ -2,8 +2,6 @@ import org.drools.process.core.datatype.impl.type.ObjectDataType;
 import org.drools.process.core.datatype.impl.type.StringDataType;
 import org.drools.process.core.datatype.impl.type.FloatDataType;
 import org.drools.process.core.datatype.impl.type.BooleanDataType;
-import java.util.HashMap;
-import org.geotools.feature.FeatureCollection; 
 [
 	[
 	"name" : "Pillar 4 - Point In Polygon",
@@ -23,172 +21,43 @@ import org.geotools.feature.FeatureCollection;
     "displayName" : "Point in polygon"
 ]
 
-[
-	"name" : "Pillar 4 - Point In Buffer",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"wpsInputs" : new HashMap(),
-		"inputCarriedData" : new FeatureCollection(),
- 	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Point in Buffer"
-
-]
-
-[
-	"name" : "Pillar 4 - Number of similar features by distance",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"inputObservations" : new StringDataType(),
-		"inputAuthoritativeData" : new StringDataType(),
-		"inputCarriedData" : new FeatureCollection(),
-		"inputDistance" : new FloatDataType(),
-		"minNumber" : new FloatDataType(),
-		"fieldName" : new StringDataType(),
-      ],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Neighbour similar features"
-
-]
-
-[
-	"name" : "Pillar 4 - Number of named features by distance",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"inputObservations" : new StringDataType(),
-		"inputAuthoritativeData" : new StringDataType(),
-		"inputCarriedData" : new FeatureCollection(),
-		"inputDistance" : new FloatDataType(),
-		"minNumber" : new FloatDataType(),
-		"fieldName" : new StringDataType(),
-		"featureName" : new StringDataType(),
-       ],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Neighbour named features"
-
-]
-[
-	"name" : "Pillar 3 - Check value range",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"inputObservations" : new StringDataType(),
-		"maxRange" : new FloatDataType(),
-		"minRange" : new FloatDataType(),
-		"attributeName" : new StringDataType(),
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Value of an attribute range"
-
-]
-[
-	"name" : "Pillar 6 - Count Tweets with location",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"wpsInputs" : new HashMap(),
-    	"processDescription" : new StringDataType(),
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Count Tweets with Location"
-
-]
-[
-	"name" : "Pillar 2 - Attribute Range Check",
-     	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"wpsInputs" : new HashMap(),
-    	"processDescription" : new StringDataType(),
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Attribute Range Check"
-]
-
-[
-	"name" : "Pillar 2 - Filter on attribute",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"wpsInputs" : new HashMap(),
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-    "icon" : "icons/world.png",
-    "displayName" : "Filter on attribute value"
-
-]
-
-[
-	"name" : "Pillar 1 - Filter for bounding box",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),	
-    	"inputObservations" : new StringDataType(),
-		"minX" : new FloatDataType(),
-		"minY" : new FloatDataType(),
-		"maxX" : new FloatDataType(),
-		"maxY" : new FloatDataType(), 
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-    "icon" : "icons/world.png",
-    "displayName" : "Get observations within a bounding box"
-
-]
-[
-	"name" : "Pillar 1 - Get Spatial Accuracy",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),	
-    	"wpsInputs" : new HashMap(),
-		"inputCarriedData" : new FeatureCollection(), 
-	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Calculate spatial accuracy"
-
-	]
 	[
 	"name" : "Store results in WFS-T",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),
-		"wpsInputs" : new HashMap(),	
-		"inputCarriedData" : new FeatureCollection(), 
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),	
+		
 	],
+		"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	
+   	],
      
      "icon" : "icons/world.png",
     "displayName" : "StoreResultInWFS"
 
 	]
-[
-	"name" : "Conflation - Geometry Distance",
+	[
+	"name" : "ConflationGeometryDistance",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
-		"catalogURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
-		"wpsInputs" : new HashMap(),	
-		"inputCarriedData" : new FeatureCollection(), 
-	],
+		"IN_REFERENCE" : new ObjectDataType(),
+		"IN_TARGET" : new ObjectDataType(),
+		"IN_THRESHOLD" : new StringDataType(),
+   	],
+
+	"results" : [
+   		"OUT_TARGET" : new ObjectDataType(),
+   	
+   	],
+   
+   	
      
      "icon" : "icons/world.png",
-    "displayName" : "StoreResultInWFS"
+    "displayName" : "Conflation - Geometry Distance"
+],
 
-	]
 ]

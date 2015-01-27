@@ -5,21 +5,21 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.geotools.feature.FeatureCollection;
 import org.kie.api.runtime.process.WorkItem;
 import org.kie.api.runtime.process.WorkItemHandler;
 import org.kie.api.runtime.process.WorkItemManager;
-import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
 public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
-		
+
 		Map<String, Object> inputs = new HashMap<String, Object>();
 		
 		inputs = workItem.getParameters();
+		
+		
 		
 		Iterator<Entry<String, Object>> it = inputs.entrySet().iterator();
 		String wpsURL = new String();
@@ -56,6 +56,10 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 			it.remove();
 			
 		}
+		
+		
+		
+		
 		
 		
 		

@@ -1,10 +1,12 @@
 package cobweb.m24;
 
 import org.kie.api.KieBase;
+import net.opengis.examples.packet.GMLPacketDocument;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.process.WorkItemHandler;
+import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
 public class NewProcessTest {
 	
@@ -21,6 +23,10 @@ public class NewProcessTest {
 	KieSession ksession = engine.getKieSession();
 	TaskService taskService = engine.getTaskService();**/
 	ksession.getWorkItemManager().registerWorkItemHandler("Pillar 4 - Point In Polygon", 
+			(WorkItemHandler) new GenericWorkItemHandlerClient());
+	ksession.getWorkItemManager().registerWorkItemHandler("Store results in WFS-T", 
+			(WorkItemHandler) new GenericWorkItemHandlerClient());
+	ksession.getWorkItemManager().registerWorkItemHandler("ConflationGeometryDistance", 
 			(WorkItemHandler) new GenericWorkItemHandlerClient());
 	
 	String wpsURL = "http://localhost:8010/wps/WebProcessingService?";

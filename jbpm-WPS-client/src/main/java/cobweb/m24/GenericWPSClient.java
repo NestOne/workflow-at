@@ -1,10 +1,4 @@
 package cobweb.m24;
-
-import it.geosolutions.geonetwork.GNClient;
-import it.geosolutions.geonetwork.exception.GNLibException;
-import it.geosolutions.geonetwork.exception.GNServerException;
-import it.geosolutions.geonetwork.util.GNInsertConfiguration;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,24 +8,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map;
 
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
 import net.opengis.wps.x100.InputDescriptionType;
+import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
-import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
-import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
+import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-
-import cobweb.m24.ExecuteResponseAnalyser;
 
 
 public class GenericWPSClient {
@@ -40,6 +34,7 @@ public class GenericWPSClient {
 	String wpsProcessID;
 	HashMap<String, Object> wpsInputs;
 	HashMap<String, Object> outputs;
+	Map<String,Object> wpsOutputs;
 	String catalogURL;
 	FeatureCollection featureCollection;
 	FeatureCollection inputFeatureCollection;
@@ -54,6 +49,10 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
 	
 	System.out.println("WPS URL " + wpsURL);
 	System.out.println("WPS Process ID " + wpsProcessID);
+	WPSConfig.getInstance("/usr/local/apache-tomcat-7.0.55/webapps/wps/config/wps_config_geotools.xml");
+	
+	
+	
 	
         try {
                 ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
@@ -75,8 +74,8 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
                         describeProcessDocument, wpsInputs);
                 
                 //Object metadata = outputs.get("metadata");
-                Object result = outputs.get("result");
-                Object qual_result = outputs.get("qual_result");
+              //  Object result = outputs.get("result");
+               // Object qual_result = outputs.get("qual_result");
                 
               /**  if (metadata instanceof GenericFileDataBinding){
                 	
@@ -91,7 +90,7 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
              	  // insertGVQMetadata(metaFile, catalogURL);
               
          	    
-                }**/
+                }
                 if(result instanceof GTVectorDataBinding){
                 	
                 		System.out.println("inputData = GTVECTORDATABINDING");
@@ -109,7 +108,7 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
                 	SimpleFeatureIterator fit = (SimpleFeatureIterator) qual_out.features();
             		System.out.println("result F " + fit.next().toString());
             		fit.close();
-                }
+                }**/
                
                 
                 
@@ -126,8 +125,9 @@ public CapabilitiesDocument requestGetCapabilities(String url)
                 throws WPSClientException {
 
         WPSClientSession wpsClient = WPSClientSession.getInstance();
-
+       
         wpsClient.connect(url);
+        
 
         CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
         
@@ -162,29 +162,18 @@ public ProcessDescriptionType requestDescribeProcess(String url,
 public HashMap<String, Object> executeProcess(String url, String processID,
                 ProcessDescriptionType processDescription,
                 
-                
-                HashMap<String, Object> inputs) throws Exception {
+                HashMap<String, Object> inputs)  {
 	org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(
                         processDescription);
+
+    HashMap <String, Object> result = new HashMap<String, Object>();
         
         for (InputDescriptionType input : processDescription.getDataInputs()
                         .getInputArray()) {
                 String inputName = input.getIdentifier().getStringValue();
                 Object inputValue = inputs.get(inputName);
                
-        /**        if (inputFeatureCollection!=null && inputName.equals("inputObservations")){
-                	
-                	
-                		inputValue = inputFeatureCollection;
-                		System.out.println("HERE 1 " + inputValue.toString() + " s" + inputFeatureCollection.size());
-                	
-                }
-                else{
-                		System.out.println("HERE 2");
-                	
-                		inputValue = inputs.get(inputName);
-                }**/
-                
+      
               
       
                 if (input.getLiteralData() != null) {
@@ -201,12 +190,17 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                                 //IData data = new GTVectorDataBinding(
                                   //              (FeatureCollection) inputValue);
                                 IData data = (IData) inputValue;
-                                executeBuilder
-                                                .addComplexData(
-                                                                (String) inputName,
-                                                                data,
-                                                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                                                null, "text/xml; subtype=gml/3.1.0");
+                                try {
+									executeBuilder
+									                .addComplexData(
+									                                (String) inputName,
+									                                data,
+									                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+									                                null, "text/xml; subtype=gml/3.1.0");
+								} catch (WPSClientException e) {
+									System.out.println("add complex data exception " + e);
+									e.printStackTrace();
+								}
                         }
                         // Complexdata Reference
                         if (inputValue instanceof String) {
@@ -222,12 +216,52 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                        
                 }
                 if (inputValue == null && input.getMinOccurs().intValue() > 0) {
-                    throw new IOException("Property not set, but mandatory: "
-                                    + inputName);
+                    try {
+						throw new IOException("Property not set, but mandatory: "
+						                + inputName);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             }
         }
+       
         
-        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
+        for (OutputDescriptionType output : processDescription.getProcessOutputs()
+                .getOutputArray()) {
+        	
+        	
+        	String outputName = output.getIdentifier().getStringValue();
+        	
+        	
+        	if (output.getComplexOutput() != null){
+
+        		String mimeType = output.getComplexOutput().getSupported().getFormatArray(1).getMimeType();
+        		executeBuilder.setMimeTypeForOutput(mimeType, outputName);
+     
+        		String schema = output.getComplexOutput().getSupported().getFormatArray(1).getSchema();
+        		if(schema!=null){
+        		
+                executeBuilder.setSchemaForOutput(
+                                schema,
+                               outputName);
+        		}
+                System.out.println("outputName " + outputName + " mimeType " + mimeType + " schema " + schema);
+        		
+        	}
+        	
+        
+     
+        	else if (output.getLiteralOutput() != null) {
+                  
+            
+            
+        	}
+        }
+       
+       
+      
+     /**   executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
         executeBuilder.setSchemaForOutput(
                         "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                         "result");
@@ -235,7 +269,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
         executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
         executeBuilder.setSchemaForOutput(
                         "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                        "qual_result");
+                        "qual_result");**/
         
         //executeBuilder.setMimeTypeForOutput("text/plain", "metadata"); 
            
@@ -243,7 +277,10 @@ public HashMap<String, Object> executeProcess(String url, String processID,
         execute.getExecute().setService("WPS");
         WPSClientSession wpsClient = WPSClientSession.getInstance();
         
-        Object responseObject = wpsClient.execute(url, execute);
+        Object responseObject;
+		try {
+			responseObject = wpsClient.execute(url, execute);
+		
        
         if (responseObject instanceof ExecuteResponseDocument) {
                 ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
@@ -252,11 +289,47 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 System.out.println("HERE 6");
                 
                
-                HashMap <String, Object> result = new HashMap<String, Object>();
-                             
-                Object[] dataReturn = new Object[3];
                 
-                Object data =  analyser.getComplexData("result",
+                
+                try{
+                for (OutputDescriptionType output : processDescription.getProcessOutputs()
+                        .getOutputArray()) {
+                	
+                	String outputName = output.getIdentifier().getStringValue();
+                	Object outputValue = analyser.getComplexData(outputName, GTVectorDataBinding.class);
+                	System.out.println("HERE 7 " + outputName + " " + outputValue);
+                	FeatureCollection tempF = ((GTVectorDataBinding) outputValue).getPayload();
+                	
+                	
+                	if(outputValue != null && outputValue instanceof GTVectorDataBinding){
+                		System.out.println("HERE 8 output name " + outputName + " outputValue size " + tempF.size());
+                		result.put(outputName, outputValue);
+                		
+                	}
+                	
+                	else if (output.getLiteralOutput()!=null){
+                		
+                		Object literalOutput = output.getLiteralOutput();
+                		result.put(outputName, literalOutput);
+                	}
+                	
+                	
+                	
+                	
+                }
+                
+                }catch(java.lang.RuntimeException e){
+                	System.out.println("Error getting output data " + e );
+                }
+        }
+        } catch (WPSClientException e1) {
+			System.out.println("error generating response object " + e1);
+			e1.printStackTrace();
+		}
+		
+                
+                                             
+                /**Object data =  analyser.getComplexData("result",
                         GTVectorDataBinding.class);
                 
                 result.put("result", data);
@@ -270,46 +343,18 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 }
                 
                 System.out.println("HERE 6 " + data2.toString());
-                result.put("qual_result", data2);
+                result.put("qual_result", data2);**/
                 
-               // Object data3 = analyser.getComplexData("metadata",
-                //		GenericFileDataBinding.class);
-                //System.out.println("HERE 6 " + data3.toString());
-                //result.put("metadata", data3);
-                
+                System.out.println("result collection size " + result.size());
                 return result;
         }
-        throw new Exception("Exception: " + responseObject.toString());
-}
+		
+
 
 public HashMap<String, Object> getOutputs(){
 	
 	return outputs;
 	
-}
-
-private void insertGVQMetadata(File file, String geonetworkURL) throws GNServerException, GNLibException{
-	
-	            
-		String un = "admin";
-		String pw = "admin";
-		GNClient client = new GNClient(geonetworkURL);
-		client.login(un, pw);
-		 //PostMethod loginMethod = new PostMethod(url + "/srv/eng/login.form");
-     	
-		 	GNInsertConfiguration cfg = new GNInsertConfiguration();
-		 
-    	    cfg.setCategory("datasets");
-    	    cfg.setGroup("1"); // group 1 is usually "all"
-    	    cfg.setStyleSheet("_none_");
-    	    cfg.setValidate(Boolean.FALSE);
-    	     
-    	    long id = client.insertMetadata(cfg, file);
-
-    	    System.out.println("Metadata created with id " + id);
-		 
-		
-
 }
 
 private File parseXMLFromWPS(GenericFileData xmlGenericData){

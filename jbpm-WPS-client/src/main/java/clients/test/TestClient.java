@@ -43,6 +43,8 @@ import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataDocument;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataType;
 import org.jdom.Element;
+import org.n52.wps.client.ExecuteRequestBuilder;
+import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.io.data.GenericFileData;
@@ -53,9 +55,6 @@ import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
-import cobweb.m24.ExecuteRequestBuilder;
-import cobweb.m24.ExecuteResponseAnalyser;
 
 
 public class TestClient {
