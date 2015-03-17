@@ -32,7 +32,7 @@ public class NewProcessTest {
 	String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
 	String processDescription = "pillar.authoritativedata.PointInPolygon";
 	
-	String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/FloodingData/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=FloodingData:observations&outputFormat=text/xml;%20subtype=gml/3.1.1";
+	String inputObservations = "https://dyfi.cobwebproject.eu/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:floodingview&maxFeatures=50&outputFormat=text/xml;%20subtype=gml/3.1.1";
 	String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&outputFormat=gml3&srsName=EPSG:4236";
 	
 	ksession.startProcess("cobweb.m24.test_process");

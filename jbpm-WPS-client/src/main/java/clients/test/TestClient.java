@@ -61,15 +61,15 @@ public class TestClient {
 
         public void testExecute() {
 
-        	String wpsURL = "http://cobweb.gis.geo.tu-dresden.de:8080/wps_conflation/WebProcessingService?";
+        	String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
         	//String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
-            String processID = "de.tudresden.gis.fusion.algorithm.GeometryDistance";
+            String processID = "pillar.authoritativedata.NumberOfNeighbourSimilarFeatures";
         	//String processID = "pillar.authoritativedata.PointInBuffer";
 
                 try {
                         ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
                                         wpsURL, processID);
-                        System.out.println(describeProcessDocument);
+                        //System.out.println(describeProcessDocument);
                 } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -85,9 +85,9 @@ public class TestClient {
                         DataInputs di = describeProcessDocument.getDataInputs();
                         //GenericFileData inputMetFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Sutton Bonnington Examples/Sutton_Met_data.met"), "text/plain") ;
                        // GenericFileData inputFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Sutton Bonnington Examples/masoud_4.apsim"), "text/xml");
-                        GenericFileData inputMetFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Examples/MetFiles/Dalby.met"), "text/plain") ;
-                        GenericFileData inputFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Examples/Canopy1.apsim"), "text/xml");
-                        String sampleDataURL = "http://localhost:8010/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:SampleData&outputFormat=gml3";
+                       // GenericFileData inputMetFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Examples/MetFiles/Dalby.met"), "text/plain") ;
+                        //GenericFileData inputFile = new GenericFileData(new File("/Users/lgzsam/Documents/Projects/GRASP/Apsim_Examples/Examples/Canopy1.apsim"), "text/xml");
+                        //String sampleDataURL = "http://localhost:8010/geoserver/cobweb/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobweb:SampleData&outputFormat=gml3";
                         
                       //  System.out.println("DI inputArray " + di.getInputArray(1).getIdentifier().getStringValue());
                       //  inputs.put("inputLocation", "52.9500, -1.1333");
@@ -96,16 +96,20 @@ public class TestClient {
                        // inputs.put("dateSince", "2014-09-30");
                         
                         inputs.put(
-                                "IN_TARGET",
-                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3&srs=EPSG:4326"
+                                "inputObservations",
+                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3"
                                 );
-                        inputs.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Dyfi_Bio_Selection&outputFormat=gml3&srs=EPSG:4326");
-                        inputs.put("IN_THRESHOLD", "1");
                         
+                       
+                        inputs.put("inputAuthoritativeData", 
+                        	"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3"
+                        	);
                         
-                       // inputs.put("inputAuthoritativeData", 
-                        //		"http://geoprocessing.demo.52north.org:8080/geoserver/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=topp:tasmania_state_boundaries&outputFormat=GML2"
-                        	//	);
+                        //inputs.put("inputBufferDistance", "0.001");
+                        inputs.put("minNumber", "12");
+                        inputs.put("inputDistance", "0.001");
+                        inputs.put("fieldName", "fieldconta");
+                        //inputs.put("featureName", "DownyBirch");
                        
                         //inputs.put("inputName", "Canopy.out");
                        // inputs.put("inputMetName", "Dalby1.met");
@@ -121,7 +125,7 @@ public class TestClient {
                         
                         if(data[0] instanceof LiteralIntBinding){
                         	int i = ((LiteralIntBinding)data[0]).getPayload();
-                        	System.out.println(data[0]);
+                        	//System.out.println(data[0]);
                         }
                          
                       if (data[0] instanceof GTVectorDataBinding) {
@@ -129,11 +133,27 @@ public class TestClient {
                                                 .getPayload();
                                 
                                 SimpleFeatureIterator sf = (SimpleFeatureIterator) featureCollection.features();
-                                System.out.println(featureCollection.size());
+                                System.out.println("result " + featureCollection.size());
                                 
-                                while (sf.hasNext()){
+                                for (int i = 0; i < 3; i++){
                                 	
-                                	System.out.println(sf.next().toString());
+                                	System.out.println("result " + sf.next().toString());
+                                	
+                                }
+                                
+                              
+                        }
+                      
+                      if (data[1] instanceof GTVectorDataBinding) {
+                                FeatureCollection featureCollection = ((GTVectorDataBinding)data[1])
+                                                .getPayload();
+                                
+                                SimpleFeatureIterator sf = (SimpleFeatureIterator) featureCollection.features();
+                                System.out.println("qual_result " +  featureCollection.size());
+                                
+                                for (int i = 0; i < 3; i++){
+                                	
+                                	System.out.println("qual_result " + sf.next().toString());
                                 	
                                 }
                                 
@@ -162,7 +182,7 @@ public class TestClient {
                            
                            for (String line = br.readLine(); line != null; line = br.readLine()) {                               
                                String newLine = line.replaceAll("&gt;",">").replaceAll("&lt;", "<").replaceAll("&amp;","&");                               
-                               System.out.println(newLine);          
+                               //System.out.println(newLine);          
                                fw.write(newLine);
 
                             }
@@ -206,13 +226,13 @@ public class TestClient {
 
                 CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
                 
-                System.out.println(capabilities.toString());
+                //System.out.println(capabilities.toString());
 
                 ProcessBriefType[] processList = capabilities.getCapabilities()
                                 .getProcessOfferings().getProcessArray();
 
                 for (ProcessBriefType process : processList) {
-                        System.out.println(process.getIdentifier().getStringValue());
+                        //System.out.println(process.getIdentifier().getStringValue());
                 }
                 return capabilities;
         }
@@ -229,7 +249,7 @@ public class TestClient {
                                 .getInputArray();
 
                 for (InputDescriptionType input : inputList) {
-                        System.out.println(input.getIdentifier().getStringValue());
+                       // System.out.println(input.getIdentifier().getStringValue());
                 }
                 return processDescription;
         }
@@ -291,10 +311,14 @@ public class TestClient {
                         //executeBuilder.setSchemaForOutput(
                           //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                             //    "result");
-                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","OUT_TARGET");
+                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0","result");
                         executeBuilder.setSchemaForOutput(
-                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                "OUT_TARGET");
+                                              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                                      "result");
+                        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
+                        executeBuilder.setSchemaForOutput(
+                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                        "qual_result");
                 
                // executeBuilder.setEncodingForOutput("base64", "output");
                 
@@ -321,14 +345,26 @@ public class TestClient {
                        DataType dataType = response.getExecuteResponse().getProcessOutputs().getOutputArray(0).getData();
                        
                         Object[] dataReturn = new Object[3];
-                        
-                        Object data =  analyser.getComplexData("OUT_TARGET",
+                        Object data;
+                        data =  analyser.getComplexData("result",
                                 GTVectorDataBinding.class);
+                        if(data == null  ){
+                        	System.out.println("no results for result");
+                        	throw new RuntimeException();
+                         
+                        }
                         
-                        /**Object data2 = analyser.getComplexData("qual_result", 
+                        Object data2 = null;
+                        try{
+                        	data2 = analyser.getComplexData("qual_result", 
                         		GTVectorDataBinding.class);
-                        
-                        Object data3 = analyser.getComplexData("metadata", 
+                    
+                        }
+                        catch (NullPointerException e){
+                        	System.out.println("no qual results");
+                        }
+                      
+                       /** Object data3 = analyser.getComplexData("metadata", 
                         		GenericFileDataBinding.class);**/
                         
                        // Object data3 = dataType.getLiteralData().getStringValue();
@@ -336,9 +372,10 @@ public class TestClient {
                       /**  dataReturn[0] = (IData) data;
                         
                         dataReturn[1] = (IData) data2;**/
-                        System.out.println(dataType.toString());
+                        //System.out.println(dataType.toString());
                       
                         dataReturn[0] = (GTVectorDataBinding) data;
+                        dataReturn[1] = (GTVectorDataBinding) data2;
                         
                        
                        

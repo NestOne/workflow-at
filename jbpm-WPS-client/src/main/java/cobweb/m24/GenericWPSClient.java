@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
@@ -67,48 +68,12 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
                 ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
                                 wpsURL, wpsProcessID);
      
-               // outputs = executeProcess(wpsURL, wpsProcessID,
-                 //               describeProcessDocument, wpsInputs, inputFeatureCollection);
+           
                 
                 outputs = executeProcess(wpsURL, wpsProcessID,
                         describeProcessDocument, wpsInputs);
-                
-                //Object metadata = outputs.get("metadata");
-              //  Object result = outputs.get("result");
-               // Object qual_result = outputs.get("qual_result");
-                
-              /**  if (metadata instanceof GenericFileDataBinding){
-                	
-                	System.out.println("GENERIC METADATA FILE");
-             	  
-             	   GenericFileData xmlGenericData = ((GenericFileDataBinding)metadata).getPayload();
-             	   
-             	   
-             	  System.out.println("GENERIC DATA " + xmlGenericData.getBaseFile(true).toString());
-             	   
-             	   File metaFile = parseXMLFromWPS(xmlGenericData);
-             	  // insertGVQMetadata(metaFile, catalogURL);
+             
               
-         	    
-                }
-                if(result instanceof GTVectorDataBinding){
-                	
-                		System.out.println("inputData = GTVECTORDATABINDING");
-                		
-                		FeatureCollection out = ((GTVectorDataBinding) result).getPayload();
-                		System.out.println("result number " + out.size());
-                		SimpleFeatureIterator fit = (SimpleFeatureIterator) out.features();
-                		System.out.println("result F " + fit.next().toString());
-                		fit.close();
-                }
-                
-                if(qual_result instanceof GTVectorDataBinding){
-                	FeatureCollection qual_out = ((GTVectorDataBinding) qual_result).getPayload();
-                	System.out.println("qual result number " + qual_out.size());
-                	SimpleFeatureIterator fit = (SimpleFeatureIterator) qual_out.features();
-            		System.out.println("result F " + fit.next().toString());
-            		fit.close();
-                }**/
                
                 
                 
@@ -291,11 +256,12 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                
                 
                 
-                try{
+               
                 for (OutputDescriptionType output : processDescription.getProcessOutputs()
                         .getOutputArray()) {
                 	
                 	String outputName = output.getIdentifier().getStringValue();
+                try{
                 	Object outputValue = analyser.getComplexData(outputName, GTVectorDataBinding.class);
                 	System.out.println("HERE 7 " + outputName + " " + outputValue);
                 	FeatureCollection tempF = ((GTVectorDataBinding) outputValue).getPayload();
@@ -316,34 +282,20 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 	
                 	
                 	
+                
                 }
                 
-                }catch(java.lang.RuntimeException e){
-                	System.out.println("Error getting output data " + e );
+                catch(NullPointerException e){
+                	System.out.println("Output " + outputName + " contains no results");
                 }
         }
-        } catch (WPSClientException e1) {
+        }
+		}
+         catch (WPSClientException e1) {
 			System.out.println("error generating response object " + e1);
 			e1.printStackTrace();
 		}
 		
-                
-                                             
-                /**Object data =  analyser.getComplexData("result",
-                        GTVectorDataBinding.class);
-                
-                result.put("result", data);
-                
-                Object data2 =null;
-                
-                if( analyser.getComplexData("qual_result", GTVectorDataBinding.class)!=null){
-                
-                		data2 = analyser.getComplexData("qual_result", 
-                			GTVectorDataBinding.class);
-                }
-                
-                System.out.println("HERE 6 " + data2.toString());
-                result.put("qual_result", data2);**/
                 
                 System.out.println("result collection size " + result.size());
                 return result;
