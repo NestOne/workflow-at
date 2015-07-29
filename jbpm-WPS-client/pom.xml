@@ -175,13 +175,6 @@
 		<version>2.1.4</version>
 	</dependency>
 	
-	<dependency>
-    	      
-    	<groupId>org.n52.wps</groupId>
-    	<artifactId>52n-wps-client-lib</artifactId>
-    	<version>3.3.0</version>
-    	
-	</dependency>
 	
 	
 	
@@ -229,10 +222,10 @@
             <scope>test</scope>
 		</dependency>
 	
-	
+ 	
 	<dependency>
     
-    
+  
     	<groupId>org.n52.wps</groupId>
     	<artifactId>52n-wps-io-geotools</artifactId>
     	<version>3.3.0-patched-genericfiledatawithgt</version>

@@ -1,7 +1,7 @@
-import org.drools.process.core.datatype.impl.type.ObjectDataType;
-import org.drools.process.core.datatype.impl.type.StringDataType;
-import org.drools.process.core.datatype.impl.type.FloatDataType;
-import org.drools.process.core.datatype.impl.type.BooleanDataType;
+import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+import org.drools.core.process.core.datatype.impl.type.FloatDataType;
+import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 [
 	[
 	"name" : "Pillar 4 - Point In Polygon",
@@ -19,8 +19,44 @@ import org.drools.process.core.datatype.impl.type.BooleanDataType;
      
      "icon" : "icons/world.png",
     "displayName" : "Point in polygon"
-]
-
+],
+	[
+	"name" : "Pillar 2 - Filter on Attribute",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"fieldName" : new StringDataType(),
+		"featureName" : new StringDataType(),
+		"include" : new StringDataType(),
+   	],
+   	"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Filter on Attribute"
+],
+[
+	"name" : "Pillar 4 - Point In Buffer",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+    	"inputAuthoritativeData" : new ObjectDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"inputBufferDistance" : new StringDataType(),
+   	],
+   	"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Point in Buffer"
+],
 	[
 	"name" : "Store results in WFS-T",
     	"parameters" : [
@@ -36,9 +72,9 @@ import org.drools.process.core.datatype.impl.type.BooleanDataType;
    	],
      
      "icon" : "icons/world.png",
-    "displayName" : "StoreResultInWFS"
+    "displayName" : "Store results in Geoserver"
 
-	]
+	],
 	[
 	"name" : "ConflationGeometryDistance",
     	"parameters" : [

@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
@@ -160,22 +159,30 @@ public HashMap<String, Object> executeProcess(String url, String processID,
 									                .addComplexData(
 									                                (String) inputName,
 									                                data,
-									                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-									                                null, "text/xml; subtype=gml/3.1.0");
+									                                null,
+									                                null, "application/json");
 								} catch (WPSClientException e) {
 									System.out.println("add complex data exception " + e);
 									e.printStackTrace();
 								}
                         }
-                        // Complexdata Reference
-                        if (inputValue instanceof String) {
+                        if(inputName.equals("inputSurfaceModel")){
+                            
+                      	  executeBuilder
+                            .addComplexDataReference(
+                                            inputName,
+                                            (String) inputValue,
+                                            null,
+                                            null, "text/plain");
+                      }
+                      else if (inputValue instanceof String) {
                         	System.out.println("instance of string " + inputName);
                                 executeBuilder
                                                 .addComplexDataReference(
                                                                 inputName,
                                                                 (String) inputValue,
-                                                                "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                                                                null, "text/xml; subtype=gml/3.1.0");
+                                                                null,
+                                                                null, "application/json");
                         }
 
                        
@@ -200,8 +207,11 @@ public HashMap<String, Object> executeProcess(String url, String processID,
         	
         	
         	if (output.getComplexOutput() != null){
+        		
+        		executeBuilder.setSchemaForOutput("application/json", outputName);
+        		
 
-        		String mimeType = output.getComplexOutput().getSupported().getFormatArray(1).getMimeType();
+        	/**	String mimeType = output.getComplexOutput().getSupported().getFormatArray(1).getMimeType();
         		executeBuilder.setMimeTypeForOutput(mimeType, outputName);
      
         		String schema = output.getComplexOutput().getSupported().getFormatArray(1).getSchema();
@@ -209,10 +219,11 @@ public HashMap<String, Object> executeProcess(String url, String processID,
         		
                 executeBuilder.setSchemaForOutput(
                                 schema,
-                               outputName);
+                               outputName)
         		}
                 System.out.println("outputName " + outputName + " mimeType " + mimeType + " schema " + schema);
         		
+        	}**/
         	}
         	
         

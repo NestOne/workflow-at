@@ -8,19 +8,16 @@ import it.geosolutions.geonetwork.exception.GNServerException;
 import it.geosolutions.geonetwork.op.GNMetadataGet;
 import it.geosolutions.geonetwork.util.GNInsertConfiguration;**/
 
-import java.io.BufferedReader;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.imageio.ImageIO;
 
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.DataType;
@@ -33,9 +30,6 @@ import net.opengis.wps.x100.ProcessDescriptionType.DataInputs;
 
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.xmlbeans.XmlOptions;
-import org.geotools.data.shapefile.ShapefileDataStore;
-import org.geotools.data.shapefile.ShapefileDataStoreFactory;
-import org.geotools.data.shapefile.shp.ShapefileWriter;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.geoviqua.gmd19157.DQDataQualityType;
@@ -45,6 +39,7 @@ import org.geoviqua.qualityInformationModel.x40.GVQMetadataDocument;
 import org.geoviqua.qualityInformationModel.x40.GVQMetadataType;
 import org.jdom.Element;
 import org.n52.wps.client.ExecuteRequestBuilder;
+import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.commons.WPSConfig;
@@ -57,19 +52,15 @@ import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import cobweb.m24.ExecuteResponseAnalyser;
 
-
-public class TestClient {
+public class TestClientV2 {
 
         public void testExecute() {
 
         	String wpsURL = "http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?";
         	//String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
-            //String processID = "storage.geoserver.StoreWFSNamedOutput";
-        	//String processID = "pillar.authoritativedata.PointInPolygon";
-            
-            String processID = "pillar.lbs.LineOfSightCoordinates";
+            //String processID = "storage.geoserver.StoreWFSOutput";
+        	String processID = "pillar.automaticvalidation.LaplacePhotoBlurCheckClient";
             
             WPSConfig.getInstance("/usr/local/apache-tomcat-7.0.55/webapps/wps/config/wps_config_geotools.xml");
             
@@ -103,32 +94,37 @@ public class TestClient {
                        // inputs.put("inputDistance", "2.0");
                        // inputs.put("searchTerm", "#nottingham");
                        // inputs.put("dateSince", "2014-09-30");
+                        File file = new File ("/Users/lgzsam/Downloads/1531117.jpg");
+                       
+                        InputStream image = null;
+                        try{
                         
-                        inputs.put(
-                                "inputObservations",
-                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Test_Los_Corrected_Tilt&maxFeatures=50&outputFormat=application/json&srsName=EPSG:27700");
+                        	image = new BufferedInputStream(new FileInputStream(file));
+                        	
+                        	//image = new FileInputStream(file);
                         
-                     //   inputs.put("inputPolygons", 
-                       // 		"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:OSGB_Grid_50km&outputFormat=application/json&srsName=EPSG:27700");
-                        
-                       // inputs.put(
-                        //		"fileName",
-                        	//	"JKW");
-                       // inputs.put(
-                        //		"giveNumber", 1);
-                        
-                      //  inputs.put("inputAuthoritativeData",
-                        //		"http://geoprocessing.nottingham.ac.uk/authoritative_lists/butterfly-plant.csv"
-                        	//	);
-                        
-                       // inputs.put("obsFieldName2", "What_plant");
-                        //i/nputs.put("obsFieldName1", "Which_butt");
-                   //    inputs.put("urlPrefix", "http://geoprocessing.nottingham.ac.uk/");
-                     //  inputs.put("threshold", "240");
-                       //inputs.put("urlFieldName", "photo_loc");
+                       
+                        }
+                        catch (Exception e){
+                        	System.out.println("File read in exception " + e);
+                        }
                         
                         
                   
+                     
+                        String threshold = ""+240;
+                        
+                        GenericFileData gd = new GenericFileData(image,"image/png");
+                        
+                        inputs.put(
+                                "inputImage",
+                                new GenericFileDataBinding(gd)
+                                );
+                       
+                        inputs.put(
+                        		"inputThreshold",
+                        		threshold);
+                    
                         
                         //inputs.put("IN_REFERENCE", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/wcs?service=wcs&version=1.0.0&request=getcoverage&coverage=CobwebTest:upcampusresample&CRS=EPSG:4277&bbox=454000,338000,455000,339000&width=500&height=500&format=ArcGrid");
                         //inputs.put(
@@ -141,19 +137,15 @@ public class TestClient {
                         //inputs.put("include", "true");
                         
                         //inputs.put("IN_THRESHOLD", "0.01");
-                        
-                       // inputs.put("inputObservations", "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=application/json");
                        
-                      // inputs.put("inputAuthoritativeData", 
-                       	//"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&outputFormat=application/json&srsName=EPSG:4236"
+                      //  inputs.put("inputAuthoritativeData", 
+                        //	"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&outputFormat=gml3"
                         	//);
                         
                         //inputs.put("inputBufferDistance", "0.001");
-                        inputs.put("inputSurfaceModel", 
-                        		"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/wcs?service=wcs&version=1.0.0&request=getcoverage&coverage=CobwebTest:LiDAR_Aber&CRS=EPSG:27700&bbox=259000,281000,260000,282000&width=500&height=500&format=ArcGrid");
-                        inputs.put("inputBaringFieldName", "Baring");
-                        inputs.put("inputTiltFieldName", "tilt");
-                        inputs.put("inputUserHeight", "1.5");
+                       // inputs.put("inputBaringFieldName", "Orientatio");
+                       // inputs.put("inputTiltFieldName", "Elevation");
+                        //inputs.put("inputUserHeight", "1.5");
                         //inputs.put("featureName", "DownyBirch");
                        
                         //inputs.put("inputName", "Canopy.out");
@@ -180,33 +172,7 @@ public class TestClient {
                                 SimpleFeatureIterator sf = (SimpleFeatureIterator) featureCollection.features();
                                 System.out.println("result " + featureCollection.size());
                                 
-                           /**     String pillar = "storage.geoserver.StoreWFSNamedOutput";
-                                ProcessDescriptionType describeProcessDocument2 = null;
-                                
-                                try {
-                                   describeProcessDocument2 = requestDescribeProcess(
-                                                    wpsURL, pillar);
-                                    //System.out.println(describeProcessDocument);
-                            } catch (IOException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                            }
-                                
-                                HashMap<String, Object> inputs2 = new HashMap<String, Object>();
-                                
-                                inputs2.put("inputObservations", featureCollection);
-                                inputs2.put("fileName", "output");
-                                
-                                Object [] data2 = new Object[3];
-                                
-                                
-                                data2 = executeProcess(wpsURL, pillar,
-                                                describeProcessDocument2, inputs2);**/
-                                
-                                
-                                
-                                
-                                for(int i = 0; i < 7; i++){
+                                for (int i = 0; i < 7; i++){
                                 	
                                 	System.out.println("result " + sf.next().toString());
                                 	
@@ -214,6 +180,19 @@ public class TestClient {
                                 
                               
                         }
+                      if(data[0] instanceof GenericFileDataBinding){
+                    	  System.out.println("HERE:");
+                    	  GenericFileData fd = ((GenericFileDataBinding)data[0]).getPayload();
+                    	  
+                    	  BufferedImage bi = ImageIO.read(fd.getBaseFile(true));
+                    	  
+                    	  
+                    	  File newfile = new File ("/Users/lgzsam/Downloads/test.jpg");
+                    	  
+                    	  ImageIO.write(bi, ".jpeg", newfile);
+                    	  
+                    	  
+                      }
                       
                       if (data[1] instanceof GTVectorDataBinding) {
                                 FeatureCollection featureCollection = ((GTVectorDataBinding)data[1])
@@ -235,47 +214,10 @@ public class TestClient {
                         	System.out.println("NOT GTVECTORDATABINDING");
                         }
                         
-                       if (data[0] instanceof GenericFileDataBinding){
-                    	  
-                    	   GenericFileData xmlGenericData = ((GenericFileDataBinding)data[0]).getPayload();
-                           
-                    	   File file =  xmlGenericData.getBaseFile(true);
-                    	   
-                    	   InputStream fis = new FileInputStream(file);
-                    	   
-                           BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-                           
-                        
-                           
-                           File newFile = File.createTempFile("temp2", ".out");
-                          
-                           FileWriter fw = new FileWriter(newFile);
-                           
-                           for (String line = br.readLine(); line != null; line = br.readLine()) {                               
-                               String newLine = line.replaceAll("&gt;",">").replaceAll("&lt;", "<").replaceAll("&amp;","&");                               
-                               //System.out.println(newLine);          
-                               fw.write(newLine);
-
-                            }
-                           
-                           fw.close();
-                    	   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-               			   DocumentBuilder builder =
-               			            factory.newDocumentBuilder();
-               			   Document tempXML = builder.newDocument();
-               			  
-               			            tempXML = builder.parse(newFile);
-                    	   
-                    	   
-                    	   NodeList list = tempXML.getElementsByTagName("xs:element");
-                           
-                           System.out.println("LIST LENGTH " + list.getLength());
-                           
-                       //    insertMetdataValues(newFile, "http://localhost:8010/geonetwork");
-
-                    	   
-                       }
                        
+                        
+                      
+                        
                 } catch (WPSClientException e) {
                         e.printStackTrace();
                 } catch (IOException e) {
@@ -294,13 +236,13 @@ public class TestClient {
 
                 CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
                 
-               // System.out.println(capabilities.toString());
+                //System.out.println(capabilities.toString());
 
                 ProcessBriefType[] processList = capabilities.getCapabilities()
                                 .getProcessOfferings().getProcessArray();
 
                 for (ProcessBriefType process : processList) {
-                   //     System.out.println(process.getIdentifier().getStringValue());
+                        //System.out.println(process.getIdentifier().getStringValue());
                 }
                 return capabilities;
         }
@@ -334,18 +276,17 @@ public class TestClient {
                         Object inputValue = inputs.get(inputName);
                         if (input.getLiteralData() != null) {
                                 if (inputValue instanceof String) {
-                                	
+                                	System.out.println(inputValue);
                                         executeBuilder.addLiteralData(inputName,
                                                         (String) inputValue);
                                 }
-                                else if (inputName.equalsIgnoreCase("giveNumber")) {
-                                	System.out.println("inputValue " + inputValue);
-                                        executeBuilder
-                                                        .addLiteralData(
-                                                                        inputName,
-                                                                        (String)inputValue);
+                                
+                                if(inputValue instanceof Integer){
+                                	System.out.println(inputValue);
+                                    executeBuilder.addLiteralData(inputName,
+                                                    (String) inputValue);
+                                	
                                 }
-                              
                         } else if (input.getComplexData() != null) {
                                 // Complexdata by value
                                 if (inputValue instanceof FeatureCollection) {
@@ -356,12 +297,11 @@ public class TestClient {
                                                         .addComplexData(
                                                                         inputName,
                                                                         data,
-                                                                        null,
-                                                                        null, "application/json");
+                                                                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                                                                        null, "text/xml; subtype=gml/3.1.0");
                                 }
-                         
                               
-                               else if(inputName.equals("inputSurfaceModel")){
+                                if(inputName.equals("inputSurfaceModel")){
                                  
                                 	  executeBuilder
                                       .addComplexDataReference(
@@ -370,9 +310,6 @@ public class TestClient {
                                                       null,
                                                       null, "text/plain");
                                 }
-                                
-                               
-                            
                                 else if (inputValue instanceof String) {
                                 	System.out.println("inputValue " + inputValue);
                                         executeBuilder
@@ -383,9 +320,20 @@ public class TestClient {
                                                                         null, "application/json");
                                 }
                                 
-                               
+                                else if (inputName.equalsIgnoreCase("inputImage")){
+                                	
+                                	System.out.println("HERE GenericFileDataBinding " + inputValue.toString());
+                                	
+                                	IData inputData = (IData) inputValue;
+                                	
+                                	executeBuilder
+                                    .addComplexData(
+                                                    inputName,
+                                                    inputData,
+                                                    null,
+                                                    "base64", "image/jpeg");
+                                }
                                 
-                               
                                
 
                                 if (inputValue == null && input.getMinOccurs().intValue() > 0) {
@@ -394,28 +342,48 @@ public class TestClient {
                                 }
                         }
                 }
-                //executeBuilder.setMimeTypeForOutput("application/json","result");
-              //  executeBuilder.setMimeTypeForOutput("application/json","qual_result");
+              //  executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
                 //executeBuilder.setSchemaForOutput(
-                  //                     "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                    //           "result");
-                 executeBuilder.setMimeTypeForOutput("application/WFS", "result");
-                 //executeBuilder.setSchemaForOutput(
-                   //      "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                 //"qual_result");
+                  //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                    //            "result");
+                
+                        
+                     //  executeBuilder.setMimeTypeForOutput("image/jpeg","HistogramImage");
+                      // executeBuilder.setMimeTypeForOutput("image/jpeg","LaplaceImage");
+                      // executeBuilder.setMimeTypeForOutput("application/json", "qual_result");
+                        //executeBuilder.setSchemaForOutput(
+                          //              "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                            //    "result");
+                       // executeBuilder.setMimeTypeForOutput("application/WFS","result");
+                       // executeBuilder.setSchemaForOutput(
+                         //                     "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                           //           "result");
+                       // executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
+                        //executeBuilder.setSchemaForOutput(
+                          //      "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
+                        //"qual_result");
+                
+               // executeBuilder.setEncodingForOutput("base64", "output");
+                
+               // executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
+               // executeBuilder.setEncodingForOutput("UTF-8", "output");
+             
+              //  executeBuilder.setSchemaForOutput("http://schemas.geoviqua.org/GVQ/4.0/GeoViQua_DataQuality.xsd", 
+                //		"metadata");
+                
+                //executeBuilder.setMimeTypeForOutput("text/xml; subtype=geoviqua", "metadata");
+                
+                
                
                 ExecuteDocument execute = executeBuilder.getExecute();
-              System.out.println(executeBuilder.getExecute());
                 execute.getExecute().setService("WPS");
-               
+                
+                System.out.println(execute);
                 WPSClientSession wpsClient = WPSClientSession.getInstance();
-                
                 Object responseObject = wpsClient.execute(url, execute);
-                
-          //      System.out.println(executeBuilder.getExecute());
+               
                 if (responseObject instanceof ExecuteResponseDocument) {
                         ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
-                        //System.out.println(response.getExecuteResponse().toString());
                         ExecuteResponseAnalyser analyser = new ExecuteResponseAnalyser(
                                         execute, response, processDescription);
                       
@@ -423,18 +391,15 @@ public class TestClient {
                        
                         Object[] dataReturn = new Object[3];
                         Object data;
-                       // data = dataType.getLiteralData().getStringValue();
-                        
-                        //System.out.println(data.toString());
-                        data =  analyser.getComplexData("result",
-                                GTVectorDataBinding.class);
+                        data =  analyser.getComplexData("HistogramImage",
+                                GenericFileDataBinding.class);
                         if(data == null  ){
                         	System.out.println("no results for result");
                         	throw new RuntimeException();
                          
                         }
                         
-                        Object data2 = null;
+                        /**Object data2 = null;
                        try{
                         	data2 = analyser.getComplexData("qual_result", 
                         		GTVectorDataBinding.class);
@@ -452,10 +417,10 @@ public class TestClient {
                       /**  dataReturn[0] = (IData) data;
                         
                         dataReturn[1] = (IData) data2;**/
-                        //System.out.println(dataType.toString());
+                        //System.out.println(dataType.toString());**/
                       
-                        dataReturn[0] = (GTVectorDataBinding) data;
-                        dataReturn[1] = (GTVectorDataBinding) data2;
+                        dataReturn[0] = (GenericFileDataBinding) data;
+                      //  dataReturn[1] = (GTVectorDataBinding) data2;
                         
                        
                        
@@ -464,126 +429,13 @@ public class TestClient {
                 throw new Exception("Exception: " + responseObject.toString());
         }
         
-  /**     public void insertMetdataValues(File xmlDocument, String url){
-        	
-        	ArrayList< ? > validationErrors = new ArrayList<Object>();
-        	XmlOptions options; 
-        	options = new XmlOptions();
-        	options.setSavePrettyPrint();
-        	options.setSaveAggressiveNamespaces();
-        
-        	HashMap<String, String> suggestedPrefixes = new HashMap<String, String>();
-        	suggestedPrefixes.put("http://www.geoviqua.org/QualityInformationModel/4.0", "gvq");
-        	options.setSaveSuggestedPrefixes(suggestedPrefixes);
-        
-        	options.setErrorListener(validationErrors);
-        
-        	
-        	GVQMetadataDocument doc = GVQMetadataDocument.Factory.newInstance();
-        	GVQMetadataType gvqMetadata = doc.addNewGVQMetadata();
-        	gvqMetadata.addNewLanguage().setCharacterString("en");
-            gvqMetadata.addNewMetadataStandardName().setCharacterString("GVQ");
-            gvqMetadata.addNewMetadataStandardVersion().setCharacterString("1.0.0");
-            gvqMetadata.addNewDateStamp().setDate(Calendar.getInstance());
-            DQDataQualityType quality = gvqMetadata.addNewDataQualityInfo2().addNewDQDataQuality();
-            GVQDataQualityType gvqQuality = (GVQDataQualityType) quality.substitute(new QName("http://www.geoviqua.org/QualityInformationModel/4.0",
-                                                                                                  "GVQ_DataQuality"),
-                                                                                        GVQDataQualityType.type);
-                GVQDiscoveredIssueType issue = gvqQuality.addNewDiscoveredIssue().addNewGVQDiscoveredIssue();
-                issue.addNewKnownProblem().setCharacterString("problem");
-                issue.addNewWorkAround().setCharacterString("solution");
-        
-                // validate schema conformity
-                boolean isValid = doc.validate();
-                if ( !isValid)
-                    System.out.println(Arrays.toString(validationErrors.toArray()));
-        
-                // print out as XML
-                System.out.println(doc.xmlText(options));
-                
-               
-                
-        
-                // store in catalog
-               // new CatalogClient("http://catalog.url/csw").store(doc);
-        
-        
-			
-        	try {
-        		 File file = File.createTempFile("test", ".xml");
-        		 
-        		 doc.save(file);
-        		          
-        		String un = "admin";
-        		String pw = "admin";
-        		
-        	//	File sampleDocument = new File("/Users/lgzsam/Downloads/c9ef44fc-5974-41e2-a425-f9634963ba81/metadata/metadata.xml");
-        		 GNClient client = new GNClient(url,un,pw);
-        		 
-        		 
-        		 //PostMethod loginMethod = new PostMethod(url + "/srv/eng/login.form");
-        		 
-             		//client.login(un, pw);
-        		 	GNInsertConfiguration cfg = new GNInsertConfiguration();
-	        	    cfg.setCategory("datasets");
-	        	    
-	        	    cfg.setGroup("1"); // group 1 is usually "all"
-	        	    cfg.setStyleSheet("_none_");
-	        	    cfg.setValidate(Boolean.FALSE);
-	        	     
-	        	    long id = client.insertMetadata(cfg, file);
-
-	        	    System.out.println("Metadata created with id " + id);
-        		 
-        	
-	
-			} catch (GNLibException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (GNServerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-
-        }
-       
-       public Document getMetadataRecord(String UUID, String url){
-    	   Document metadataRecord = null;
-    	   String un = "admin";
-   			String pw = "admin";
-    	   GNClient client = new GNClient(url, un,pw);
-    	   
-    	   //GNMetadataGet get = new GNMetadataGet();
-    	   
-   	     
-   	    	try {
-				Element id = client.get(UUID);
-				
-				System.out.println(id.toString());
-			} catch (GNLibException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (GNServerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	   
-    	   return metadataRecord;
-    	   
-       }**/
-        
+ 
         
 
         public static void main(String[] args) {
-                TestClient client = new TestClient();
+                TestClientV2 client = new TestClientV2();
                 client.testExecute();
         }
-        
-     
        
 
 }

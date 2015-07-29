@@ -30,6 +30,9 @@ package cobweb.m24;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -67,6 +70,7 @@ public class ExecuteResponseAnalyser {
 	ExecuteDocument exec;
 	Object response;
 	
+	
 	public ExecuteResponseAnalyser(ExecuteDocument exec, Object response, ProcessDescriptionType processDesc) throws WPSClientException {
 		this.processDesc = processDesc;
 		this.exec= exec;
@@ -74,6 +78,7 @@ public class ExecuteResponseAnalyser {
 			throw new WPSClientException("Output is not ComplexData but an Exception Report");
 		}
 		this.response = response;
+		
 	}
 	
 	
@@ -248,4 +253,7 @@ public class ExecuteResponseAnalyser {
 
 		throw new RuntimeException("Could not find suitable parser");
 	}
+	
+	
+	
 }
