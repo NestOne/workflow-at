@@ -65,10 +65,7 @@ public class TestClient {
         public void testExecute() {
 
         	String wpsURL = "http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?";
-        	//String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
-            //String processID = "storage.geoserver.StoreWFSNamedOutput";
-        	//String processID = "pillar.authoritativedata.PointInPolygon";
-            
+      
             String processID = "pillar.lbs.LineOfSightCoordinates";
             
             WPSConfig.getInstance("/usr/local/apache-tomcat-7.0.55/webapps/wps/config/wps_config_geotools.xml");
@@ -106,7 +103,8 @@ public class TestClient {
                         
                         inputs.put(
                                 "inputObservations",
-                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Test_Los_Corrected_Tilt&maxFeatures=50&outputFormat=application/json&srsName=EPSG:27700");
+                               
+                                "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:_10Markers&outputFormat=application/json&srsName=EPSG:27700");
                         
                      //   inputs.put("inputPolygons", 
                        // 		"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:OSGB_Grid_50km&outputFormat=application/json&srsName=EPSG:27700");
@@ -150,9 +148,9 @@ public class TestClient {
                         
                         //inputs.put("inputBufferDistance", "0.001");
                         inputs.put("inputSurfaceModel", 
-                        		"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/wcs?service=wcs&version=1.0.0&request=getcoverage&coverage=CobwebTest:LiDAR_Aber&CRS=EPSG:27700&bbox=259000,281000,260000,282000&width=500&height=500&format=ArcGrid");
+                        		"http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/wcs?service=wcs&version=1.0.0&request=getcoverage&coverage=CobwebTest:Taly_DSM&CRS=EPSG:27700&bbox=265000,289000,266000,290000&width=1000&height=1000&format=ArcGrid");
                         inputs.put("inputBaringFieldName", "Baring");
-                        inputs.put("inputTiltFieldName", "tilt");
+                        inputs.put("inputTiltFieldName", "Roll");
                         inputs.put("inputUserHeight", "1.5");
                         //inputs.put("featureName", "DownyBirch");
                        
@@ -399,7 +397,7 @@ public class TestClient {
                 //executeBuilder.setSchemaForOutput(
                   //                     "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                     //           "result");
-                 executeBuilder.setMimeTypeForOutput("application/WFS", "result");
+                 executeBuilder.setMimeTypeForOutput("application/json", "result");
                  //executeBuilder.setSchemaForOutput(
                    //      "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
                  //"qual_result");

@@ -10,8 +10,21 @@ import org.kie.api.runtime.process.WorkItem;
 import org.kie.api.runtime.process.WorkItemHandler;
 import org.kie.api.runtime.process.WorkItemManager;
 
+/**
+ * 
+ * @author Sam Meek
+ * Class to create an interface between the JBPM workflow engine and the WPS client libraries
+ * Provides an instantiation for a WorkItemHandler for each WPS process within JBPM
+ *
+ */
+
 public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	
+	/**
+	 * This class has two main methods, executeWorkItem which executes for each exposed WPS process
+	 * and abortWorkItem which executes when the workItemHandler is aborted
+	 * 
+	 */
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
@@ -29,23 +42,25 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 			
 			Map.Entry<String, Object> pairs = (Map.Entry<String, Object>)it.next();
 			
+			/**
+			 * WPSs have two required inputs: 1) wpsURL (the url of the WPS e.g. http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?)
+			 * 2) processDescription (the description of the process e.g. pillar.lbs.LineOfSight)
+			 * This is currently hard coded and not handled as an error if not entered.
+			 * 
+			 */
+			
 			System.out.println(pairs.getKey() + " " + pairs.getValue());
 			if (pairs.getKey().equalsIgnoreCase("wpsURL")){	
-				System.out.println("GWIC HERE 1 " + pairs.getKey() + " " + pairs.getValue());
-
 				
 				wpsURL = (String) pairs.getValue();
  			}
 			
 			else if (pairs.getKey().equalsIgnoreCase("processDescription")){
 				
-				System.out.println("GWIC HERE 2 " + pairs.getKey() + " " + pairs.getValue());
-
 				wpsProcessID  = (String) pairs.getValue();
 			}
 			
 			else{				
-				System.out.println("GWIC HERE 3 " + pairs.getKey() + " " + pairs.getValue());
 
 				variables.put(pairs.getKey(), pairs.getValue());
 				
@@ -55,15 +70,28 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 			
 		}
 		
+		/**
+		 * GenericWPSClient instantiates the WPS client
+		 * The results HashMap returns the WPS result(s) 
+		 * 
+		 */
 		
 		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, variables, null);
 		
 		HashMap<String, Object> results = wpsClient.getOutputs();
 		
+		/**
+		 * executes workItem and returns results HashMap
+		 * 
+		 * 
+		 */
+		
 		manager.completeWorkItem(workItem.getId(), results);
 	}
 	
-	
+	/** 
+	 * This needs to be implemented to handle a WorkItemHandler abort called from within the console
+	 */
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		// TODO Auto-generated method stub
 		

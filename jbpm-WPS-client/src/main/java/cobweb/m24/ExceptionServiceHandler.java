@@ -4,16 +4,22 @@ import java.util.Map;
 
 import org.drools.core.process.instance.WorkItem;
 
+/** 
+ * @author Sam Meek
+ * 
+ * Currently unimplemented class to handle exceptions from JBPM.
+ *  
+ * 
+ **/
+
 public class ExceptionServiceHandler {
 	public static String exceptionParameterName = "my.exception.parameter.name";
 
-    
+    /** Exception handler */
 
 	  public void handleException(WorkItem workItem) {
 
 	    System.out.println( "Handling exception caused by work item '" + workItem.getName() + "' (id: " + workItem.getId() + ")");
-
-	        
 
 	    Map<String, Object> params = workItem.getParameters();
 
@@ -23,16 +29,12 @@ public class ExceptionServiceHandler {
 
 	  }
 
-	    
-
 	  public String throwException(String message) {
 
 	      throw new RuntimeException("Service failed with input: " + message );
 
 	  }
-
-	    
-
+	  
 	  public static void setExceptionParameterName(String exceptionParam) { 
 
 	      exceptionParameterName = exceptionParam;

@@ -29,6 +29,14 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
 
 public class GenericWPSClient {
+	/**
+	 * @author Sam Meek
+	 * This is the main class that executes the WPS and handles the result returned as a HashMap
+	 * It is currently written to deal with vector data and does not output raster data, the raster data inputs
+	 * are passed as a link and parsed server side.
+	 * 
+	 * It also only uses JSON (application/json) but could be changed quite easily to implement the default.
+	 */
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -49,33 +57,25 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
 	
 	System.out.println("WPS URL " + wpsURL);
 	System.out.println("WPS Process ID " + wpsProcessID);
+	/**
+	 * this is a hard coded path for the Linux installation and should be passed as a variable
+	 */
 	WPSConfig.getInstance("/usr/local/apache-tomcat-7.0.55/webapps/wps/config/wps_config_geotools.xml");
-	
-	
-	
-	
+
         try {
                 ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
                                 wpsURL, wpsProcessID);
-               // System.out.println(describeProcessDocument);
         } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
         }
         try {
                 CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL);
                 ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
                                 wpsURL, wpsProcessID);
-     
-           
                 
                 outputs = executeProcess(wpsURL, wpsProcessID,
                         describeProcessDocument, wpsInputs);
-             
-              
-               
-                
-                
+  
         } catch (WPSClientException e) {
                 e.printStackTrace();
         } catch (IOException e) {
@@ -85,6 +85,13 @@ public GenericWPSClient(String wpsURL, String wpsProcessID, HashMap<String,Objec
         }
 }
 
+/**
+ * 
+ * @param url - WPS url
+ * @return capabilities - the capabilities document of the WPS 
+ * @throws WPSClientException - a 52 North class to handle WPS exceptions
+ */
+
 public CapabilitiesDocument requestGetCapabilities(String url)
                 throws WPSClientException {
 
@@ -92,19 +99,24 @@ public CapabilitiesDocument requestGetCapabilities(String url)
        
         wpsClient.connect(url);
         
-
         CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
         
-        //System.out.println(capabilities.toString());
-
         ProcessBriefType[] processList = capabilities.getCapabilities()
                         .getProcessOfferings().getProcessArray();
 
         for (ProcessBriefType process : processList) {
-              //  System.out.println(process.getIdentifier().getStringValue());
+        	
         }
         return capabilities;
 }
+
+/**
+ * 
+ * @param url - WPS url
+ * @param processID - process description
+ * @return outputs - hashmap of the results (usually a FeatureCollection
+ * @throws IOException - this needs replacing
+ */
 
 public ProcessDescriptionType requestDescribeProcess(String url,
                 String processID) throws IOException {
@@ -127,6 +139,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 ProcessDescriptionType processDescription,
                 
                 HashMap<String, Object> inputs)  {
+	
 	org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(
                         processDescription);
 
@@ -136,23 +149,16 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                         .getInputArray()) {
                 String inputName = input.getIdentifier().getStringValue();
                 Object inputValue = inputs.get(inputName);
-               
-      
-              
-      
+   
                 if (input.getLiteralData() != null) {
                         if (inputValue instanceof String) {
                                 executeBuilder.addLiteralData(inputName,
                                                 (String) inputValue);
                         }
                 } else if (input.getComplexData() != null) {
-                	System.out.println("Generic WPS Client HERE 3 " + inputName + " " + inputValue + " " + inputValue.getClass());
-                	//System.out.println("Here 4 " + inputValue.toString());
-                        // Complexdata by value
+                
                         if (inputValue instanceof FeatureCollection || inputValue instanceof GTVectorDataBinding) {
-                        	System.out.println("instance of FeatureCollection || ObjectDataType " + inputName);
-                                //IData data = new GTVectorDataBinding(
-                                  //              (FeatureCollection) inputValue);
+                             
                                 IData data = (IData) inputValue;
                                 try {
 									executeBuilder
@@ -162,7 +168,6 @@ public HashMap<String, Object> executeProcess(String url, String processID,
 									                                null,
 									                                null, "application/json");
 								} catch (WPSClientException e) {
-									System.out.println("add complex data exception " + e);
 									e.printStackTrace();
 								}
                         }
@@ -192,7 +197,6 @@ public HashMap<String, Object> executeProcess(String url, String processID,
 						throw new IOException("Property not set, but mandatory: "
 						                + inputName);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
             }
@@ -209,46 +213,14 @@ public HashMap<String, Object> executeProcess(String url, String processID,
         	if (output.getComplexOutput() != null){
         		
         		executeBuilder.setSchemaForOutput("application/json", outputName);
-        		
-
-        	/**	String mimeType = output.getComplexOutput().getSupported().getFormatArray(1).getMimeType();
-        		executeBuilder.setMimeTypeForOutput(mimeType, outputName);
-     
-        		String schema = output.getComplexOutput().getSupported().getFormatArray(1).getSchema();
-        		if(schema!=null){
-        		
-                executeBuilder.setSchemaForOutput(
-                                schema,
-                               outputName)
-        		}
-                System.out.println("outputName " + outputName + " mimeType " + mimeType + " schema " + schema);
-        		
-        	}**/
-        	}
         	
-        
-     
+        	}
+
         	else if (output.getLiteralOutput() != null) {
-                  
-            
-            
+    
         	}
         }
        
-       
-      
-     /**   executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result");
-        executeBuilder.setSchemaForOutput(
-                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                        "result");
-        
-        executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result");
-        executeBuilder.setSchemaForOutput(
-                        "http://schemas.opengis.net/gml/3.1.0/base/feature.xsd",
-                        "qual_result");**/
-        
-        //executeBuilder.setMimeTypeForOutput("text/plain", "metadata"); 
-           
         ExecuteDocument execute = executeBuilder.getExecute();
         execute.getExecute().setService("WPS");
         WPSClientSession wpsClient = WPSClientSession.getInstance();
@@ -257,29 +229,23 @@ public HashMap<String, Object> executeProcess(String url, String processID,
 		try {
 			responseObject = wpsClient.execute(url, execute);
 		
+			//parse response document
        
         if (responseObject instanceof ExecuteResponseDocument) {
                 ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
                 ExecuteResponseAnalyser analyser = new ExecuteResponseAnalyser(
-                                execute, response, processDescription);
-                System.out.println("HERE 6");
-                
-               
-                
-                
-               
+                                execute, response, processDescription);                
+         
                 for (OutputDescriptionType output : processDescription.getProcessOutputs()
                         .getOutputArray()) {
                 	
                 	String outputName = output.getIdentifier().getStringValue();
                 try{
                 	Object outputValue = analyser.getComplexData(outputName, GTVectorDataBinding.class);
-                	System.out.println("HERE 7 " + outputName + " " + outputValue);
                 	FeatureCollection tempF = ((GTVectorDataBinding) outputValue).getPayload();
                 	
                 	
                 	if(outputValue != null && outputValue instanceof GTVectorDataBinding){
-                		System.out.println("HERE 8 output name " + outputName + " outputValue size " + tempF.size());
                 		result.put(outputName, outputValue);
                 		
                 	}
@@ -290,11 +256,7 @@ public HashMap<String, Object> executeProcess(String url, String processID,
                 		result.put(outputName, literalOutput);
                 	}
                 	
-                	
-                	
-                	
-                
-                }
+               }
                 
                 catch(NullPointerException e){
                 	System.out.println("Output " + outputName + " contains no results");
@@ -319,6 +281,15 @@ public HashMap<String, Object> getOutputs(){
 	return outputs;
 	
 }
+
+/**
+ * 
+ * @param xmlGenericData
+ * @return this needs to be implemented
+ * This method is partially implemented to deal with metadata documents for GeoNetwork
+ * however, this was somewhat abandoned when it was decided that metadata should be tightly coupled to
+ * the features.
+ */
 
 private File parseXMLFromWPS(GenericFileData xmlGenericData){
 	  

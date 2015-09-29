@@ -71,16 +71,18 @@ import java.net.CookieStore;
 /**
  * @author foerster
  * TODO: this does not handle referenced datasets
+ * update by Sam Meek: Bug fixes
  */
 
 public class ExecuteRequestBuilder {
 	ProcessDescriptionType processDesc;
 	ExecuteDocument execute;
 	String SUPPORTED_VERSION = "1.0.0";
-	
-	
 	private static Logger LOGGER = LoggerFactory.getLogger(ExecuteRequestBuilder.class);
 	
+	/**
+	 * @param processDesc Builds the execute request using the DescribeProcess call to the WPS
+	 */
 
 	public ExecuteRequestBuilder(ProcessDescriptionType processDesc) {
 		this.processDesc = processDesc;
@@ -90,11 +92,14 @@ public class ExecuteRequestBuilder {
 		ex.setVersion(SUPPORTED_VERSION);
 		ex.addNewIdentifier().setStringValue(processDesc.getIdentifier().getStringValue());
 		ex.addNewDataInputs();
-		
-				
-		
+
 	}
 	
+	/**
+	 * 
+	 * @param processDesc the processDescription
+	 * @param execute the execute document
+	 */
 	public ExecuteRequestBuilder(ProcessDescriptionType processDesc, ExecuteDocument execute) {
 		this.processDesc = processDesc;
 		this.execute = execute;
@@ -775,7 +780,6 @@ public class ExecuteRequestBuilder {
 			if(output.isSetUom()){
 				request = request + "@datatype="+output.getUom();
 			}
-			//concatenation for next output element
 			outputCounter = outputCounter +1;
 			if(outputCounter<outputs.length){
 				request = request + ";";
@@ -798,7 +802,7 @@ public class ExecuteRequestBuilder {
 	
 	/**
 	 * 
-	 * @param id
+	 * @param id the ProcessDescription
 	 * @return the specified parameterdescription. if not available it returns null.
 	 */
 	private InputDescriptionType getParameterDescription(String id) {

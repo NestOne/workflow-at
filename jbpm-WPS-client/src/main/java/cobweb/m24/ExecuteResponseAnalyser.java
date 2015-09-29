@@ -59,6 +59,8 @@ import org.slf4j.LoggerFactory;
  * 
  * returns the processOutputs according to the encoding of the process.
  * @author foerster
+ * @author update Sam Meek
+ * Bug fixes to the original 52 North implementation
  *
  */
 public class ExecuteResponseAnalyser {
