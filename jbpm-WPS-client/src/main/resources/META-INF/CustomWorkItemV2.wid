@@ -2,6 +2,106 @@ import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
+
+[
+[
+	"name" : "rRocRasterCutoff",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+		"trueSample" : new ObjectDataType(),
+		"falseSample" : new ObjectDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "rRocRasterCutoff",
+    "category" : "Raster Conflation",
+],
+[
+	"name" : "rTestReturnRaster",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputSurfaceModel" :  new StringDataType(),
+   	],
+     "icon" : "icons/world.png",
+    "displayName" : "rTestReturnRaster example",
+"category" : "Raster",
+],
+
+[
+	"name" : "rTestReturnInputSurfaceModel",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "rTestReturnInputSurfaceModel example",
+"category" : "Raster",
+],
+
+  [
+	"name" : "rEcho",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputVariable" :  new StringDataType(),
+   	],
+     "icon" : "icons/world.png",
+    "displayName" : "r Echo example",
+"category" : "Raster",
+],
+  [
+	"name" : "SimpleBuffer",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"width" :  new StringDataType(),
+   	],
+     "icon" : "icons/world.png",
+    "displayName" : "Simple Buffer",
+"category" : "Raster",
+],
+  [
+	"name" : "rTestReturnGeometry",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"attributename" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "R test returning geometry",
+"category" : "Raster",
+],
+  [
+	"name" : "rTestReturnGeometryPoints",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"attributename" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "R test returning Points",
+"category" : "Raster",
+],
+
+
 [
 	[
 	"name" : "Pillar 4 - Point In Polygon",

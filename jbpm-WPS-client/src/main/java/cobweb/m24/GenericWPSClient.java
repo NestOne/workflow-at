@@ -79,8 +79,8 @@ public class GenericWPSClient {
 		try {
 			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(
 					wpsURL, wpsProcessID);
-			System.out.println("trying to get describeProcessDocument");
-			System.out.println(describeProcessDocument);
+			System.out.println("trying to get describeProcessDocument...");
+			//System.out.println(describeProcessDocument);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
