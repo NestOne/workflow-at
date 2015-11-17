@@ -27,7 +27,7 @@
       <bpmn2:dataInputAssociation id="DataInputAssociation_1">
         <bpmn2:targetRef>Task_3_inputObservationsInput</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_13">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">https://dyfi.cobwebproject.eu/geoserver/public/wfs?service=wfs&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=cobweb:sid-eb491205-c3e4-4553-ab20-fa08b484070c&amp;outputFormat=application/json&amp;srsName=EPSG:4236</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SampleData&amp;maxFeatures=50&amp;outputFormat=application/json&amp;srsName=EPSG:4236</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_25">Task_3_inputObservationsInput</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -47,7 +47,7 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="Task_3-EndEvent_1" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_3"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_process">
