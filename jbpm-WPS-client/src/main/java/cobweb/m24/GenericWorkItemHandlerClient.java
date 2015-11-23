@@ -28,6 +28,9 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
+		
+		System.out.println("GenericWorkItemHandler: executing work item");
+		
 		Map<String, Object> inputs = new HashMap<String, Object>();
 		
 		inputs = workItem.getParameters();
@@ -49,7 +52,7 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 			 * 
 			 */
 			
-			System.out.println(pairs.getKey() + " " + pairs.getValue());
+			System.out.println("GenericWorkItemHandler: Hashamap key-vals: " + pairs.getKey() + " " + pairs.getValue());
 			if (pairs.getKey().equalsIgnoreCase("wpsURL")){	
 				
 				wpsURL = (String) pairs.getValue();
@@ -94,6 +97,6 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	 */
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Abort work item.");
 	}
 }

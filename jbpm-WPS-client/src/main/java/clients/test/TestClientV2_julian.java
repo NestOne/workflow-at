@@ -101,10 +101,8 @@ public class TestClientV2_julian {
                         InputStream image = null;
                         try{
                         
-                        	image = new BufferedInputStream(new FileInputStream(file));
-                        	
-                        	//image = new FileInputStream(file);
-                        
+                        	image = new BufferedInputStream(new FileInputStream(file));                        	
+                        	//image = new FileInputStream(file);                      
                        
                         }
                         catch (Exception e){
@@ -189,7 +187,7 @@ public class TestClientV2_julian {
                     	  BufferedImage bi = ImageIO.read(fd.getBaseFile(true));
                     	  
                     	  
-                    	  File newfile = new File ("/Users/lgzsam/Downloads/test.jpg");
+                    	  File newfile = new File ("C:\\oxflood.jpg");
                     	  
                     	  ImageIO.write(bi, ".jpeg", newfile);
                     	  
@@ -333,7 +331,7 @@ public class TestClientV2_julian {
                                                     inputName,
                                                     inputData,
                                                     null,
-                                                    "base64", "image/jpeg");
+                                                    null, "image/jpeg");
                                 }
                                 
                                

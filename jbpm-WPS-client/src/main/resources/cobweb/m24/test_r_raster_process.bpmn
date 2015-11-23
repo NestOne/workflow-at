@@ -18,7 +18,7 @@
       <bpmn2:ioSpecification id="_InputOutputSpecification_5">
         <bpmn2:dataInput id="_DataInput_13" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
         <bpmn2:dataInput id="_DataInput_14" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_15" name="inputRasterModel"/>
+        <bpmn2:dataInput id="_DataInput_15" itemSubjectRef="ItemDefinition_4" name="inputRasterModel"/>
         <bpmn2:dataOutput id="_DataOutput_5" itemSubjectRef="ItemDefinition_4" name="outputRasterModel"/>
         <bpmn2:inputSet id="_InputSet_8"/>
         <bpmn2:inputSet id="_InputSet_9" name="New Input Set">
@@ -48,7 +48,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_15">
         <bpmn2:targetRef>_DataInput_15</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_21">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_57">http://geoprocessing.nottingham.ac.uk/wps/testData/W_pprb8_4326_15m.tif</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_57">http://geoprocessing.nottingham.ac.uk:80/wps/RetrieveResultServlet?id=d48734a4-67cb-457a-adbf-87c15a527ebcoutputRasterModel.c6a65f60-ac64-4f6f-9b4d-2ad9e2587362</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_55">_DataInput_15</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>

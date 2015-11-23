@@ -40,12 +40,31 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"inputRasterModel" :  new StringDataType(),
    	],
    	"results" : [
-   	"outputRasterModel" : new ObjectDataType(),
+   	"outputRasterModel" : new StringDataType(),
 	],
      "icon" : "icons/world.png",
     "displayName" : "rTestReturnInputSurfaceModel example",
 "category" : "Raster",
 ],
+	[
+	"name" : "Store results in WFS-T",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),	
+		
+	],
+		"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Store results in Geoserver"
+
+	],
+	
 
   [
 	"name" : "rEcho",
@@ -79,7 +98,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"attributename" :  new StringDataType(),
    	],
    	"results" : [
-   	"out" : new ObjectDataType(),
+   	"out" : new StringDataType(),
 	],
      "icon" : "icons/world.png",
     "displayName" : "R test returning geometry",
@@ -94,7 +113,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"attributename" :  new StringDataType(),
    	],
    	"results" : [
-   	"out" : new ObjectDataType(),
+   	"out" : new StringDataType(),
 	],
      "icon" : "icons/world.png",
     "displayName" : "R test returning Points",
@@ -157,24 +176,10 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      "icon" : "icons/world.png",
     "displayName" : "Point in Buffer"
 ],
-	[
-	"name" : "Store results in WFS-T",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputObservations" : new ObjectDataType(),	
-		
-	],
-		"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),
-   	
-   	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Store results in Geoserver"
+	
+	
 
-	],
+	
 	[
 	"name" : "ConflationGeometryDistance",
     	"parameters" : [
