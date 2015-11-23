@@ -14,13 +14,10 @@ import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
 public class RGeometryProcessTest {
 	/**
-	 * @author Sam Meek
+	 * @author Julian Rosser
 	 * @param args
 	 * 
-	 *            This is a test class for the Eclipse plugin. Workflow
-	 *            processes can be setup programmatically and run outside of the
-	 *            console and run here. To use this class, make sure JBPM
-	 *            workflow plugins are installed using the Ant script.
+	 *            Main class harness for testing R vector process passing
 	 */
 
 	public static void main(String args[]) {

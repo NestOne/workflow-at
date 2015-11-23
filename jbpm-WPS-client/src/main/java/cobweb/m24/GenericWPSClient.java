@@ -46,13 +46,13 @@ import org.n52.wps.io.data.binding.literal.*;
 import org.n52.wps.io.data.binding.complex.PlainStringBinding;
 public class GenericWPSClient {
 	/**
-	 * @author Sam Meek This is the main class that executes the WPS and handles
-	 *         the result returned as a HashMap It is currently written to deal
-	 *         with vector data and does not output raster data, the raster data
-	 *         inputs are passed as a link and parsed server side.
-	 * 
-	 *         It also only uses JSON (application/json) but could be changed
+	 * @author Sam Meek, Julian Rosser. This is the main class that executes the WPS and handles
+	 *         the result returned as a HashMap. It is currently written to deal
+	 *         with vector data. Raster data inputs are passed as a link and parsed server side.
+	 * 		   Raster data outputs can be passed as links e.g. using executeBuilder.setAsReference(true).	  		   
+	 *         Vector processing hardcoded to JSON (application/json) but could be changed
 	 *         quite easily to implement the default.
+	 *         Rough support for WPS4R R scripts where process id is like org.n52.wps.server.r.
 	 */
 
 	String wpsURL;
@@ -87,14 +87,6 @@ public class GenericWPSClient {
 		// tempDir = "/tmp/tomcat7-tomcat7-tmp/"; // linux
 		tempDir = "C:\\tmp\\"; // windows
 
-		//Dunno what the point of this try-catch is
-		try {
-			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(wpsURL, wpsProcessID);			
-			//System.out.println(describeProcessDocument);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		try {
 			CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL); //Doesn't appear to be used
 			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(wpsURL, wpsProcessID);
@@ -121,16 +113,12 @@ public class GenericWPSClient {
 
 	public CapabilitiesDocument requestGetCapabilities(String url) throws WPSClientException {
 		System.out.println("Requesting get capabilities document...");
-
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
-
 		wpsClient.connect(url);
-
 		CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
-
 		ProcessBriefType[] processList = capabilities.getCapabilities()
 				.getProcessOfferings().getProcessArray();
-
+		//For debugging...
 		for (ProcessBriefType process : processList) {
 			// System.out.println(process.getIdentifier().getStringValue());
 		}
@@ -147,7 +135,6 @@ public class GenericWPSClient {
 	 * @throws IOException
 	 *             - this needs replacing
 	 */
-
 	public ProcessDescriptionType requestDescribeProcess(String url,String processID) throws IOException {
 		System.out.println("Requesting describe process document...");		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
@@ -159,8 +146,6 @@ public class GenericWPSClient {
 		return processDescription;
 	}
 
-
-
 	public HashMap<String, Object> executeProcess(String url, String processID,	ProcessDescriptionType processDescription,	HashMap<String, Object> inputs) {
 		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(processDescription);
 
@@ -170,14 +155,12 @@ public class GenericWPSClient {
 		for (InputDescriptionType input : processDescription.getDataInputs().getInputArray()) {
 			String inputName = input.getIdentifier().getStringValue();
 			Object inputValue = inputs.get(inputName);
-
 			if (input.getLiteralData() != null) {
 				System.out.println("WPS URL " + wpsURL);
 				if (inputValue instanceof String) {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
 				}
 			} else if (input.getComplexData() != null) {		
-
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");
 				// System.out.println("Here 4 " + inputValue.toString());
 				// Complexdata by value
@@ -194,39 +177,31 @@ public class GenericWPSClient {
 					}
 				}
 				if (inputName.equals("inputSurfaceModel")) {
+					//Hard-coded handling for .asc type inputs
 					System.out.println("got an inputSurfaceModel");					
 					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "text/plain");
 				} 
 				if (inputName.equals("inputRasterModel")) {
-					System.out.println("got an inputRasterModel");					
-					/*
-					Object tempInputValue = ((GenericFileDataBinding) inputValue);				
-					executeBuilder.addComplexDataReference(inputName, (String) tempInputValue, null, null, "image/tiff");	
-					 */
+					//Hard-coded handling of raster data inputs e.g. GeoTiff
+					System.out.println("got an inputRasterModel");									
 					//IData tempGenericData = (IData) inputValue;
 					//Object tempInputValue = ((GenericFileDataBinding) inputValue);
 					if (inputValue instanceof String) {
-						System.out.println("Handling inputRasterModel as a string (i.e. URL)");	
+						System.out.println("Handling inputRasterModel as a string (i.e. URL of a raster)");	
 						System.out.println("inputValue: " + inputValue);	
 						executeBuilder.addComplexDataReference(inputName, (String) inputValue, null, null, "image/tiff");
-
-
-					} else if (inputValue instanceof GTRasterDataBinding) { 
-						System.out.println("Should handle as raster binding");						
-						//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "image/tiff"); //Won't work cos of the string cast
-
-						
-         
-                        
+					
+					} else if (inputValue instanceof GTRasterDataBinding) {
+						//Currently doesn't correctly create a tif that can be read on server side by WPS4R  
+						System.out.println("Handle as raster binding");						
+						//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "image/tiff"); //Won't work cos of the string cast					
+                                 
 						//IData tempIData = (GTRasterDataBinding) inputValue;
 						GTRasterDataBinding tempF =  ((GTRasterDataBinding) inputValue);
 
 						System.out.println("going to get raster as payload");
 						//GridCoverage2D dataPayload = tempF.getPayload(); 
-
-			            //IData data = new GTRasterDataBinding((GridCoverage2D) inputValue); // Hangs on this			             
-						//System.out.println("Gridcoverage input " + tempF.getDimension());	
-						
+			            //IData data = new GTRasterDataBinding((GridCoverage2D) inputValue); // Hangs on this, not sure this creates a valid object	             						
 						try {
 							System.out.println("adding data into execute request");	
 							executeBuilder.addComplexData(inputName,tempF, null, null, "image/tiff");
@@ -236,9 +211,8 @@ public class GenericWPSClient {
 						} 
 
 					} else if (inputValue instanceof  GenericFileDataWithGTBinding)  { 
-						System.out.println("Should handle as GenericFile");						
-
-
+						System.out.println("Handle as a GenericFileDataWithGTBinding");
+						//Currently doesn't correctly create a tif that can be read on server side by WPS4R  
 						System.out.println(inputValue.toString());
 						System.out.println(inputValue.getClass());
 						IData tempIData = (IData) inputValue;
@@ -273,7 +247,6 @@ public class GenericWPSClient {
 						catch (Exception e){
 							System.out.println("File read in exception " + e);
 						}	                        
-
 				
 						//IData tempIDataPayload = (IData) tempIData.getPayload();
 						try {
@@ -284,12 +257,7 @@ public class GenericWPSClient {
 							e.printStackTrace();
 						} 
 
-
-
-
 					} else {											
-
-
 						System.out.println("Should handle as raster Generic GT binding");						
 						//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "image/tiff"); //Won't work cos of the string cast						
 						IData tempIData = (IData) inputValue;
@@ -301,19 +269,7 @@ public class GenericWPSClient {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} 
-
-						/*
-						try {
-							executeBuilder.addComplexData((String) inputName, tempGenericData,	null, null, "image/tiff");
-						} catch (WPSClientException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						 */
-
 					}
-
-
 				}
 				else if (inputValue instanceof String) {
 					System.out.println("instance of string " + inputName);	
@@ -424,18 +380,29 @@ public class GenericWPSClient {
 						//Check if output raster or vector data
 						if (outputName.equals("outputRasterModel")) {
 							System.out.println("Handling output as raster");
-
-							dumpTextToFile(responseObject.toString(), processID + " outputRasterModel response");
-
 							//handling raster outputs
-
-							//Object outputValue = analyser.getComplexData(outputName, GenericFileDataBinding.class); //Does find a parser
-							//Object outputValue = analyser.getComplexData(outputName, GenericFileDataWithGTBinding.class); //Does find a parser
-							//Object outputValue = analyser.getComplexData(outputName,GeotiffBinding.class); //Doesn't work, no suitable parser
-
-
 							
-							//Handle raster output							
+							dumpTextToFile(responseObject.toString(), processID + " outputRasterModel response");							
+							//Object outputValue = analyser.getComplexData(outputName,GeotiffBinding.class); //Doesn't work, no suitable parser
+														
+							//Handling raster as a string link, as might be returned by WPS execute request return by reference 
+							//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
+							//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
+							Object outputValue2 = analyser.getComplexReferenceByIndex(0); 
+							String outputValue =(String) outputValue2;								
+							System.out.println("Raster Output, outputValue2: " + outputValue.toString());							
+							if (outputValue != null && outputValue instanceof String) {
+								System.out.println("Raster Output, string location resolved");
+								System.out.println("Raster Output, reference: " + analyser.getComplexReferenceByIndex(0));
+								result.put(outputName, outputValue);								
+							} else{
+								System.out.println("Getting raster file reference not successful");
+							}
+							
+																					
+							//Handle raster outputs as raw data. Currently raster data can't be 
+							//correctly formed into a geotiff by the WPS client.
+							//This may be a bug in 52N. 
 							/*
 							Object outputValue = analyser.get.getComplexData(outputName,GTRasterDataBinding.class); //Does parse with Tiffparser when returning reference
 							System.out.println("Raster Output, outputName: " + outputName);
@@ -448,41 +415,9 @@ public class GenericWPSClient {
 							} else{
 								System.out.println("GridCoverage creation not successful");
 							}
-
-							*/
-							
-							
-							//Handle geotiff seems to be a proble with 52north 		
-					/*
-							GTRasterDataBinding outputValue = (GTRasterDataBinding) analyser.getComplexData(outputName,GTRasterDataBinding.class);  //this will be a string 
-
-							System.out.println("Raster Output, outputName: " + outputName);
-							//GridCoverage2D tempF =  ((GTRasterDataBinding) outputValue).getPayload();
-							if (outputValue != null) {
-								System.out.println("Raster Output, parsed resolved");
-								System.out.println("Raster Output, value: " + outputValue.toString());
-								result.put(outputName, outputValue);			
-							} else{
-								System.out.println("GridCoverage creation not successful");
-							}
-*/
-							
-							
-							
-							
-							
-							
-							/*
-							//Handle raster like a literal  - " only whitespace content allowed" error
-								
-							System.out.println("Assumming raster output like literalOutput");
-							Object outputValue2 = analyser.getComplexReferenceByIndex(0);
-							System.out.println(outputValue2.toString());
-							String escapedOutput = StringEscapeUtils.escapeJava((String) outputValue2);
-							 */
-
-
-							//Handle raster as generic with GT output		
+							*/								
+							//Handle raster as generic file with GT. Same client issue
+							//as above - can't reconstruct the raw file data into a tiff that is recognised when passed back to server 		
 							/*
 							Object outputValue = analyser.getComplexData(outputName,GenericFileDataWithGTBinding.class); //Does parse with Tiffparser							
 							System.out.println("Raster Generic Output, outputName: " + outputName);
@@ -493,50 +428,8 @@ public class GenericWPSClient {
 							} else{
 								System.out.println("Generic creation not successful");
 							}
-							 */					
-
-
-							/*
-							Object outputValue = analyser.getComplexData(outputName,GenericFileDataWithGTBinding.class); //Does eventually parse with Tiffparser							
-							System.out.println("Raster Generic Output, outputName: " + outputName);
-							if (outputValue != null) {
-								System.out.println("Raster Generic Output, parsed resolved");
-								System.out.println("Raster Generic  Output, value: " + outputValue.toString());
-								result.put(outputName, outputValue);								
-							} else{
-								System.out.println("Generic creation not successful");
-							}
-							*/
-
-
-
-							// handling string like output - " only whitespace content allowed" error 							
-							Object outputValue2 = analyser.getComplexReferenceByIndex(0);
-							String outputValue =(String) outputValue2;								
-							System.out.println("Raster Output, outputValue2: " + outputValue.toString());							
-							//Object outputValue = analyser.getComplexData(outputName, PlainStringBinding.class); //Doesn't work
-							if (outputValue != null && outputValue instanceof String) {
-								System.out.println("Raster Output, string location resolved");
-								//System.out.println("Raster Output, reference: " + analyser.getComplexReferenceByIndex(0));
-								result.put(outputName, outputValue);								
-							} else{
-								System.out.println("GridCoverage creation not successful");
-							}
+							 */													
 							 
-
-
-
-
-							/* trying to handle as actual raster*/
-							/*
-							if (outputValue != null && outputValue instanceof GenericFileDataBinding) {
-								System.out.println("Raster Output, class resolved");
-								//System.out.println("Raster Output, reference: " + analyser.getComplexReferenceByIndex(0));
-								result.put(outputName, outputValue);								
-							} else{
-								System.out.println("GridCoverage creation not successful");
-							}
-							 */
 						} else {			
 							System.out.println("Handling output as vector or literal");
 							//Handling vector output							
@@ -594,6 +487,7 @@ public class GenericWPSClient {
 	}
 
 
+	//Write data to a file for debugging of requests and responses
 	private void dumpTextToFile(String textToDump, String outputName) {
 		try {	        
 			Date date = new Date() ;
@@ -613,9 +507,7 @@ public class GenericWPSClient {
 
 
 	public HashMap<String, Object> getOutputs() {
-
 		return outputs;
-
 	}
 
 	/**
@@ -628,9 +520,7 @@ public class GenericWPSClient {
 	 */
 
 	private File parseXMLFromWPS(GenericFileData xmlGenericData) {
-
 		File file = xmlGenericData.getBaseFile(true);
-
 		InputStream fis;
 		try {
 			fis = new FileInputStream(file);
@@ -658,9 +548,7 @@ public class GenericWPSClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
 
 }
