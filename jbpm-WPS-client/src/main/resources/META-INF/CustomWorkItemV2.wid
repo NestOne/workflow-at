@@ -2,7 +2,6 @@ import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
-
 [
 [
 	"name" : "rRocRasterCutoff",
@@ -20,6 +19,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "rRocRasterCutoff",
     "category" : "Raster Conflation",
 ],
+
 [
 	"name" : "rTestReturnRaster",
     	"parameters" : [
@@ -46,7 +46,8 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "rTestReturnInputSurfaceModel example",
 "category" : "Raster",
 ],
-	[
+
+[
 	"name" : "Store results in WFS-T",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
@@ -62,34 +63,12 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      
      "icon" : "icons/world.png",
     "displayName" : "Store results in Geoserver"
-
-	],
+],
 	
 
-  [
-	"name" : "rEcho",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputVariable" :  new StringDataType(),
-   	],
-     "icon" : "icons/world.png",
-    "displayName" : "r Echo example",
-"category" : "Raster",
-],
-  [
-	"name" : "SimpleBuffer",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"data" : new ObjectDataType(),
-		"width" :  new StringDataType(),
-   	],
-     "icon" : "icons/world.png",
-    "displayName" : "Simple Buffer",
-"category" : "Raster",
-],
-  [
+
+
+[
 	"name" : "rTestReturnGeometry",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
@@ -104,6 +83,43 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "R test returning geometry",
 "category" : "Raster",
 ],
+
+
+[
+	"name" : "CalculateWoEWeights",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "Calculate WoE Weights",
+"category" : "Raster",
+],
+
+
+[
+	"name" : "reclass-quantile",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"nClassBreaks" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "Reclassify by quantile",
+	"category" : "Raster",
+],
+
+
+
   [
 	"name" : "rTestReturnGeometryPoints",
     	"parameters" : [
@@ -119,6 +135,10 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "R test returning Points",
 "category" : "Raster",
 ],
+
+
+
+
 
 
 [

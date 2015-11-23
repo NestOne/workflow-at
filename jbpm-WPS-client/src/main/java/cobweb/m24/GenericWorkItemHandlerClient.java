@@ -26,11 +26,8 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	 * 
 	 */
 	
-	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		
-		
-		System.out.println("GenericWorkItemHandler: executing work item");
-		
+	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {				
+		System.out.println("GenericWorkItemHandler: executing work item");		
 		Map<String, Object> inputs = new HashMap<String, Object>();
 		
 		inputs = workItem.getParameters();
