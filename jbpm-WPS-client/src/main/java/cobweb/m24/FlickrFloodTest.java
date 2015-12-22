@@ -66,7 +66,7 @@ public class FlickrFloodTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.flickr_flood");
+		ksession.startProcess("cobweb.m24.flickr_flood_detailed");
 		
 	}
 

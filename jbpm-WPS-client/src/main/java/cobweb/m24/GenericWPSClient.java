@@ -291,10 +291,13 @@ public class GenericWPSClient {
 		System.out.println("Finished constructing execute request inputs");		
 
 		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
-			System.out.println("Looping over output types to hardcode schema");			
+			System.out.println("Looping over output types to hardcode schema");	
 			String outputName = output.getIdentifier().getStringValue();						
 			if (output.getComplexOutput() != null) {				
-				System.out.println("Setting schema for output: " + outputName);				
+				System.out.println("Setting schema for output: " + outputName);	
+				
+				
+				//Why not check output data type?
 				if (outputName.equals("outputRasterModel")) {		
 					System.out.println("Setting schema for an outputRasterModel: " + outputName);
 					executeBuilder.setSchemaForOutput("image/tiff",	outputName);
@@ -437,7 +440,9 @@ public class GenericWPSClient {
 								System.out.println("skipping R outputs");
 							} else {
 								System.out.println("Assumming GTVectorDataBinding");
-								Object outputValue = analyser.getComplexData(outputName, GTVectorDataBinding.class);							
+								Object outputValue = analyser.getComplexData(outputName, GTVectorDataBinding.class);
+								
+								
 								System.out.println("HERE 7 " + outputName + " "	+ outputValue);
 								FeatureCollection tempF = ((GTVectorDataBinding) outputValue).getPayload();
 

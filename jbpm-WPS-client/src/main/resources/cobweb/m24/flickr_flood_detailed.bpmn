@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
+  <bpmn2:itemDefinition id="_String" structureRef="String"/>
+  <bpmn2:itemDefinition id="_Integer" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_Float" structureRef="Float"/>
+  <bpmn2:process id="cobweb.m24.flickr_flood_detailed" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="flickr_flood_detailed" isExecutable="true" processType="Private">
+    <bpmn2:property id="outputRasterUrl" itemSubjectRef="_String"/>
+    <bpmn2:property id="outputRasterUrl2" itemSubjectRef="_String"/>
+    <bpmn2:property id="outputPolygon" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:property id="quantiledElevationUrl" itemSubjectRef="_String"/>
+    <bpmn2:property id="quantiledSlopeUrl" itemSubjectRef="_String"/>
+    <bpmn2:property id="quantiledElevationWeightedUrl" itemSubjectRef="_String"/>
+    <bpmn2:property id="quantiledSlopeWeightedUrl" itemSubjectRef="_String"/>
+    <bpmn2:startEvent id="_1" name="">
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:task id="Task_5" tns:taskName="CalculateWoEWeights" tns:displayName="Calculate WoE Weights" tns:icon="icons/world.png" name="CalculateWoEWeights">
+      <bpmn2:incoming>SequenceFlow_19</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_8">
+        <bpmn2:dataInput id="_DataInput_23" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_24" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_25" itemSubjectRef="ItemDefinition_2" name="data"/>
+        <bpmn2:dataInput id="_DataInput_26" itemSubjectRef="_String" name="inputRasterModel"/>
+        <bpmn2:dataOutput id="_DataOutput_9" itemSubjectRef="_String" name="outputRasterModel"/>
+        <bpmn2:inputSet id="_InputSet_14"/>
+        <bpmn2:inputSet id="_InputSet_15" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_23</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_24</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_25</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_26</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_14"/>
+        <bpmn2:outputSet id="_OutputSet_15" name="New Output Set">
+          <bpmn2:dataOutputRefs>_DataOutput_9</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_23">
+        <bpmn2:targetRef>_DataInput_23</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_4">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_8">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_2">_DataInput_23</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_24">
+        <bpmn2:targetRef>_DataInput_24</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_13">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_17">org.n52.wps.server.r.geo.calculate-weights</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_11">_DataInput_24</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_25">
+        <bpmn2:targetRef>_DataInput_25</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_14">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_26">http://grasp.nottingham.ac.uk:8010/geoserver/OxFlood/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=OxFlood:true_sample_100_pts_MIN_30m_from_1mCIRAerial_11thJan_bbox&amp;SRSNAME=EPSG:27700&amp;outputFormat=application/json </bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_20">_DataInput_25</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_26">
+        <bpmn2:targetRef>_DataInput_26</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_30">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_67">http://geoprocessing.nottingham.ac.uk/wps/testData/Cum6QFlic500.tif</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_65">_DataInput_26</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_5">
+        <bpmn2:sourceRef>_DataOutput_9</bpmn2:sourceRef>
+        <bpmn2:targetRef>outputRasterUrl2</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" name="" sourceRef="Task_5" targetRef="Task_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="ParallelGateway_1"/>
+    <bpmn2:parallelGateway id="ParallelGateway_1" name="" gatewayDirection="Diverging">
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_19</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+    </bpmn2:parallelGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" name="" sourceRef="ParallelGateway_1" targetRef="Task_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_11" tns:priority="1" name="" sourceRef="ParallelGateway_1" targetRef="Task_6"/>
+    <bpmn2:task id="Task_2" tns:taskName="Store results in WFS-T" tns:displayName="Store results in Geoserver" tns:icon="icons/world.png" name="Store results in WFS-T">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_7">
+        <bpmn2:dataInput id="_DataInput_20" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_21" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_22" itemSubjectRef="ItemDefinition_2" name="inputObservations"/>
+        <bpmn2:dataOutput id="_DataOutput_7" itemSubjectRef="ItemDefinition_2" name="result"/>
+        <bpmn2:dataOutput id="_DataOutput_8" itemSubjectRef="ItemDefinition_2" name="qual_result"/>
+        <bpmn2:inputSet id="_InputSet_12"/>
+        <bpmn2:inputSet id="_InputSet_13" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_20</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_21</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_22</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_12"/>
+        <bpmn2:outputSet id="_OutputSet_13" name="New Output Set">
+          <bpmn2:dataOutputRefs>_DataOutput_7</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_DataOutput_8</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_20">
+        <bpmn2:targetRef>_DataInput_20</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_5">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">_DataInput_20</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_21">
+        <bpmn2:targetRef>_DataInput_21</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_10">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">storage.geoserver.StoreWFSOutput</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_13">_DataInput_21</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_22">
+        <bpmn2:sourceRef>outputPolygon</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_22</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_2" targetRef="EndEvent_1"/>
+    <bpmn2:task id="Task_4" tns:taskName="rRocRasterCutoff" tns:displayName="rRocRasterCutoff" tns:icon="icons/world.png" name="rRocRasterCutoff">
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_6">
+        <bpmn2:dataInput id="_DataInput_15" itemSubjectRef="ItemDefinition_2" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_16" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_17" itemSubjectRef="_String" name="inputRasterModel"/>
+        <bpmn2:dataInput id="_DataInput_18" itemSubjectRef="ItemDefinition_2" name="trueSample"/>
+        <bpmn2:dataInput id="_DataInput_19" itemSubjectRef="ItemDefinition_2" name="falseSample"/>
+        <bpmn2:dataOutput id="_DataOutput_6" itemSubjectRef="ItemDefinition_2" name="out"/>
+        <bpmn2:inputSet id="_InputSet_10"/>
+        <bpmn2:inputSet id="_InputSet_11" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_15</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_16</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_17</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_18</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_19</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_10"/>
+        <bpmn2:outputSet id="_OutputSet_11" name="New Output Set">
+          <bpmn2:dataOutputRefs>_DataOutput_6</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_15">
+        <bpmn2:targetRef>_DataInput_15</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_12">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_36">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_34">_DataInput_15</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_16">
+        <bpmn2:targetRef>_DataInput_16</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_11">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_33">org.n52.wps.server.r.geo.roc-raster-cutoff</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_31">_DataInput_16</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_17">
+        <bpmn2:sourceRef>outputRasterUrl2</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_17</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_18">
+        <bpmn2:targetRef>_DataInput_18</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_8">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_24">http://grasp.nottingham.ac.uk:8010/geoserver/OxFlood/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=OxFlood:true_sample_100_pts_MIN_30m_from_1mCIRAerial_11thJan_bbox&amp;SRSNAME=EPSG:27700&amp;outputFormat=application/json</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_22">_DataInput_18</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_19">
+        <bpmn2:targetRef>_DataInput_19</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_9">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">http://grasp.nottingham.ac.uk:8010/geoserver/OxFlood/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=OxFlood:false_sample_100_pts_MIN_30m_from_1mCIRAerial_11thJan_bbox&amp;SRSNAME=EPSG:27700&amp;outputFormat=application/json</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_25">_DataInput_19</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
+        <bpmn2:sourceRef>_DataOutput_6</bpmn2:sourceRef>
+        <bpmn2:targetRef>outputPolygon</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_4" targetRef="Task_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_19" tns:priority="1" name="" sourceRef="ParallelGateway_1" targetRef="Task_5"/>
+    <bpmn2:task id="Task_1" tns:taskName="reclass-quantile" tns:displayName="Reclassify by quantile" tns:icon="icons/world.png" name="reclass-quantile">
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_11">
+        <bpmn2:dataInput id="_DataInput_35" name="wpsURL"/>
+        <bpmn2:dataInput id="_DataInput_36" name="processDescription"/>
+        <bpmn2:dataInput id="_DataInput_37" name="nClassBreaks"/>
+        <bpmn2:dataInput id="_DataInput_38" name="inputRasterModel"/>
+        <bpmn2:dataOutput id="_DataOutput_12" itemSubjectRef="_String" name="outputRasterModel"/>
+        <bpmn2:inputSet id="_InputSet_20"/>
+        <bpmn2:inputSet id="_InputSet_21" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_35</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_36</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_37</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_38</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_20"/>
+        <bpmn2:outputSet id="_OutputSet_21" name="New Output Set">
+          <bpmn2:dataOutputRefs>_DataOutput_12</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_35">
+        <bpmn2:targetRef>_DataInput_35</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_1">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_35</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_36">
+        <bpmn2:targetRef>_DataInput_36</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_3">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_16">org.n52.wps.server.r.geo.reclass-quantile</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">_DataInput_36</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_37">
+        <bpmn2:targetRef>_DataInput_37</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_2">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">6</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_5">_DataInput_37</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_38">
+        <bpmn2:targetRef>_DataInput_38</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_6">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_21">http://geoprocessing.nottingham.ac.uk/wps/testData/ox_Lidar_AND_osDTM5_5m_esri.tif</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_18">_DataInput_38</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
+        <bpmn2:sourceRef>_DataOutput_12</bpmn2:sourceRef>
+        <bpmn2:targetRef>quantiledElevationUrl</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:task id="Task_6" tns:taskName="reclass-quantile" tns:displayName="Reclassify by quantile" tns:icon="icons/world.png" name="reclass-quantile">
+      <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_1">
+        <bpmn2:dataInput id="DataInput_1" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_2" name="processDescription"/>
+        <bpmn2:dataInput id="DataInput_3" name="nClassBreaks"/>
+        <bpmn2:dataInput id="DataInput_4" name="inputRasterModel"/>
+        <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="_String" name="outputRasterModel"/>
+        <bpmn2:inputSet id="InputSet_1"/>
+        <bpmn2:inputSet id="InputSet_2" name="New Input Set">
+          <bpmn2:dataInputRefs>DataInput_1</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_2</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_3</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_4</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_1"/>
+        <bpmn2:outputSet id="OutputSet_2" name="New Output Set">
+          <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
+        <bpmn2:targetRef>DataInput_1</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_20">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_42">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">_DataInput_35</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_2">
+        <bpmn2:targetRef>DataInput_2</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_21">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">org.n52.wps.server.r.geo.reclass-quantile</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_48">_DataInput_36</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
+        <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_22">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_49">6</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_50">_DataInput_37</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_4">
+        <bpmn2:targetRef>DataInput_4</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_23">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_51">http://geoprocessing.nottingham.ac.uk/wps/testData/ox_Lidar_AND_osDTM5_5m_esri_slope.tif</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_52">_DataInput_38</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_6">
+        <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
+        <bpmn2:targetRef>quantiledSlopeUrl</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:endEvent id="EndEvent_4" name="">
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:task id="Task_3" tns:taskName="CalculateWoEWeights" tns:displayName="Calculate WoE Weights" tns:icon="icons/world.png" name="CalculateWoEWeights">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_2">
+        <bpmn2:dataInput id="DataInput_5" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_6" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="DataInput_7" itemSubjectRef="ItemDefinition_2" name="data"/>
+        <bpmn2:dataInput id="DataInput_8" itemSubjectRef="_String" name="inputRasterModel"/>
+        <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="_String" name="outputRasterModel"/>
+        <bpmn2:inputSet id="InputSet_3"/>
+        <bpmn2:inputSet id="InputSet_4" name="New Input Set">
+          <bpmn2:dataInputRefs>DataInput_5</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_6</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_7</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_8</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_3"/>
+        <bpmn2:outputSet id="OutputSet_4" name="New Output Set">
+          <bpmn2:dataOutputRefs>DataOutput_2</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_5">
+        <bpmn2:targetRef>DataInput_5</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_7">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6">_DataInput_23</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_6">
+        <bpmn2:targetRef>DataInput_6</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_15">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_14">org.n52.wps.server.r.geo.calculate-weights</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_19">_DataInput_24</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_7">
+        <bpmn2:targetRef>DataInput_7</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_16">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_23">http://grasp.nottingham.ac.uk:8010/geoserver/OxFlood/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=OxFlood:true_sample_100_pts_MIN_30m_from_1mCIRAerial_11thJan_bbox&amp;SRSNAME=EPSG:27700&amp;outputFormat=application/json </bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_28">_DataInput_25</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_8">
+        <bpmn2:sourceRef>quantiledElevationUrl</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_8</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
+        <bpmn2:sourceRef>DataOutput_2</bpmn2:sourceRef>
+        <bpmn2:targetRef>quantiledElevationWeightedUrl</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="Task_1" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_4"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:endEvent id="EndEvent_5" name="">
+      <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" sourceRef="ParallelGateway_1" targetRef="Task_9"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_12" tns:priority="1" sourceRef="Task_6" targetRef="EndEvent_5"/>
+    <bpmn2:task id="Task_9" tns:taskName="CalculateWoEWeights" tns:displayName="Calculate WoE Weights" tns:icon="icons/world.png" name="CalculateWoEWeights">
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_5">
+        <bpmn2:dataInput id="DataInput_17" itemSubjectRef="ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_18" itemSubjectRef="ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="DataInput_19" itemSubjectRef="ItemDefinition_2" name="data"/>
+        <bpmn2:dataInput id="DataInput_20" itemSubjectRef="_String" name="inputRasterModel"/>
+        <bpmn2:inputSet id="InputSet_9"/>
+        <bpmn2:inputSet id="InputSet_10" name="New Input Set">
+          <bpmn2:dataInputRefs>DataInput_17</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_18</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_19</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_20</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_9"/>
+        <bpmn2:outputSet id="OutputSet_10" name="New Output Set"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_17">
+        <bpmn2:targetRef>DataInput_17</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_31">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_60">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_61">_DataInput_23</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_18">
+        <bpmn2:targetRef>DataInput_18</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_32">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_62">org.n52.wps.server.r.geo.calculate-weights</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_63">_DataInput_24</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_19">
+        <bpmn2:targetRef>DataInput_19</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_33">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_64">http://grasp.nottingham.ac.uk:8010/geoserver/OxFlood/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=OxFlood:true_sample_100_pts_MIN_30m_from_1mCIRAerial_11thJan_bbox&amp;SRSNAME=EPSG:27700&amp;outputFormat=application/json </bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_66">_DataInput_25</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_20">
+        <bpmn2:targetRef>DataInput_20</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_34">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_70">http://geoprocessing.nottingham.ac.uk/wps/testData/lsat_DOSReflectance_b1-7_oxver2_mndwi_otsu_matlab.tif</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_68">DataInput_20</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:endEvent id="EndEvent_2" name="">
+      <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" sourceRef="Task_9" targetRef="EndEvent_2"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="flickr_flood_detailed">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.flickr_flood_detailed">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
+        <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="734.0" y="181.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_5" bpmnElement="Task_5">
+        <dc:Bounds height="50.0" width="110.0" x="300.0" y="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ParallelGateway_1" bpmnElement="ParallelGateway_1">
+        <dc:Bounds height="50.0" width="50.0" x="80.0" y="121.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
+        <dc:Bounds height="50.0" width="110.0" x="610.0" y="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="Task_4">
+        <dc:Bounds height="50.0" width="110.0" x="444.0" y="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_4" bpmnElement="EndEvent_4">
+        <dc:Bounds height="36.0" width="36.0" x="640.0" y="180.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_5" bpmnElement="EndEvent_5">
+        <dc:Bounds height="36.0" width="36.0" x="631.0" y="254.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
+        <dc:Bounds height="50.0" width="110.0" x="180.0" y="172.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_6" bpmnElement="Task_6">
+        <dc:Bounds height="50.0" width="110.0" x="194.0" y="247.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
+        <dc:Bounds height="50.0" width="110.0" x="335.0" y="173.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_9" bpmnElement="Task_9">
+        <dc:Bounds height="50.0" width="110.0" x="434.0" y="330.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="612.0" y="337.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="720.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="752.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="752.0" y="181.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_Task_2">
+        <di:waypoint xsi:type="dc:Point" x="554.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="579.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="579.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="610.0" y="105.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="BPMNShape_Task_5" targetElement="BPMNShape_Task_4">
+        <di:waypoint xsi:type="dc:Point" x="410.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="425.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="425.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="444.0" y="105.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_ParallelGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="63.0" y="81.0"/>
+        <di:waypoint xsi:type="dc:Point" x="63.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="80.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="172.0"/>
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="197.0"/>
+        <di:waypoint xsi:type="dc:Point" x="180.0" y="197.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_6">
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="172.0"/>
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="272.0"/>
+        <di:waypoint xsi:type="dc:Point" x="194.0" y="272.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_19" bpmnElement="SequenceFlow_19" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_5">
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="121.0"/>
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="105.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_3">
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="197.0"/>
+        <di:waypoint xsi:type="dc:Point" x="310.0" y="197.0"/>
+        <di:waypoint xsi:type="dc:Point" x="310.0" y="198.0"/>
+        <di:waypoint xsi:type="dc:Point" x="335.0" y="198.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_4">
+        <di:waypoint xsi:type="dc:Point" x="445.0" y="198.0"/>
+        <di:waypoint xsi:type="dc:Point" x="532.0" y="198.0"/>
+        <di:waypoint xsi:type="dc:Point" x="532.0" y="198.0"/>
+        <di:waypoint xsi:type="dc:Point" x="640.0" y="198.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_9">
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="172.0"/>
+        <di:waypoint xsi:type="dc:Point" x="105.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="434.0" y="355.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="BPMNShape_Task_6" targetElement="BPMNShape_EndEvent_5">
+        <di:waypoint xsi:type="dc:Point" x="304.0" y="272.0"/>
+        <di:waypoint xsi:type="dc:Point" x="451.0" y="272.0"/>
+        <di:waypoint xsi:type="dc:Point" x="451.0" y="272.0"/>
+        <di:waypoint xsi:type="dc:Point" x="631.0" y="272.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_13" bpmnElement="SequenceFlow_13" sourceElement="BPMNShape_Task_9" targetElement="BPMNShape_EndEvent_2">
+        <di:waypoint xsi:type="dc:Point" x="544.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="574.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="574.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="612.0" y="355.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

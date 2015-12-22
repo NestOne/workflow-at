@@ -28,6 +28,5 @@
 	<classpathentry kind="lib" path="C:/Users/ezzjfr/Downloads/uncertml-bundle/uncertml.jar"/>
 	<classpathentry kind="lib" path="C:/jbpm-console-qa/WEB-INF/lib/52n-wps-io-geotools-3.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/jbpm-console-qa/WEB-INF/lib/52n-wps-client-lib-3.3.0.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/geonetwork-manager"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
