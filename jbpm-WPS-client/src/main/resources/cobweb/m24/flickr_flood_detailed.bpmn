@@ -229,7 +229,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_38">
         <bpmn2:targetRef>_DataInput_38</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_6">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_21">http://geoprocessing.nottingham.ac.uk/wps/testData/ox_Lidar_AND_osDTM5_5m_esri.tif</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_21">http://geoprocessing.nottingham.ac.uk/wps/testData/ox_Lidar_AND_osDTM5_5m_esri_slope.tif</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_18">_DataInput_38</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -346,16 +346,16 @@
         <bpmn2:targetRef>quantiledElevationWeightedUrl</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="Task_1" targetRef="Task_3"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="Task_1" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_4"/>
     <bpmn2:endEvent id="EndEvent_1" name="">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:endEvent id="EndEvent_5" name="">
       <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" sourceRef="ParallelGateway_1" targetRef="Task_9"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_12" tns:priority="1" sourceRef="Task_6" targetRef="EndEvent_5"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" name="" sourceRef="ParallelGateway_1" targetRef="Task_9"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_12" tns:priority="1" name="" sourceRef="Task_6" targetRef="EndEvent_5"/>
     <bpmn2:task id="Task_9" tns:taskName="CalculateWoEWeights" tns:displayName="Calculate WoE Weights" tns:icon="icons/world.png" name="CalculateWoEWeights">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
@@ -406,7 +406,7 @@
     <bpmn2:endEvent id="EndEvent_2" name="">
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" sourceRef="Task_9" targetRef="EndEvent_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" name="" sourceRef="Task_9" targetRef="EndEvent_2"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="flickr_flood_detailed">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.flickr_flood_detailed">

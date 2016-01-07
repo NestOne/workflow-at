@@ -67,7 +67,7 @@ public class FlickrFloodTest {
 		 * /src/main/resources
 		 */
 		ksession.startProcess("cobweb.m24.flickr_flood_detailed");
-		
+		//ksession.startProcess("cobweb.m24.flickr_flood");
 	}
 
 }

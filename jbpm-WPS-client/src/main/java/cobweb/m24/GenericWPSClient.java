@@ -131,7 +131,7 @@ public class GenericWPSClient {
 	 *            - WPS url
 	 * @param processID
 	 *            - process description
-	 * @return outputs - hashmap of the results (usually a FeatureCollection
+	 * @return outputs - hashmap of the results (usually a FeatureCollection)
 	 * @throws IOException
 	 *             - this needs replacing
 	 */
@@ -146,6 +146,20 @@ public class GenericWPSClient {
 		return processDescription;
 	}
 
+	
+	/**
+	 * 
+	 * @param url
+	 *            - WPS url
+	 * @param processID
+	 *            - process description ID
+	 * @param processDescription
+	 *            - process description information
+	 * @param inputs
+	 *            - the inputs for this WPS task (i.e. data, data links, parameters)  
+	 * @return outputs - hashmap of the results (containing url links, data or FeatureCollection of data)
+	 */
+	
 	public HashMap<String, Object> executeProcess(String url, String processID,	ProcessDescriptionType processDescription,	HashMap<String, Object> inputs) {
 		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(processDescription);
 
