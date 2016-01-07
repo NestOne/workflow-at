@@ -12,7 +12,7 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import cobweb.m24.ExceptionServiceHandler;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class NewProcessTest {
+public class RProcessTest {
 	/**
 	 * @author Sam Meek
 	 * @param args
@@ -50,17 +50,27 @@ public class NewProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"ConflationGeometryDistance", signallingTaskWrapper);
 
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"rTestReturnGeometry",
+				new GenericWorkItemHandlerClient());
+
+/*
+		
 		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
 		String processDescription = "pillar.authoritativedata.PointInPolygon";
 
 		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=application/json";
 		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&application/json&srsName=EPSG:4236";
 
+*/		
+		
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_process");
+		ksession.startProcess("cobweb.m24.test_r_process");
 
 	}
 

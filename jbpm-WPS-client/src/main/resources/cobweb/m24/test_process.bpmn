@@ -7,9 +7,7 @@
     <bpmn2:startEvent id="StartEvent_1" name="">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>Task_3-EndEvent_1</bpmn2:incoming>
-    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_3"/>
     <bpmn2:task id="Task_3" tns:taskName="Store results in WFS-T" name="Store results in WFS-T">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>Task_3-EndEvent_1</bpmn2:outgoing>
@@ -27,7 +25,7 @@
       <bpmn2:dataInputAssociation id="DataInputAssociation_1">
         <bpmn2:targetRef>Task_3_inputObservationsInput</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_13">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">https://dyfi.cobwebproject.eu/geoserver/public/wfs?service=wfs&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=cobweb:sid-eb491205-c3e4-4553-ab20-fa08b484070c&amp;outputFormat=application/json&amp;srsName=EPSG:4236</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SampleData&amp;maxFeatures=50&amp;outputFormat=application/json&amp;srsName=EPSG:4236</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_25">Task_3_inputObservationsInput</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -47,7 +45,9 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="Task_3-EndEvent_1" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_3"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>Task_3-EndEvent_1</bpmn2:incoming>
+    </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_process">
@@ -55,20 +55,20 @@
         <dc:Bounds height="48.0" width="48.0" x="94.0" y="94.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="494.0" y="94.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="360.0" y="94.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="340.0" y="190.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="220.0" y="189.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="Task_3-EndEvent_1" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="395.0" y="215.0"/>
-        <di:waypoint xsi:type="dc:Point" x="518.0" y="215.0"/>
-        <di:waypoint xsi:type="dc:Point" x="518.0" y="118.0"/>
+        <di:waypoint xsi:type="dc:Point" x="330.0" y="214.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="214.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="142.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
         <di:waypoint xsi:type="dc:Point" x="118.0" y="142.0"/>
-        <di:waypoint xsi:type="dc:Point" x="118.0" y="215.0"/>
-        <di:waypoint xsi:type="dc:Point" x="340.0" y="215.0"/>
+        <di:waypoint xsi:type="dc:Point" x="118.0" y="214.0"/>
+        <di:waypoint xsi:type="dc:Point" x="220.0" y="214.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

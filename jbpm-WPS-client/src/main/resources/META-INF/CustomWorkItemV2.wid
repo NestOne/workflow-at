@@ -3,6 +3,145 @@ import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 [
+[
+	"name" : "rRocRasterCutoff",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+		"trueSample" : new ObjectDataType(),
+		"falseSample" : new ObjectDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "rRocRasterCutoff",
+    "category" : "Raster Conflation",
+],
+
+[
+	"name" : "rTestReturnRaster",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputSurfaceModel" :  new StringDataType(),
+   	],
+     "icon" : "icons/world.png",
+    "displayName" : "rTestReturnRaster example",
+"category" : "Raster",
+],
+
+[
+	"name" : "rTestReturnInputSurfaceModel",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "rTestReturnInputSurfaceModel example",
+"category" : "Raster",
+],
+
+[
+	"name" : "Store results in WFS-T",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),	
+		
+	],
+		"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Store results in Geoserver"
+],
+	
+
+
+
+[
+	"name" : "rTestReturnGeometry",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"attributename" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "R test returning geometry",
+"category" : "Raster",
+],
+
+
+[
+	"name" : "CalculateWoEWeights",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "Calculate WoE Weights",
+"category" : "Raster",
+],
+
+
+[
+	"name" : "reclass-quantile",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"nClassBreaks" : new StringDataType(),
+		"inputRasterModel" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"outputRasterModel" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "Reclassify by quantile",
+	"category" : "Raster",
+],
+
+
+
+  [
+	"name" : "rTestReturnGeometryPoints",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new ObjectDataType(),
+		"attributename" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "R test returning Points",
+"category" : "Raster",
+],
+
+
+
+
+
+
+[
 	[
 	"name" : "Pillar 4 - Point In Polygon",
     	"parameters" : [
@@ -57,24 +196,10 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      "icon" : "icons/world.png",
     "displayName" : "Point in Buffer"
 ],
-	[
-	"name" : "Store results in WFS-T",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputObservations" : new ObjectDataType(),	
-		
-	],
-		"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),
-   	
-   	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Store results in Geoserver"
+	
+	
 
-	],
+	
 	[
 	"name" : "ConflationGeometryDistance",
     	"parameters" : [

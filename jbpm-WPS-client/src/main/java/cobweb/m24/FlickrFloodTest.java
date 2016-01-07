@@ -12,15 +12,12 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import cobweb.m24.ExceptionServiceHandler;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class NewProcessTest {
+public class FlickrFloodTest {
 	/**
-	 * @author Sam Meek
+	 * @author Julian Rosser
 	 * @param args
 	 * 
-	 *            This is a test class for the Eclipse plugin. Workflow
-	 *            processes can be setup programmatically and run outside of the
-	 *            console and run here. To use this class, make sure JBPM
-	 *            workflow plugins are installed using the Ant script.
+	 *            Main class harness for testing R vector and raster process passing
 	 */
 
 	public static void main(String args[]) {
@@ -36,32 +33,41 @@ public class NewProcessTest {
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Polygon",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Buffer",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 2 - Filter on Attribute",
-				new GenericWorkItemHandlerClient());
+
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"Store results in WFS-T", new GenericWorkItemHandlerClient());
+		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"ConflationGeometryDistance", signallingTaskWrapper);
+				"rTestReturnGeometry",
+				new GenericWorkItemHandlerClient());
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"rTestReturnInputSurfaceModel",
+				new GenericWorkItemHandlerClient());
 
-		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
-		String processDescription = "pillar.authoritativedata.PointInPolygon";
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"rRocRasterCutoff",
+				new GenericWorkItemHandlerClient());
 
-		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=application/json";
-		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&application/json&srsName=EPSG:4236";
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"rRocRasterCutoff",
+				new GenericWorkItemHandlerClient());
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"reclass-quantile",
+				new GenericWorkItemHandlerClient());
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"CalculateWoEWeights",
+				new GenericWorkItemHandlerClient());
 
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_process");
-
+		ksession.startProcess("cobweb.m24.flickr_flood_detailed");
+		//ksession.startProcess("cobweb.m24.flickr_flood");
 	}
 
 }

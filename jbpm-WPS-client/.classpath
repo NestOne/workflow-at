@@ -13,7 +13,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/geonetwork-manager-master"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -25,9 +24,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/usr/local/apache-tomcat-7.0.55/webapps/wps/WEB-INF/lib/52n-wps-xml-1.0.0.jar"/>
-	<classpathentry kind="lib" path="/usr/local/apache-tomcat-7.0.55/webapps/wps/WEB-INF/lib/uncertml.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/52n-wps-io-geotools"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/52n-wps-client-lib"/>
+	<classpathentry kind="lib" path="C:/jbpm-installer/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-xml-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ezzjfr/Downloads/uncertml-bundle/uncertml.jar"/>
+	<classpathentry kind="lib" path="C:/jbpm-installer/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-io-geotools-3.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/jbpm-installer/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-client-lib-3.3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
