@@ -398,7 +398,7 @@
       <bpmn2:dataInputAssociation id="DataInputAssociation_20">
         <bpmn2:targetRef>DataInput_20</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_34">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_70">http://geoprocessing.nottingham.ac.uk/wps/testData/lsat_DOSReflectance_b1-7_oxver2_mndwi_otsu_matlab.tif</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_70">http://geoprocessing.nottingham.ac.uk/wps/testData/lsatDosOtsuM.tif</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_68">DataInput_20</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>

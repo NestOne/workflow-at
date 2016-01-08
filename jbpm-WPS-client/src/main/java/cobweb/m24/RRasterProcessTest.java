@@ -64,8 +64,8 @@ public class RRasterProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_r_raster_string_return");
-		
+		//ksession.startProcess("cobweb.m24.test_r_raster_string_return");
+		ksession.startProcess("cobweb.m24.test_r_raster_two_process_string_return");
 	}
 
 }

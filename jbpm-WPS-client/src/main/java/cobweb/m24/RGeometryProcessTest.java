@@ -76,7 +76,7 @@ public class RGeometryProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_r_geometry_process");
+		ksession.startProcess("cobweb.m24.test_r_geometry_process_string_return");
 
 	}
 

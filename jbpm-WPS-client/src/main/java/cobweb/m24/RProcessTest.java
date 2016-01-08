@@ -66,12 +66,14 @@ public class RProcessTest {
 */		
 		
 		
+		
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_r_process");
-
+		//ksession.startProcess("cobweb.m24.test_r_process");
+		ksession.startProcess("cobweb.m24.test_r_process_string");
 	}
 
 }
