@@ -126,16 +126,7 @@ public class GenericWPSClient {
 		return capabilities;
 	}
 
-	/**
-	 * 
-	 * @param url
-	 *            - WPS url
-	 * @param processID
-	 *            - process description
-	 * @return outputs - hashmap of the results (usually a FeatureCollection)
-	 * @throws IOException
-	 *             - this needs replacing
-	 */
+
 	public ProcessDescriptionType requestDescribeProcess(String url,String processID) throws IOException {
 		System.out.println("Requesting describe process document...");		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
@@ -148,9 +139,17 @@ public class GenericWPSClient {
 	}
 
 	
-	
-	
-	
+		
+	/**
+	 * 
+	 * @param url
+	 *            - WPS url
+	 * @param processID
+	 *            - process description
+	 * @return outputs - hashmap of the results (as a URL links to data (e.g. not FeatureCollections)
+	 * @throws IOException
+	 *             - this needs replacing
+	 */
 	public HashMap<String, Object> executeProcessAsLinks(String url, String processID,	ProcessDescriptionType processDescription,	HashMap<String, Object> inputs) {
 		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(processDescription);
 		System.out.println("Trying to execute process...");
@@ -170,9 +169,11 @@ public class GenericWPSClient {
 			
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {		
-				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");
+				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
 				// System.out.println("Here 4 " + inputValue.toString());
 				// Complexdata by value
+				
+										
 				if (inputValue instanceof FeatureCollection	|| inputValue instanceof GTVectorDataBinding) {
 					System.out.println("instance of FeatureCollection || ObjectDataType " + inputName);
 					// IData data = new GTVectorDataBinding(
@@ -248,10 +249,8 @@ public class GenericWPSClient {
 
 						InputStream image = null;
 						try{
-
 							image = new BufferedInputStream(new FileInputStream(file));                        	
 							//image = new FileInputStream(file);                      
-
 						}
 						catch (Exception e){
 							System.out.println("File read in exception " + e);
@@ -282,8 +281,7 @@ public class GenericWPSClient {
 				}
 				else if (inputValue instanceof String) {
 					System.out.println("instance of string. inputName: " + inputName);	
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json");
-					
+					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json");					
 				}
 
 			}
@@ -298,8 +296,7 @@ public class GenericWPSClient {
 				}
 			}
 		}
-		System.out.println("Finished constructing execute request inputs");		
-		
+		System.out.println("Finished constructing execute request inputs");				
 		
 		//Loop over process outputs to determine what output types should be requested
 		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
@@ -384,8 +381,7 @@ public class GenericWPSClient {
 								result.put(outputName, outputValue);								
 							} else{
 								System.out.println("Getting raster file reference not successful");
-							}
-							
+							}							
 
 						} else {
 							//Handling vector output
@@ -407,7 +403,7 @@ public class GenericWPSClient {
 									//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
 									//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
 									Object outputValue2 = analyser.getComplexReferenceByIndex(0); 
-									String outputValue =(String) outputValue2;								
+									String outputValue = (String) outputValue2;								
 									System.out.println("Vector Output, outputValue2: " + outputValue.toString());							
 									if (outputValue != null && outputValue instanceof String) {
 										System.out.println("Vector Output, string location resolved");
@@ -415,10 +411,8 @@ public class GenericWPSClient {
 										result.put(outputName, outputValue);								
 									} else {
 										System.out.println("Getting vector file reference not successful");
-									} 
-									
-								}										
-				
+									} 									
+								}													
 			
 							}
 						}					
