@@ -1,4 +1,4 @@
-# QA-workflow-AT #
+# workflow-AT #
 
 This is the authoring tool for constructing geoprocessing workflows comprised of Web Processing Services. The tool is based on a jBPM framework.
 
