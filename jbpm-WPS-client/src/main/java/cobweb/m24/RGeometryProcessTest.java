@@ -58,9 +58,7 @@ public class RGeometryProcessTest {
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnInputSurfaceModel",
-				new GenericWorkItemHandlerClient());
-
-		
+				new GenericWorkItemHandlerClient());		
 /*
 		
 		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";

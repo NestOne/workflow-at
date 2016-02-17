@@ -118,9 +118,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 	"category" : "Raster",
 ],
 
-
-
-  [
+[
 	"name" : "rTestReturnGeometryPoints",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
@@ -135,29 +133,6 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "R test returning Points",
 "category" : "Raster",
 ],
-
-
-
-[
-    "name" : "GetLineOfSight",
-    "parameters" : [
-   	 "wpsURL" : new StringDataType(),
-	"processDescription" : new StringDataType(),
-	"inputObservations" : new ObjectDataType(),	
-	"inputSurfaceModel" :  new ObjectDataType(),
-	"inputBearingFieldName" :  new StringDataType(),
-	"inputTiltFieldName" :  new StringDataType(),
-	"inputUserHeight" : new StringDataType()
-    ],
-	"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType()
-   	],
-    "displayName" : "Pillar 1 - GetLineOfSight",
-     "icon" : "icons/world.png",
-    "category" : "Pillar 1",
-],
-
 
 [
     "name" : "LaplacePhotoBlurCheck",
@@ -176,8 +151,26 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "Pillar 3 - Photo Quality",
      "icon" : "icons/world.png",
     "category" : "Pillar 3",
-  ],
+],
 
+[
+    "name" : "GetLineOfSight",
+    "parameters" : [
+   	 "wpsURL" : new StringDataType(),
+	"processDescription" : new StringDataType(),
+	"inputObservations" : new ObjectDataType(),	
+	"inputSurfaceModel" :  new ObjectDataType(),
+	"inputBearingFieldName" :  new StringDataType(),
+	"inputTiltFieldName" :  new StringDataType(),
+	"inputUserHeight" : new StringDataType()
+    ],
+	"results" : [
+   	"result" : new ObjectDataType()
+   	],
+    "displayName" : "Pillar 1 - GetLineOfSight",
+     "icon" : "icons/world.png",
+    "category" : "Pillar 1",
+],
 
 [
     "name" : "AttributeRange",
@@ -185,15 +178,15 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "version" : "1.0",
     "parameters" : [
     "wpsURL" : new StringDataType(),
-"processDescription" : new StringDataType(),
-"inputObservations" : new ObjectDataType(),
-"attributeRange" :  new StringDataType(),
-"maxRange" :  new StringDataType(),
-"minRange" :  new StringDataType(),
+	"processDescription" : new StringDataType(),
+	"inputObservations" : new ObjectDataType(),
+	"attributeRange" :  new StringDataType(),
+	"maxRange" :  new StringDataType(),
+	"minRange" :  new StringDataType(),
     ],
-"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),
+	"results" : [
+	   	"result" : new ObjectDataType(),
+	   	"qual_result" : new ObjectDataType(),
    
    	],
     "displayName" : "Pillar 2 - Attribute Range Check",
@@ -204,7 +197,6 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "file:./lib/jbpm-wps-client-1.0.jar", 
     ]
  ],
-
 
 [
 	"name" : "Pillar2UsabilityFilterOut",
@@ -227,7 +219,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 ],
 
 
-	[
+[
 	"name" : "Pillar 2 - Filter on Attribute",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),

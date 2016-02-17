@@ -9,7 +9,6 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.process.WorkItemHandler;
-import cobweb.m24.ExceptionServiceHandler;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
 public class LosProcessTest {
@@ -37,13 +36,15 @@ public class LosProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"GetLineOfSight", signallingTaskWrapper);
 		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"LaplacePhotoBlurCheck", signallingTaskWrapper);
 		
 				
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.qaqc_knotweed_los");
+		ksession.startProcess("cobweb.m24.qaqc_knotweed_los_laplace");
 
 	}
 

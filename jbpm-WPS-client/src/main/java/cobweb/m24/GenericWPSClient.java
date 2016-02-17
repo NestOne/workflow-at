@@ -137,7 +137,6 @@ public class GenericWPSClient {
 		}
 		return processDescription;
 	}
-
 	
 		
 	/**
@@ -190,8 +189,7 @@ public class GenericWPSClient {
 					//Hard-coded handling for .asc type inputs
 					System.out.println("got an inputSurfaceModel");					
 					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "text/plain");
-				} 
-				if (inputName.equals("inputRasterModel")) {
+				} else if (inputName.equals("inputRasterModel")) {
 					//Hard-coded handling of raster data inputs e.g. GeoTiff
 					System.out.println("got an inputRasterModel");									
 					//IData tempGenericData = (IData) inputValue;
@@ -305,7 +303,7 @@ public class GenericWPSClient {
 			if (output.getComplexOutput() != null) {				
 				System.out.println("Setting schema for output: " + outputName);				
 				
-				System.out.println("output type" + outputName);
+				System.out.println("output type " + outputName);
 				
 				//Why not check output data type?
 				if (outputName.equals("outputRasterModel")) {
@@ -320,20 +318,44 @@ public class GenericWPSClient {
 					
 					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
 				} else {
-					System.out.println("Setting schema for: " + outputName);					
+					System.out.println("Setting schema for: " + outputName);
 					executeBuilder.setSchemaForOutput("application/json",outputName);
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
+					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference		
+					
+					
+					/*
+					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result"); 
+					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "result");					  							  
+					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result"); 
+					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "qual_result");
+					*/
+					
+					
+					/*
+		
+					
+					String mimeType = output.getComplexOutput().getSupported().getFormatArray (1).getMimeType();
+					executeBuilder.setMimeTypeForOutput(mimeType, outputName);
+					  
+					String schema = output.getComplexOutput().getSupported().getFormatArray(1).getSchema(); 
+					if(schema!=null){					  
+						executeBuilder.setSchemaForOutput( schema, outputName); 
+					}								
+					//System.out.println("outputName " + outputName + " mimeType " + mimeType + " schema " + schema);			  		
+					 */						 
+							 
 				}
-			}
-
-			else if (output.getLiteralOutput() != null) {
-
+			} else if (output.getLiteralOutput() != null) {
+				System.out.println("Warning: got literal output but not handling it!");
 			}
 		}
 
 		// executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
 
 		ExecuteDocument execute = executeBuilder.getExecute();
+		
+		dumpTextToFile(execute.toString(), processID);
+		
 		execute.getExecute().setService("WPS");
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 
@@ -342,9 +364,10 @@ public class GenericWPSClient {
 			responseObject = wpsClient.execute(url, execute);
 			//System.out.println("printing execute request...");
 			//System.out.println(execute.toString());
-			dumpTextToFile(execute.toString(), processID);
+			
 
 			if (responseObject instanceof ExecuteResponseDocument) {
+				System.out.println("Handling responseObject as instanceof ExecuteResponseDocument");
 				ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
 				ExecuteResponseAnalyser analyser = new ExecuteResponseAnalyser( execute, response, processDescription);
 				System.out.println("HERE 6");
@@ -680,10 +703,10 @@ public class GenericWPSClient {
 
 		Object responseObject;
 		try {
+			dumpTextToFile(execute.toString(), processID);
 			responseObject = wpsClient.execute(url, execute);
 			//System.out.println("printing execute request...");
 			//System.out.println(execute.toString());
-			dumpTextToFile(execute.toString(), processID);
 
 			if (responseObject instanceof ExecuteResponseDocument) {
 				ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
@@ -822,7 +845,7 @@ public class GenericWPSClient {
 			String randomUUIDString = uuid.toString();
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
-			File file = new File(tempDir + dateFormat.format(date) +"_" + randomUUIDString +"_"+ outputName +".txt") ;
+			File file = new File(tempDir + dateFormat.format(date) +"_" + randomUUIDString +"_"+ outputName +".xml") ;
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 			out.write(textToDump);
 			out.close();

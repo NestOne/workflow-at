@@ -22,8 +22,7 @@
         <bpmn2:dataInput id="_DataInput_39" name="inputBearingFieldName"/>
         <bpmn2:dataInput id="_DataInput_40" name="inputTiltFieldName"/>
         <bpmn2:dataInput id="_DataInput_41" name="inputUserHeight"/>
-        <bpmn2:dataOutput id="_DataOutput_12" itemSubjectRef="ItemDefinition_2" name="result"/>
-        <bpmn2:dataOutput id="_DataOutput_13" itemSubjectRef="ItemDefinition_2" name="qual_result"/>
+        <bpmn2:dataOutput id="_DataOutput_12" itemSubjectRef="ItemDefinition_1" name="result"/>
         <bpmn2:inputSet id="_InputSet_16"/>
         <bpmn2:inputSet id="_InputSet_17" name="New Input Set">
           <bpmn2:dataInputRefs>_DataInput_35</bpmn2:dataInputRefs>
@@ -37,7 +36,6 @@
         <bpmn2:outputSet id="_OutputSet_16"/>
         <bpmn2:outputSet id="_OutputSet_17" name="New Output Set">
           <bpmn2:dataOutputRefs>_DataOutput_12</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>_DataOutput_13</bpmn2:dataOutputRefs>
         </bpmn2:outputSet>
       </bpmn2:ioSpecification>
       <bpmn2:dataInputAssociation id="_DataInputAssociation_35">
@@ -57,7 +55,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_37">
         <bpmn2:targetRef>_DataInput_37</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_3">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey&amp;outputFormat=gml3&amp;srsName=EPSG:27700</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey&amp;outputFormat=application/json&amp;srsName=EPSG:27700</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">_DataInput_37</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
