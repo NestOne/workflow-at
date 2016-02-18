@@ -12,7 +12,7 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import cobweb.m24.ExceptionServiceHandler;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class RGeometryProcessTest {
+public class RGeometryPointsProcessTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -59,8 +59,14 @@ public class RGeometryProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnInputSurfaceModel",
 				new GenericWorkItemHandlerClient());		
-
-		ksession.startProcess("cobweb.m24.test_r_geometry_string");
+		
+		
+		/**
+		 * use this to start a defined process, this can be found in
+		 * /src/main/resources
+		 */
+		//ksession.startProcess("cobweb.m24.test_r_geometry_process_string_return");
+		ksession.startProcess("cobweb.m24.test_r_geometry_points_string");
 	}
 
 }

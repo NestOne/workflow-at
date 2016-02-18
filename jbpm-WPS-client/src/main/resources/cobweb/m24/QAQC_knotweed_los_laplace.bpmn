@@ -3,10 +3,14 @@
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_3"/>
   <bpmn2:process id="cobweb.m24.qaqc_knotweed_los_laplace" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="qaqc_knotweed_los_laplace" isExecutable="true" processType="Private">
     <bpmn2:extensionElements/>
     <bpmn2:property id="Property_1" itemSubjectRef="ItemDefinition_2"/>
     <bpmn2:property id="Property_2" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:property id="Property_3" itemSubjectRef="ItemDefinition_2"/>
+    <bpmn2:property id="processVarStringDataType" itemSubjectRef="ItemDefinition_1"/>
+    <bpmn2:property id="processVar2String" itemSubjectRef="_String"/>
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -70,9 +74,9 @@
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="DataInputAssociation_12">
         <bpmn2:targetRef>DataInput_12</bpmn2:targetRef>
-        <bpmn2:assignment>
+        <bpmn2:assignment id="Assignment_1">
           <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_34"> </bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression">_DataInput_52</bpmn2:to>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_52</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="DataInputAssociation_13">
@@ -83,7 +87,7 @@
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
     <bpmn2:task id="Task_4" tns:taskName="GetLineOfSight" tns:displayName="Pillar 1 - GetLineOfSight" tns:icon="icons/world.png" name="GetLineOfSight">
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
@@ -95,6 +99,7 @@
         <bpmn2:dataInput id="DataInput_18" name="inputBearingFieldName"/>
         <bpmn2:dataInput id="DataInput_19" name="inputTiltFieldName"/>
         <bpmn2:dataInput id="DataInput_20" name="inputUserHeight"/>
+        <bpmn2:dataOutput id="DataOutput_4" itemSubjectRef="_String" name="result"/>
         <bpmn2:inputSet id="InputSet_5"/>
         <bpmn2:inputSet id="InputSet_6" name="New Input Set">
           <bpmn2:dataInputRefs>DataInput_14</bpmn2:dataInputRefs>
@@ -105,7 +110,9 @@
           <bpmn2:dataInputRefs>DataInput_19</bpmn2:dataInputRefs>
           <bpmn2:dataInputRefs>DataInput_20</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
-        <bpmn2:outputSet id="OutputSet_5"/>
+        <bpmn2:outputSet id="OutputSet_5">
+          <bpmn2:dataOutputRefs>DataOutput_4</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
         <bpmn2:outputSet id="OutputSet_6" name="New Output Set"/>
       </bpmn2:ioSpecification>
       <bpmn2:dataInputAssociation id="DataInputAssociation_14">
@@ -157,9 +164,13 @@
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_50">_DataInput_41</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
+        <bpmn2:sourceRef>DataOutput_4</bpmn2:sourceRef>
+        <bpmn2:targetRef>processVar2String</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" sourceRef="_1" targetRef="Task_4"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" sourceRef="Task_4" targetRef="Task_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" name="" sourceRef="_1" targetRef="Task_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" name="" sourceRef="Task_4" targetRef="Task_3"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="qaqc_knotweed_los_laplace">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.qaqc_knotweed_los_laplace">

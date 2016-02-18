@@ -3,7 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.test_r_process_string" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_r_process_string" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.test_r_geometry_string" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_r_geometry_string" isExecutable="true" processType="Private">
     <bpmn2:extensionElements/>
     <bpmn2:property id="vectorStringProcessVar" itemSubjectRef="_String"/>
     <bpmn2:endEvent id="EndEvent_1" name="">
@@ -114,8 +114,8 @@
     <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_1" targetRef="EndEvent_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_1"/>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_r_process_string">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_process_string">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_r_geometry_string">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_geometry_string">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="160.0" y="47.0"/>
       </bpmndi:BPMNShape>

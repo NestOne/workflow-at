@@ -165,7 +165,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 	"inputUserHeight" : new StringDataType()
     ],
 	"results" : [
-   	"result" : new ObjectDataType()
+   	"result" : new StringDataType(),
    	],
     "displayName" : "Pillar 1 - GetLineOfSight",
      "icon" : "icons/world.png",
