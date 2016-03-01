@@ -23,7 +23,7 @@
       <bpmn2:ioSpecification id="InputOutputSpecification_2">
         <bpmn2:dataInput id="DataInput_8" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_laplace.bpmn#ItemDefinition_1" name="wpsURL"/>
         <bpmn2:dataInput id="DataInput_9" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_laplace.bpmn#ItemDefinition_1" name="processDescription"/>
-        <bpmn2:dataInput id="DataInput_10" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_laplace.bpmn#ItemDefinition_2" name="inputObservations"/>
+        <bpmn2:dataInput id="DataInput_10" itemSubjectRef="_String" name="inputObservations"/>
         <bpmn2:dataInput id="DataInput_11" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_laplace.bpmn#ItemDefinition_1" name="urlFieldName"/>
         <bpmn2:dataInput id="DataInput_12" name="urlPrefix"/>
         <bpmn2:dataInput id="DataInput_13" name="threshold"/>
@@ -59,11 +59,8 @@
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="DataInputAssociation_10">
+        <bpmn2:sourceRef>processVar2String</bpmn2:sourceRef>
         <bpmn2:targetRef>DataInput_10</bpmn2:targetRef>
-        <bpmn2:assignment id="Assignment_16">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_25">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey&amp;outputFormat=application/json&amp;srsName=EPSG:27700</bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_28">_DataInput_50</bpmn2:to>
-        </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="DataInputAssociation_11">
         <bpmn2:targetRef>DataInput_11</bpmn2:targetRef>

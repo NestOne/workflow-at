@@ -180,21 +180,18 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "wpsURL" : new StringDataType(),
 	"processDescription" : new StringDataType(),
 	"inputObservations" : new ObjectDataType(),
-	"attributeRange" :  new StringDataType(),
+	"attributeName" :  new StringDataType(),
 	"maxRange" :  new StringDataType(),
 	"minRange" :  new StringDataType(),
     ],
 	"results" : [
-	   	"result" : new ObjectDataType(),
-	   	"qual_result" : new ObjectDataType(),
+	   	"result" : new StringDataType(),
+	   	"qual_result" : new StringDataType(),
    
    	],
     "displayName" : "Pillar 2 - Attribute Range Check",
      "icon" : "icons/world.png",
     "category" : "Pillar 2",
-    "defaultHandler" : "cobweb.m24.GenericWorkItemHandlerClient",
-    "dependencies" : [ 
-    "file:./lib/jbpm-wps-client-1.0.jar", 
     ]
  ],
 
@@ -215,7 +212,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      
      "icon" : "icons/world.png",
     "displayName" : "Pillar 2 - Usability Filter Out",
-"category" : "Pillar 2",
+	"category" : "Pillar 2",
 ],
 
 
@@ -238,27 +235,6 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      "icon" : "icons/world.png",
     "displayName" : "Filter on Attribute"
 ],
-
-[
-	"name" : "Pillar3AttributeRange",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputObservations" : new ObjectDataType(),
-		"fieldName" :  new StringDataType(),
-		"featureName" :  new StringDataType(),
-		"include" :  new StringDataType(),
-   	],
-   	"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),   	
-   	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Pillar 3 - Attribute Range",
-"category" : "Pillar 3",
-],
-
 
 
 
@@ -283,8 +259,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"UsaThresh" :  new StringDataType(),
    	],
    	"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),   	
+   	"UpdatedObs" : new ObjectDataType(), 	
    	],
      
      "icon" : "icons/world.png",
