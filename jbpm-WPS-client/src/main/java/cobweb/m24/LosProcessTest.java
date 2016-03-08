@@ -50,11 +50,11 @@ public class LosProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.qaqc_knotweed_laplace");
+		//ksession.startProcess("cobweb.m24.qaqc_knotweed_laplace");
 		//ksession.startProcess("cobweb.m24.qaqc_knotweed_los_laplace");
 		//ksession.startProcess("cobweb.m24.qaqc_knotweed_los_laplace_suitability");
-
-		//ksession.startProcess("cobweb.m24.qaqc_knotweed_los_filter_laplace_suitability");
+		
+		ksession.startProcess("cobweb.m24.qaqc_knotweed_los_filter_laplace_suitability");
 		
 	}
 
