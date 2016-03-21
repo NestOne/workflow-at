@@ -11,6 +11,6 @@ This is the authoring tool for constructing geoprocessing workflows comprised of
 
 * Errors are not currently returned when attempting to execute a work item which has not been registered. Remember to register all workItems (with names as defined in the .Wid) if a workflow appears to midway stop during execution.
 
-
+* The web editor (Kie Workbench) environment has various browser related issues. When using Google Chrome the editor will get stuck on "Please Wait: Loading" if there is Anti-Virus software installed. Disabling all AV services (Sophos or AVG) appears to fix the problem. Internet Explorer (ver. 11 tested) works (with AV software still running), but the IE page rendering is terrible and workflow the drawing is buggy.
 
 
