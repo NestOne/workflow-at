@@ -126,7 +126,6 @@ public class GenericWPSClient {
 		return capabilities;
 	}
 
-
 	public ProcessDescriptionType requestDescribeProcess(String url,String processID) throws IOException {
 		System.out.println("Requesting describe process document...");		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
@@ -237,7 +236,7 @@ public class GenericWPSClient {
 					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", outputName); 
 					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);
 					
-					executeBuilder.setAsReference(outputName, false); //set the return output value as a reference
+					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
 				} else {
 					System.out.println("Setting schema for: " + outputName);
 					executeBuilder.setSchemaForOutput("application/json",outputName);
