@@ -2,6 +2,8 @@
 
 This is the authoring tool for constructing geoprocessing workflows comprised of Web Processing Services. The tool is based on a jBPM framework.
 
+[![Demo Workflow Japanese Knotweed](http://www.nottingham.ac.uk/~psxjr/images/jkw_screenshot.png)](https://drive.google.com/open?id=0Byw3xiwycSF3cksxSEF5Z0NnX2c)
+
 
 ## Troubleshooting
 
