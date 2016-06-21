@@ -248,8 +248,7 @@ public class GenericWPSClient {
 					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "result");					  							  
 					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result"); 
 					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "qual_result");
-					*/
-					
+					*/					
 					
 					/*
 		
