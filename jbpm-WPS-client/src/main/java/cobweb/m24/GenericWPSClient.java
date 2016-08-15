@@ -47,12 +47,12 @@ import org.n52.wps.io.data.binding.complex.PlainStringBinding;
 public class GenericWPSClient {
 	/**
 	 * @author Sam Meek, Julian Rosser. This is the main class that executes the WPS and handles
-	 *         the result returned as a HashMap. It is currently written to deal
+	 *         the result returned as a HashMap. It is currently mainly written to deal
 	 *         with vector data. Raster data inputs are passed as a link and parsed server side.
 	 * 		   Raster data outputs can be passed as links e.g. using executeBuilder.setAsReference(true).	  		   
 	 *         Vector processing hardcoded to JSON (application/json) but could be changed
 	 *         quite easily to implement the default.
-	 *         Rough support for WPS4R R scripts where process id is like org.n52.wps.server.r.
+	 *         Support for WPS4R R scripts is provided where process id is like org.n52.wps.server.r.
 	 */
 
 	String wpsURL;
@@ -193,8 +193,7 @@ public class GenericWPSClient {
 				}
 				else if (inputValue instanceof String) {
 					System.out.println("instance of string. inputName: " + inputName);	
-					
-					
+										
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json");
 					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);					
 
