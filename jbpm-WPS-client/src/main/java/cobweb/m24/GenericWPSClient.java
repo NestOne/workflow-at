@@ -91,7 +91,7 @@ public class GenericWPSClient {
 			CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL); //Doesn't appear to be used
 			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(wpsURL, wpsProcessID);
 
-			//outputs = executeProcess(wpsURL, wpsProcessID,	describeProcessDocument, wpsInputs);
+			//outputs = executeProcess(wpsURL, wpsProcessID,	describeProcessDocument, wpsInputs); //old approach reading data inputs
 			outputs = executeProcessAsLinks(wpsURL, wpsProcessID,	describeProcessDocument, wpsInputs);
 
 		} catch (WPSClientException e) {
@@ -163,14 +163,12 @@ public class GenericWPSClient {
 				System.out.println("WPS URL " + wpsURL);
 				if (inputValue instanceof String) {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
-				}
-			
+				}			
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {		
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
 				// System.out.println("Here 4 " + inputValue.toString());
-				// Complexdata by value
-				
+				// Complexdata by value			
 										
 				if (inputValue instanceof FeatureCollection	|| inputValue instanceof GTVectorDataBinding) {
 					System.out.println("instance of FeatureCollection || ObjectDataType " + inputName);
@@ -192,11 +190,9 @@ public class GenericWPSClient {
 
 				}
 				else if (inputValue instanceof String) {
-					System.out.println("instance of string. inputName: " + inputName);	
-										
+					System.out.println("instance of string. inputName: " + inputName);											
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json");
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);					
-
+					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);				
 				}
 
 			}

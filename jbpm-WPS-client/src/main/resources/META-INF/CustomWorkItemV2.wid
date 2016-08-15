@@ -162,7 +162,8 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 	"inputSurfaceModel" :  new ObjectDataType(),
 	"inputBearingFieldName" :  new StringDataType(),
 	"inputTiltFieldName" :  new StringDataType(),
-	"inputUserHeight" : new StringDataType()
+	"inputUserHeight" : new StringDataType(),
+	"positionAccuracyFieldName" : new StringDataType()	
     ],
 	"results" : [
    	"result" : new StringDataType(),
