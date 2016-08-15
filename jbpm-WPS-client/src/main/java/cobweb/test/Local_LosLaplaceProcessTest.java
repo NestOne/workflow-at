@@ -14,7 +14,7 @@ import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 import cobweb.m24.ExceptionServiceHandler;
 import cobweb.m24.GenericWorkItemHandlerClient;
 
-public class Remote_LosProcessTest {
+public class Local_LosLaplaceProcessTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -36,13 +36,15 @@ public class Remote_LosProcessTest {
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GetLineOfSight", signallingTaskWrapper);
-					
+				"GetLineOfSight", signallingTaskWrapper);					
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"LaplacePhotoBlurCheck", signallingTaskWrapper);
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.remote_qaqc_knotweed_los");
+		ksession.startProcess("cobweb.m24.local_qaqc_knotweed_los_laplace");
 		
 	}
 

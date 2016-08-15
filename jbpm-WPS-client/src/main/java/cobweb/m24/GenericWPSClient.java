@@ -182,6 +182,7 @@ public class GenericWPSClient {
 						e.printStackTrace();
 					}
 				}
+				
 				if (inputName.equals("inputSurfaceModel")) {
 					//Hard-coded handling for .asc type inputs
 					System.out.println("got an inputSurfaceModel");					
