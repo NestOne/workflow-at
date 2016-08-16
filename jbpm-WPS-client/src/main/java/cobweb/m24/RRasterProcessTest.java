@@ -33,20 +33,7 @@ public class RRasterProcessTest {
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Polygon",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Buffer",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 2 - Filter on Attribute",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Store results in WFS-T", new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"ConflationGeometryDistance", signallingTaskWrapper);
-		
+
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnGeometry",
 				new GenericWorkItemHandlerClient());
@@ -65,7 +52,9 @@ public class RRasterProcessTest {
 		 * /src/main/resources
 		 */
 		//ksession.startProcess("cobweb.m24.test_r_raster_string_return");
-		ksession.startProcess("cobweb.m24.test_r_raster_two_process_string_return");
+		//ksession.startProcess("cobweb.m24.test_r_raster_two_process_string_return");
+		ksession.startProcess("cobweb.m24.test.test_r_raster_process");
+
 	}
 
 }

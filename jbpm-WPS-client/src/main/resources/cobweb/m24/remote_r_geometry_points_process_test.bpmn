@@ -3,7 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.test_remote_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_remote_r_geometry_points_process_test" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.remote_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="remote_r_geometry_points_process_test" isExecutable="true" processType="Private">
     <bpmn2:property id="temporaryResult" itemSubjectRef="_String"/>
     <bpmn2:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
@@ -116,8 +116,8 @@
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_remote_r_geometry_points_process_test">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_remote_r_geometry_points_process_test">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="remote_r_geometry_points_process_test">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.remote_r_geometry_points_process_test">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
       </bpmndi:BPMNShape>

@@ -45,7 +45,7 @@ public class Remote_RProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_remote_r_geometry_points_process_test");
+		ksession.startProcess("cobweb.m24.remote_r_geometry_points_process_test");
 	}
 
 }

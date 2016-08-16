@@ -48,7 +48,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_15">
         <bpmn2:targetRef>_DataInput_15</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_21">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_57">http://geoprocessing.nottingham.ac.uk:80/wps/RetrieveResultServlet?id=d48734a4-67cb-457a-adbf-87c15a527ebcoutputRasterModel.c6a65f60-ac64-4f6f-9b4d-2ad9e2587362</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_57">http://localhost:8010/wps/testData/surfaceModel_sn7698.txt</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_55">_DataInput_15</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
