@@ -15,12 +15,6 @@ import cobweb.m24.ExceptionServiceHandler;
 import cobweb.m24.GenericWorkItemHandlerClient;
 
 public class Remote_LosProcessTest {
-	/**
-	 * @author Julian Rosser
-	 * @param args
-	 * 
-	 *            Main class harness for testing LoS / JKW workflow
-	 */
 
 	public static void main(String args[]) {
 

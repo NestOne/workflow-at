@@ -20,6 +20,34 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "category" : "Raster Conflation",
 ],
 
+
+
+[
+	"name" : "Pillar2LocationQuality",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"LBSmethod" :  new StringDataType(),
+		"DQlevel" :  new StringDataType(),
+		"PositionUncertainty" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(),
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 2 - Location Quality",
+	"category" : "Pillar 2",
+],
+
+
+
+
 [
 	"name" : "rTestReturnRaster",
     	"parameters" : [

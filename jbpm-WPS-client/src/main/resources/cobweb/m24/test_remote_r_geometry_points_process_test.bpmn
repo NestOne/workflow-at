@@ -3,14 +3,8 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.test_r_geometry_points_string" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_r_geometry_points_string" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.test_remote_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_remote_r_geometry_points_process_test" isExecutable="true" processType="Private">
     <bpmn2:property id="temporaryResult" itemSubjectRef="_String"/>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:startEvent id="StartEvent_1" name="">
-      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
-    </bpmn2:startEvent>
     <bpmn2:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
@@ -35,7 +29,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_22">
         <bpmn2:targetRef>_DataInput_22</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_3">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">_DataInput_22</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -49,14 +43,14 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_24">
         <bpmn2:targetRef>_DataInput_24</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_5">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SampleData&amp;maxFeatures=50&amp;outputFormat=application/json</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">http://geo.envsys.co.uk:8080/geoserver/cobweb/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=cobweb:CobwebSampleData&amp;outputFormat=gml3&amp;featureId=CobwebSampleData.61&amp;srsName=EPSG:27700</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_13">_DataInput_24</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="_DataInputAssociation_25">
         <bpmn2:targetRef>_DataInput_25</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_4">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">egg</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">testattribname</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">_DataInput_25</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -65,6 +59,10 @@
         <bpmn2:targetRef>temporaryResult</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_3"/>
+    <bpmn2:startEvent id="StartEvent_1" name="">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_2"/>
     <bpmn2:task id="Task_3" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
@@ -90,7 +88,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_26">
         <bpmn2:targetRef>_DataInput_26</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_7">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_21">http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_21">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_19">_DataInput_26</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -114,36 +112,41 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_3"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_r_geometry_points_string">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_geometry_points_string">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_remote_r_geometry_points_process_test">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_remote_r_geometry_points_process_test">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="70.0" y="27.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="494.0" y="94.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="480.0" y="161.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
-        <dc:Bounds height="50.0" width="110.0" x="160.0" y="81.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="150.0" y="160.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="305.0" y="165.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="300.0" y="160.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
-        <di:waypoint xsi:type="dc:Point" x="94.0" y="75.0"/>
-        <di:waypoint xsi:type="dc:Point" x="94.0" y="106.0"/>
-        <di:waypoint xsi:type="dc:Point" x="160.0" y="106.0"/>
+        <di:waypoint xsi:type="dc:Point" x="78.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="150.0" y="185.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="415.0" y="190.0"/>
-        <di:waypoint xsi:type="dc:Point" x="518.0" y="190.0"/>
-        <di:waypoint xsi:type="dc:Point" x="518.0" y="142.0"/>
+        <di:waypoint xsi:type="dc:Point" x="410.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="463.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="463.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="480.0" y="185.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
-        <di:waypoint xsi:type="dc:Point" x="215.0" y="131.0"/>
-        <di:waypoint xsi:type="dc:Point" x="215.0" y="190.0"/>
-        <di:waypoint xsi:type="dc:Point" x="305.0" y="190.0"/>
+        <di:waypoint xsi:type="dc:Point" x="260.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="185.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

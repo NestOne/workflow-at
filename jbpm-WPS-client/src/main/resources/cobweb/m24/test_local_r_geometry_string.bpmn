@@ -47,7 +47,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_8">
         <bpmn2:targetRef>_DataInput_8</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_8">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_18">http://localhost:8000/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:restricted&amp;maxFeatures=50&amp;outputFormat=application/json</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_18">http://localhost:8000/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:restricted&amp;maxFeatures=50</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">_DataInput_8</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>

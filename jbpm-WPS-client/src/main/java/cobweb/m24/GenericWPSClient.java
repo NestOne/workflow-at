@@ -167,35 +167,13 @@ public class GenericWPSClient {
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {		
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
-				// System.out.println("Here 4 " + inputValue.toString());
-				// Complexdata by value			
-										
-				if (inputValue instanceof FeatureCollection	|| inputValue instanceof GTVectorDataBinding) {
-					System.out.println("instance of FeatureCollection || ObjectDataType " + inputName);
-					// IData data = new GTVectorDataBinding(
-					// (FeatureCollection) inputValue);
-					IData data = (IData) inputValue;
-					try {
-						executeBuilder.addComplexData((String) inputName, data,	null, null, "application/json");
-					} catch (WPSClientException e) {
-						System.out.println("add complex data exception " + e);
-						e.printStackTrace();
-					}
-				}
-				
-				if (inputName.equals("inputSurfaceModel")) {
-					//Hard-coded handling for .asc type inputs
-					System.out.println("got an inputSurfaceModel");					
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null, "text/plain");
-				} else if (inputName.equals("inputRasterModel")) {
+				// System.out.println("Here 4 " + inputValue.toString());			
 
-				}
-				else if (inputValue instanceof String) {
+				if (inputValue instanceof String) {
 					System.out.println("instance of string. inputName: " + inputName);											
-					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json");
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //force json
 					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);				
 				}
-
 			}
 			if (inputValue == null && input.getMinOccurs().intValue() > 0) {
 				System.out.println("Null inputValue for a mandatory field.");	
@@ -236,28 +214,7 @@ public class GenericWPSClient {
 				} else {
 					System.out.println("Setting schema for: " + outputName);
 					executeBuilder.setSchemaForOutput("application/json",outputName);
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference		
-					
-					
-					/*
-					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "result"); 
-					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "result");					  							  
-					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", "qual_result"); 
-					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", "qual_result");
-					*/					
-					
-					/*
-		
-					
-					String mimeType = output.getComplexOutput().getSupported().getFormatArray (1).getMimeType();
-					executeBuilder.setMimeTypeForOutput(mimeType, outputName);
-					  
-					String schema = output.getComplexOutput().getSupported().getFormatArray(1).getSchema(); 
-					if(schema!=null){					  
-						executeBuilder.setSchemaForOutput( schema, outputName); 
-					}								
-					//System.out.println("outputName " + outputName + " mimeType " + mimeType + " schema " + schema);			  		
-					 */						 
+					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference										 
 							 
 				}
 			} else if (output.getLiteralOutput() != null) {
