@@ -26,7 +26,6 @@ import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.feature.FeatureCollection;

@@ -26,7 +26,6 @@ import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.feature.FeatureCollection;
@@ -113,7 +112,8 @@ public class GenericWPSClient {
 	 */
 
 	public CapabilitiesDocument requestGetCapabilities(String url) throws WPSClientException {
-		System.out.println("Requesting get capabilities document...");
+		System.out.println("Requesting get capabilities document..." + url);
+
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 		wpsClient.connect(url);
 		CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
