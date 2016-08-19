@@ -1,5 +1,5 @@
  <kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
-  <kbase name="kbase" packages="cobweb.m24">
+  <kbase name="kbase" packages="cobweb.m24.*">
   		<ksession name="ksession-process"/>
 	</kbase>
 </kmodule>

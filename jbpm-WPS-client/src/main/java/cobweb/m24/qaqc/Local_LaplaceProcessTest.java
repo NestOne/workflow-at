@@ -1,4 +1,4 @@
-package cobweb.test;
+package cobweb.m24.qaqc;
 
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
@@ -14,7 +14,7 @@ import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 import cobweb.m24.ExceptionServiceHandler;
 import cobweb.m24.GenericWorkItemHandlerClient;
 
-public class Local_LosLaplaceProcessTest {
+public class Local_LaplaceProcessTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -34,20 +34,17 @@ public class Local_LosLaplaceProcessTest {
 				GenericWorkItemHandlerClient.class, eventType);
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
+
 		
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GetLineOfSight", signallingTaskWrapper);					
-		
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"LaplacePhotoBlurCheck", signallingTaskWrapper);
-		
+
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"LaplacePhotoBlurCheck", signallingTaskWrapper);
+			
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.local_qaqc_knotweed_los_cleaning_laplace");
+		ksession.startProcess("cobweb.m24.qaqc.local_qaqc_knotweed_laplace");
 		
 	}
 

@@ -3,7 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.local_qaqc_knotweed_laplace" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="local_qaqc_knotweed_laplace" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.qaqc.local_qaqc_knotweed_laplace" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="local_qaqc_knotweed_laplace" isExecutable="true" processType="Private">
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -84,7 +84,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="Task_2"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_qaqc_knotweed_laplace">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.local_qaqc_knotweed_laplace">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.qaqc.local_qaqc_knotweed_laplace">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
         <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
       </bpmndi:BPMNShape>

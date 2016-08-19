@@ -1,4 +1,4 @@
-package cobweb.test;
+package cobweb.m24.qaqc;
 
 import cobweb.m24.*;
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
@@ -36,7 +36,7 @@ public class Local_RLocationQualityTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_local_r_qaqc_knotweed_locationquality");
+		ksession.startProcess("cobweb.m24.qaqc.local_r_qaqc_knotweed_locationquality");
 	}
 
 }
