@@ -3,7 +3,7 @@
   <bpmn:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn:itemDefinition id="_String" structureRef="String"/>
-  <bpmn:process id="cobweb.m24.test_local_r_geometry_points_process_test_camunda" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_local_r_geometry_points_process_test_camunda" isExecutable="true" processType="Private">
+  <bpmn:process id="cobweb.m24.test.local_r_geometry_points_process_test_camunda" tns:version="1" tns:packageName="cobweb.m24.test" tns:adHoc="false" name="local_r_geometry_points_process_test_camunda" isExecutable="true" processType="Private">
     <bpmn:extensionElements>
       <camunda:executionListener class="" event="start"/>
     </bpmn:extensionElements>
@@ -124,8 +124,8 @@
       <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_local_r_geometry_points_process_test_camunda">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_local_r_geometry_points_process_test_camunda">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_geometry_points_process_test_camunda">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
       </bpmndi:BPMNShape>

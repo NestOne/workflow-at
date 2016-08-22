@@ -46,8 +46,6 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 ],
 
 
-
-
 [
 	"name" : "rTestReturnRaster",
     	"parameters" : [

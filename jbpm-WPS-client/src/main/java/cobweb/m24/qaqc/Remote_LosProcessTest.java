@@ -36,7 +36,7 @@ public class Remote_LosProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.remote_qaqc_knotweed_los");
+		ksession.startProcess("cobweb.m24.qaqc.remote_qaqc_knotweed_los");
 		
 	}
 

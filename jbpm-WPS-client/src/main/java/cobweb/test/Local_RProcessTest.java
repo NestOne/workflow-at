@@ -45,7 +45,7 @@ public class Local_RProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_local_r_geometry_string");
+		ksession.startProcess("cobweb.m24.test.local_r_geometry_string");
 	}
 
 }

@@ -3,7 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.remote_qaqc_knotweed_los" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="remote_qaqc_knotweed_los" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.qaqc.remote_qaqc_knotweed_los" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="remote_qaqc_knotweed_los" isExecutable="true" processType="Private">
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -44,7 +44,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_35">
         <bpmn2:targetRef>_DataInput_35</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_1">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://geoprocessing.westus.cloudapp.azure.com:8080/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://geoprocessing.westus.cloudapp.azure.com:8010/wps/WebProcessingService?</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_35</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -101,7 +101,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="Task_1" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="remote_qaqc_knotweed_los">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.remote_qaqc_knotweed_los">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.qaqc.remote_qaqc_knotweed_los">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
         <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
       </bpmndi:BPMNShape>

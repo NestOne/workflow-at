@@ -53,7 +53,8 @@ public class GenericWPSClient {
 	 *         quite easily to implement the default.
 	 *         Support for WPS4R R scripts is provided where process id is like org.n52.wps.server.r.
 	 */
-
+	
+	
 	String wpsURL;
 	String wpsProcessID;
 	HashMap<String, Object> wpsInputs;
@@ -85,6 +86,7 @@ public class GenericWPSClient {
 
 		// tempDir = "/tmp/tomcat7-tomcat7-tmp/"; // linux
 		tempDir = "C:\\tmp\\"; // windows
+				
 
 		try {
 			CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL); //Doesn't appear to be used
@@ -208,8 +210,7 @@ public class GenericWPSClient {
 				} else if (processID.contains("org.n52.wps.server.r")) { 
 					System.out.println("Setting output mime type for R process: " + outputName);
 					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", outputName); 
-					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);
-					
+					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);					
 					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
 				} else {
 					System.out.println("Setting schema for: " + outputName);
