@@ -3,6 +3,22 @@ import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 [
+
+[
+	"name" : "GSCollectGeometries",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSCollectGeometries",
+    "category" : "GeoServer",
+],
+
 [
 	"name" : "rRocRasterCutoff",
     	"parameters" : [

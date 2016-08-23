@@ -46,7 +46,7 @@
       <bpmn:dataInputAssociation id="_DataInputAssociation_24">
         <bpmn:targetRef>_DataInput_24</bpmn:targetRef>
         <bpmn:assignment id="Assignment_5">
-          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_15"><![CDATA[http://localhost:8000/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString&maxFeatures=50&outputFormat=gml3]]></bpmn:from>
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_15">http://localhost:8000/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString&amp;maxFeatures=50&amp;outputFormat=gml3</bpmn:from>
           <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_13">_DataInput_24</bpmn:to>
         </bpmn:assignment>
       </bpmn:dataInputAssociation>

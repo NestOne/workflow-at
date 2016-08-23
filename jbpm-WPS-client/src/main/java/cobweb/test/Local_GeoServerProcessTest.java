@@ -13,9 +13,9 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import cobweb.m24.ExceptionServiceHandler;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class Remote_RProcessTest {
+public class Local_GeoServerProcessTest {
 	/**
-	 * @author Sam Meek
+	 * @author Julian Rosser
 	 * @param args
 	 * 
 	 *            This is a test class for the Eclipse plugin. Workflow
@@ -36,16 +36,16 @@ public class Remote_RProcessTest {
 				GenericWorkItemHandlerClient.class, eventType);
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
-
+		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"rTestReturnGeometryPoints",
+				"GSCollectGeometries",
 				new GenericWorkItemHandlerClient());
 		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test.remote_r_geometry_points_process_test");
+		ksession.startProcess("cobweb.m24.test.local_geoserver_wps");
 	}
 
 }

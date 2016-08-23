@@ -29,6 +29,7 @@ import net.opengis.wps.x100.ProcessDescriptionType;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.feature.FeatureCollection;
+import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
@@ -53,6 +54,9 @@ public class GenericWPSClient {
 	 *         quite easily to implement the default.
 	 *         Support for WPS4R R scripts is provided where process id is like org.n52.wps.server.r.
 	 */
+	
+	
+	final boolean DEBUG = false;
 	
 	
 	String wpsURL;
@@ -121,9 +125,13 @@ public class GenericWPSClient {
 		CapabilitiesDocument capabilities = wpsClient.getWPSCaps(url);
 		ProcessBriefType[] processList = capabilities.getCapabilities()
 				.getProcessOfferings().getProcessArray();
+		
+		System.out.println("Number of capabilities " + processList.length);
 		//For debugging...
-		for (ProcessBriefType process : processList) {
-			// System.out.println(process.getIdentifier().getStringValue());
+		if (DEBUG) { 
+			for (ProcessBriefType process : processList) {
+				System.out.println(process.getIdentifier().getStringValue());
+			}
 		}
 		return capabilities;
 	}
@@ -132,34 +140,26 @@ public class GenericWPSClient {
 		System.out.println("Requesting describe process document...");		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 		ProcessDescriptionType processDescription = wpsClient.getProcessDescription(url, processID);
+		if (DEBUG)System.out.println("Process description:");
+		if (DEBUG)System.out.println(processDescription);		
 		InputDescriptionType[] inputList = processDescription.getDataInputs().getInputArray();
-		for (InputDescriptionType input : inputList) {
-			System.out.println("Describe process identifier: " + input.getIdentifier().getStringValue());
+		if (DEBUG) {
+			for (InputDescriptionType input : inputList) {
+				System.out.println("Describe process identifier: " + input.getIdentifier().getStringValue());
+			}
 		}
 		return processDescription;
 	}
 	
 		
-	/**
-	 * 
-	 * @param url
-	 *            - WPS url
-	 * @param processID
-	 *            - process description
-	 * @return outputs - hashmap of the results (as a URL links to data (e.g. not FeatureCollections)
-	 * @throws IOException
-	 *             - this needs replacing
-	 */
-	public HashMap<String, Object> executeProcessAsLinks(String url, String processID,	ProcessDescriptionType processDescription,	HashMap<String, Object> inputs) {
-		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(processDescription);
-		System.out.println("Trying to execute process...");
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		
+	
+	private ExecuteRequestBuilder inputSetter(org.n52.wps.client.ExecuteRequestBuilder executeBuilder, HashMap<String, Object> inputs, ProcessDescriptionType processDescription) throws IOException {
+
 		//Loop over the inputs (data and params) and create the ExectuteRequest   
 		for (InputDescriptionType input : processDescription.getDataInputs().getInputArray()) {
 			String inputName = input.getIdentifier().getStringValue();
 			Object inputValue = inputs.get(inputName);
-			
+		
 			//Handle literal data
 			if (input.getLiteralData() != null) {
 				System.out.println("WPS URL " + wpsURL);
@@ -167,14 +167,16 @@ public class GenericWPSClient {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
 				}			
 			//Handle as ComplexData ie vectors, rasters
-			} else if (input.getComplexData() != null) {		
+			} else if (input.getComplexData() != null) {				
+				
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
 				// System.out.println("Here 4 " + inputValue.toString());			
-
+	
 				if (inputValue instanceof String) {
-					System.out.println("instance of string. inputName: " + inputName);											
-					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //force json
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);				
+					System.out.println("instance of string. inputName: " + inputName);					
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
+					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0");
 				}
 			}
 			if (inputValue == null && input.getMinOccurs().intValue() > 0) {
@@ -188,10 +190,31 @@ public class GenericWPSClient {
 				}
 			}
 		}
-		System.out.println("Finished constructing execute request inputs");			
-		
-		
-		
+		System.out.println("Finished constructing execute request inputs");
+		return executeBuilder;			
+	
+	}//eof
+	
+	
+	
+	/**
+	 * 
+	 * @param url
+	 *            - WPS url
+	 * @param processID
+	 *            - process description
+	 * @return outputs - hashmap of the results (as a URL links to data (e.g. not FeatureCollections)
+	 * @throws IOException
+	 *             - this needs replacing
+	 */
+	public HashMap<String, Object> executeProcessAsLinks(String url, String processID,	ProcessDescriptionType processDescription,	HashMap<String, Object> inputs) throws IOException {
+				
+		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(processDescription);
+		System.out.println("Trying to execute process...");
+		HashMap<String, Object> result = new HashMap<String, Object>();				
+
+		executeBuilder = inputSetter(executeBuilder, inputs, processDescription);
+						
 		//Loop over process outputs to determine what output types should be requested
 		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
 			System.out.println("Looping over output types to hardcode schema");	
@@ -204,32 +227,37 @@ public class GenericWPSClient {
 				//Why not check output data type?
 				if (outputName.equals("outputRasterModel")) {
 					System.out.println("Setting schema for an outputRasterModel: " + outputName);
-					executeBuilder.setSchemaForOutput("image/tiff",	outputName);
-					
+					executeBuilder.setSchemaForOutput("image/tiff",	outputName);					
 					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
 				} else if (processID.contains("org.n52.wps.server.r")) { 
 					System.out.println("Setting output mime type for R process: " + outputName);
 					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", outputName); 
-					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);					
+					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);
+					//executeBuilder.setSchemaForOutput("application/json",outputName); //will fall back to the annotated script definition
+					//executeBuilder.setMimeTypeForOutput("application/json",outputName); 
 					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
 				} else {
-					System.out.println("Setting schema for: " + outputName);
-					executeBuilder.setSchemaForOutput("application/json",outputName);
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference										 
-							 
+					System.out.println("Setting schema as json for " + outputName);
+					//executeBuilder.setSchemaForOutput("application/json",outputName);
+					//executeBuilder.setSchemaForOutput("application/wfs",outputName);
+					executeBuilder.setMimeTypeForOutput("application/json",outputName); 
+					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference									 
 				}
 			} else if (output.getLiteralOutput() != null) {
 				System.out.println("Warning: got literal output but not handling it!");
 			}
 		}
 
-		// executeBuilder.setMimeTypeForOutput("text/plain", "metadata");
-
-		ExecuteDocument execute = executeBuilder.getExecute();
+		ExecuteDocument execute = executeBuilder.getExecute();		
+		
+		System.out.println("Execute Request: ");
+		System.out.println(execute.toString());
 		
 		dumpTextToFile(execute.toString(), processID);
 		
 		execute.getExecute().setService("WPS");
+		
+		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 
 		Object responseObject;
@@ -237,7 +265,6 @@ public class GenericWPSClient {
 			responseObject = wpsClient.execute(url, execute);
 			//System.out.println("printing execute request...");
 			//System.out.println(execute.toString());
-			
 
 			if (responseObject instanceof ExecuteResponseDocument) {
 				System.out.println("Handling responseObject as instanceof ExecuteResponseDocument");
@@ -249,8 +276,7 @@ public class GenericWPSClient {
 				int outputCounter = 0;
 				for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
 					System.out.println("getting an ouputIdentifier..."); 
-					System.out.println("Output counter: "+ outputCounter); 
-					
+					//System.out.println("Output counter: "+ outputCounter); 				
 					
 					String outputName = output.getIdentifier().getStringValue();
 					System.out.println("ouputIdentifier: "+ outputName);
@@ -361,8 +387,10 @@ public class GenericWPSClient {
 			UUID uuid = UUID.randomUUID();
 			String randomUUIDString = uuid.toString();
 
+			String outputNameClean =  outputName.replaceAll(":", "_");
+			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
-			File file = new File(tempDir + dateFormat.format(date) +"_" + randomUUIDString +"_"+ outputName +".xml") ;
+			File file = new File(tempDir + dateFormat.format(date) +"_" + randomUUIDString +"_"+ outputNameClean +".xml") ;
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 			out.write(textToDump);
 			out.close();

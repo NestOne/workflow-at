@@ -413,8 +413,7 @@ public class TestClient {
                                 GTVectorDataBinding.class);
                         if(data == null  ){
                         	System.out.println("no results for result");
-                        	throw new RuntimeException();
-                         
+                        	throw new RuntimeException();                         
                         }
                         
                         Object data2 = null;
