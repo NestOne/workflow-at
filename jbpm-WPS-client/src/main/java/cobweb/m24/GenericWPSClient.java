@@ -18,7 +18,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import net.opengis.wps.x100.CapabilitiesDocument;
+import net.opengis.wps.x100.ComplexDataCombinationType;
+import net.opengis.wps.x100.ComplexDataCombinationsType;
+import net.opengis.wps.x100.ComplexDataDescriptionType;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
 import net.opengis.wps.x100.InputDescriptionType;
@@ -44,6 +53,8 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
 import org.n52.wps.io.data.binding.complex.GeotiffBinding;
 import org.n52.wps.io.data.binding.literal.*;
 import org.n52.wps.io.data.binding.complex.PlainStringBinding;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 public class GenericWPSClient {
 	/**
 	 * @author Sam Meek, Julian Rosser. This is the main class that executes the WPS and handles
@@ -159,6 +170,8 @@ public class GenericWPSClient {
 		for (InputDescriptionType input : processDescription.getDataInputs().getInputArray()) {
 			String inputName = input.getIdentifier().getStringValue();
 			Object inputValue = inputs.get(inputName);
+			System.out.println("WPS URL " + wpsURL);
+			
 		
 			//Handle literal data
 			if (input.getLiteralData() != null) {
@@ -171,7 +184,7 @@ public class GenericWPSClient {
 				
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
 				// System.out.println("Here 4 " + inputValue.toString());			
-	
+				
 				if (inputValue instanceof String) {
 					System.out.println("instance of string. inputName: " + inputName);					
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
@@ -197,6 +210,73 @@ public class GenericWPSClient {
 	
 	
 	
+	
+	private ExecuteRequestBuilder outputSetter(org.n52.wps.client.ExecuteRequestBuilder executeBuilder, HashMap<String, Object> inputs, ProcessDescriptionType processDescription) throws IOException {
+						
+		//Loop over process outputs to determine what output types should be requested
+		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
+			System.out.println("Looping over output types to hardcode schema");	
+			String outputName = output.getIdentifier().getStringValue();
+			
+			if (output.getComplexOutput() != null) {			
+				System.out.println("Setting schema for output: " + outputName);			
+			
+				String[] mimeTypeAndSchema = parseMimeTypeAndSchema(output);
+				
+				System.out.println("Mime type and scehma " + mimeTypeAndSchema[0] + " " + mimeTypeAndSchema[1]);	
+				System.out.println("Setting schema as json for " + outputName);
+				//executeBuilder.setSchemaForOutput("application/json",outputName);
+				//executeBuilder.setSchemaForOutput("application/wfs",outputName);
+				//executeBuilder.setMimeTypeForOutput("application/json",outputName);
+				
+				executeBuilder.setMimeTypeForOutput(mimeTypeAndSchema[0],outputName);				
+				if (mimeTypeAndSchema[1] != null) {
+					executeBuilder.setSchemaForOutput(mimeTypeAndSchema[1],outputName);
+				}
+			
+				
+				executeBuilder.setAsReference(outputName, true); //set the return output value as a reference									 
+				
+			} else if (output.getLiteralOutput() != null) {
+				System.out.println("Warning: got literal output but not handling it!");
+			}
+		}
+		return executeBuilder;
+	}
+	
+	
+	
+	private static String[] parseMimeTypeAndSchema(OutputDescriptionType output) {
+		
+		String preferredMimeType = "text/xml; subtype=gml/3.1.1"; 		
+		ComplexDataCombinationType defaultType = output.getComplexOutput().getDefault();
+		ComplexDataCombinationsType supportedFormats = output.getComplexOutput().getSupported();
+		
+        String[] x;
+	    x = new String[2];  	    
+	    
+ 	    //Check if the process supports the workflow preferred format  
+		for (int index = 0; index < supportedFormats.sizeOfFormatArray(); index++) {
+			//System.out.println(supportedFormats.getFormatArray(index).getMimeType());
+			ComplexDataDescriptionType format = supportedFormats.getFormatArray(index);
+			if (format.getMimeType().equals(preferredMimeType)) {
+				x[0] = format.getMimeType();
+				x[1]= format.getSchema();
+			} 					
+		}
+		//if still not got a good mimeType use the default
+		if (x[0] == null){
+			x[0] = defaultType.getFormat().getMimeType();
+			x[1] = defaultType.getFormat().getSchema();
+		}			
+		
+		return x;
+
+		
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param url
@@ -213,50 +293,21 @@ public class GenericWPSClient {
 		System.out.println("Trying to execute process...");
 		HashMap<String, Object> result = new HashMap<String, Object>();				
 
+		//Set the input data types
 		executeBuilder = inputSetter(executeBuilder, inputs, processDescription);
-						
-		//Loop over process outputs to determine what output types should be requested
-		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
-			System.out.println("Looping over output types to hardcode schema");	
-			String outputName = output.getIdentifier().getStringValue();						
-			if (output.getComplexOutput() != null) {				
-				System.out.println("Setting schema for output: " + outputName);				
-				
-				System.out.println("output type " + outputName);
-				
-				//Why not check output data type?
-				if (outputName.equals("outputRasterModel")) {
-					System.out.println("Setting schema for an outputRasterModel: " + outputName);
-					executeBuilder.setSchemaForOutput("image/tiff",	outputName);					
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
-				} else if (processID.contains("org.n52.wps.server.r")) { 
-					System.out.println("Setting output mime type for R process: " + outputName);
-					executeBuilder.setMimeTypeForOutput("text/xml; subtype=gml/3.1.0", outputName); 
-					executeBuilder.setSchemaForOutput("http://schemas.opengis.net/gml/3.1.0/base/feature.xsd", outputName);
-					//executeBuilder.setSchemaForOutput("application/json",outputName); //will fall back to the annotated script definition
-					//executeBuilder.setMimeTypeForOutput("application/json",outputName); 
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference
-				} else {
-					System.out.println("Setting schema as json for " + outputName);
-					//executeBuilder.setSchemaForOutput("application/json",outputName);
-					//executeBuilder.setSchemaForOutput("application/wfs",outputName);
-					executeBuilder.setMimeTypeForOutput("application/json",outputName); 
-					executeBuilder.setAsReference(outputName, true); //set the return output value as a reference									 
-				}
-			} else if (output.getLiteralOutput() != null) {
-				System.out.println("Warning: got literal output but not handling it!");
-			}
-		}
 
-		ExecuteDocument execute = executeBuilder.getExecute();		
+		//Set the output data types
+		executeBuilder = outputSetter(executeBuilder, inputs, processDescription);
+		
+		//Get the ExecuteDocument and get ready to execute
+		ExecuteDocument execute = executeBuilder.getExecute();	
 		
 		System.out.println("Execute Request: ");
 		System.out.println(execute.toString());
 		
 		dumpTextToFile(execute.toString(), processID);
 		
-		execute.getExecute().setService("WPS");
-		
+		execute.getExecute().setService("WPS");		
 		
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 
