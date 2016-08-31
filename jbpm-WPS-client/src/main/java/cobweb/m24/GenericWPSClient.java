@@ -55,6 +55,8 @@ import org.n52.wps.io.data.binding.literal.*;
 import org.n52.wps.io.data.binding.complex.PlainStringBinding;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+
 public class GenericWPSClient {
 	/**
 	 * @author Sam Meek, Julian Rosser. This is the main class that executes the WPS and handles
@@ -163,7 +165,15 @@ public class GenericWPSClient {
 	}
 	
 		
-	
+	/**
+	 * Adds in the WPS input details to an executeRequest 
+	 * 
+	 * @param executeBuilder - the execReq being built
+	 * @param inputs - hashmap of data and values for the process from the BPMN
+	 * @param processDescription - the processDescription details for this process  
+	 * @return ExecuteResquestBuilder 
+	 * @throws IOException
+	 */	
 	private ExecuteRequestBuilder inputSetter(org.n52.wps.client.ExecuteRequestBuilder executeBuilder, HashMap<String, Object> inputs, ProcessDescriptionType processDescription) throws IOException {
 
 		//Loop over the inputs (data and params) and create the ExectuteRequest   
@@ -210,7 +220,15 @@ public class GenericWPSClient {
 	
 	
 	
-	
+	/**
+	 * Adds in the WPS output details to an executeRequest 
+	 * 
+	 * @param executeBuilder - the execReq being built
+	 * @param inputs - hashmap of data and values for the process from the BPMN
+	 * @param processDescription - the processDescription details for this process  
+	 * @return ExecuteResquestBuilder 
+	 * @throws IOException
+	 */	
 	private ExecuteRequestBuilder outputSetter(org.n52.wps.client.ExecuteRequestBuilder executeBuilder, HashMap<String, Object> inputs, ProcessDescriptionType processDescription) throws IOException {
 						
 		//Loop over process outputs to determine what output types should be requested
@@ -219,12 +237,10 @@ public class GenericWPSClient {
 			String outputName = output.getIdentifier().getStringValue();
 			
 			if (output.getComplexOutput() != null) {			
-				System.out.println("Setting schema for output: " + outputName);			
+				System.out.println("Setting schema for output: " + outputName);		
 			
-				String[] mimeTypeAndSchema = parseMimeTypeAndSchema(output);
-				
+				String[] mimeTypeAndSchema = determineMimeTypeAndSchema(output);				
 				System.out.println("Mime type and scehma " + mimeTypeAndSchema[0] + " " + mimeTypeAndSchema[1]);	
-				System.out.println("Setting schema as json for " + outputName);
 				//executeBuilder.setSchemaForOutput("application/json",outputName);
 				//executeBuilder.setSchemaForOutput("application/wfs",outputName);
 				//executeBuilder.setMimeTypeForOutput("application/json",outputName);
@@ -232,8 +248,7 @@ public class GenericWPSClient {
 				executeBuilder.setMimeTypeForOutput(mimeTypeAndSchema[0],outputName);				
 				if (mimeTypeAndSchema[1] != null) {
 					executeBuilder.setSchemaForOutput(mimeTypeAndSchema[1],outputName);
-				}
-			
+				}			
 				
 				executeBuilder.setAsReference(outputName, true); //set the return output value as a reference									 
 				
@@ -242,37 +257,41 @@ public class GenericWPSClient {
 			}
 		}
 		return executeBuilder;
-	}
+	} //eof
 	
 	
-	
-	private static String[] parseMimeTypeAndSchema(OutputDescriptionType output) {
+	/**
+	 * Takes an OutputDescriptionType and returns an array of mimeType [0]
+	 * and the schema [1] taking into account a preference for output format
+	 * 
+	 * @param output is the output type.
+	 * @return array of mimeType and schema
+	 */	
+	private static String[] determineMimeTypeAndSchema(OutputDescriptionType output) {
 		
 		String preferredMimeType = "text/xml; subtype=gml/3.1.1"; 		
 		ComplexDataCombinationType defaultType = output.getComplexOutput().getDefault();
 		ComplexDataCombinationsType supportedFormats = output.getComplexOutput().getSupported();
 		
-        String[] x;
-	    x = new String[2];  	    
+        String[] mimeAndSchema;
+        mimeAndSchema = new String[2];  	    
 	    
  	    //Check if the process supports the workflow preferred format  
 		for (int index = 0; index < supportedFormats.sizeOfFormatArray(); index++) {
 			//System.out.println(supportedFormats.getFormatArray(index).getMimeType());
 			ComplexDataDescriptionType format = supportedFormats.getFormatArray(index);
 			if (format.getMimeType().equals(preferredMimeType)) {
-				x[0] = format.getMimeType();
-				x[1]= format.getSchema();
+				mimeAndSchema[0] = format.getMimeType();
+				mimeAndSchema[1]= format.getSchema();
 			} 					
 		}
 		//if still not got a good mimeType use the default
-		if (x[0] == null){
-			x[0] = defaultType.getFormat().getMimeType();
-			x[1] = defaultType.getFormat().getSchema();
+		if (mimeAndSchema[0] == null){
+			mimeAndSchema[0] = defaultType.getFormat().getMimeType();
+			mimeAndSchema[1] = defaultType.getFormat().getSchema();
 		}			
 		
-		return x;
-
-		
+		return mimeAndSchema;		
 	}
 	
 	
@@ -303,14 +322,12 @@ public class GenericWPSClient {
 		ExecuteDocument execute = executeBuilder.getExecute();	
 		
 		System.out.println("Execute Request: ");
-		System.out.println(execute.toString());
-		
+		System.out.println(execute.toString());		
 		dumpTextToFile(execute.toString(), processID);
 		
-		execute.getExecute().setService("WPS");		
-		
-		WPSClientSession wpsClient = WPSClientSession.getInstance();
 
+		execute.getExecute().setService("WPS");	
+		WPSClientSession wpsClient = WPSClientSession.getInstance();
 		Object responseObject;
 		try {
 			responseObject = wpsClient.execute(url, execute);
@@ -338,7 +355,7 @@ public class GenericWPSClient {
 						System.out.println("Attempting to resolve output format");
 
 						//Check if output raster or vector data
-						if (outputName.equals("outputRasterModel")) {
+						if (outputName.equals("outputRasterModel2")) {
 							System.out.println("Handling output as raster");
 							//handling raster outputs
 							
