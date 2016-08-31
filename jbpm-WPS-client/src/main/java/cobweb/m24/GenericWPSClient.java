@@ -59,18 +59,22 @@ import org.w3c.dom.NodeList;
 
 public class GenericWPSClient {
 	/**
-	 * @author Sam Meek, Julian Rosser. This is the main class that executes the WPS and handles
-	 *         the result returned as a HashMap. It is currently mainly written to deal
-	 *         with vector data. Raster data inputs are passed as a link and parsed server side.
-	 * 		   Raster data outputs can be passed as links e.g. using executeBuilder.setAsReference(true).	  		   
-	 *         Vector processing hardcoded to JSON (application/json) but could be changed
-	 *         quite easily to implement the default.
-	 *         Support for WPS4R R scripts is provided where process id is like org.n52.wps.server.r.
+	 * @author Sam Meek & Julian Rosser. This is the main class that executes a WPS and handles
+	 *         the result returned as a HashMap. The class creates an interface between workitems 
+	 *         and WPS by extracting the data and parameters for a work-item / WPS-endpoint, 
+	 *         mapping this into an execute request object, executing this on the WPS and then
+	 *         parsing the responses.  
+	 *         
+	 *         Vector data and raster inputs and outputs are supported without requiring bindings
+	 *         to specific data formats within this client code by passing references to data to the
+	 *         WPS and specifying asReference(TRUE) in the output data request.
 	 */
 	
 	
 	final boolean DEBUG = false;
 	
+	//final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
+	final static String globalPreferredMimeType = "application/json";
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -241,10 +245,8 @@ public class GenericWPSClient {
 			
 				String[] mimeTypeAndSchema = determineMimeTypeAndSchema(output);				
 				System.out.println("Mime type and scehma " + mimeTypeAndSchema[0] + " " + mimeTypeAndSchema[1]);	
-				//executeBuilder.setSchemaForOutput("application/json",outputName);
-				//executeBuilder.setSchemaForOutput("application/wfs",outputName);
-				//executeBuilder.setMimeTypeForOutput("application/json",outputName);
 				
+				//Get an appropriate mimeType and schema for this output
 				executeBuilder.setMimeTypeForOutput(mimeTypeAndSchema[0],outputName);				
 				if (mimeTypeAndSchema[1] != null) {
 					executeBuilder.setSchemaForOutput(mimeTypeAndSchema[1],outputName);
@@ -268,8 +270,7 @@ public class GenericWPSClient {
 	 * @return array of mimeType and schema
 	 */	
 	private static String[] determineMimeTypeAndSchema(OutputDescriptionType output) {
-		
-		String preferredMimeType = "text/xml; subtype=gml/3.1.1"; 		
+	
 		ComplexDataCombinationType defaultType = output.getComplexOutput().getDefault();
 		ComplexDataCombinationsType supportedFormats = output.getComplexOutput().getSupported();
 		
@@ -280,7 +281,7 @@ public class GenericWPSClient {
 		for (int index = 0; index < supportedFormats.sizeOfFormatArray(); index++) {
 			//System.out.println(supportedFormats.getFormatArray(index).getMimeType());
 			ComplexDataDescriptionType format = supportedFormats.getFormatArray(index);
-			if (format.getMimeType().equals(preferredMimeType)) {
+			if (format.getMimeType().equals(globalPreferredMimeType)) {
 				mimeAndSchema[0] = format.getMimeType();
 				mimeAndSchema[1]= format.getSchema();
 			} 					
@@ -354,33 +355,9 @@ public class GenericWPSClient {
 					try {
 						System.out.println("Attempting to resolve output format");
 
-						//Check if output raster or vector data
-						if (outputName.equals("outputRasterModel2")) {
-							System.out.println("Handling output as raster");
-							//handling raster outputs
-							
-							dumpTextToFile(responseObject.toString(), processID + " outputRasterModel response");							
-							//Object outputValue = analyser.getComplexData(outputName,GeotiffBinding.class); //Doesn't work, no suitable parser
-														
-							//Handling raster as a string link, as might be returned by WPS execute request return by reference 
-							//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
-							//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
-							Object outputValue2 = analyser.getComplexReferenceByIndex(outputCounter);
-							
-							String outputValue =(String) outputValue2;								
-							System.out.println("Raster Output, outputValue2: " + outputValue.toString());							
-							if (outputValue != null && outputValue instanceof String) {
-								System.out.println("Raster Output, string location resolved");
-								System.out.println("Raster Output, reference: " + analyser.getComplexReferenceByIndex(0));
-								result.put(outputName, outputValue);								
-							} else{
-								System.out.println("Getting raster file reference not successful");
-							}							
-
-						} else {
 							//Handling vector output
 							System.out.println("Handling output as vector or literal");													
-							//Check if R extra data is 
+							//Hardcoded check if R extra data is here, can ignore 
 							if (outputName.equals("sessionInfo") || outputName.equals("warnings")) {
 								System.out.println("skipping R outputs");			
 							} else {
@@ -410,8 +387,7 @@ public class GenericWPSClient {
 									} 									
 								}													
 			
-							}
-						}					
+							}						
 
 					} catch (NullPointerException e) {
 						System.out.println("Output " + outputName

@@ -5,7 +5,7 @@
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
   <bpmn2:itemDefinition id="_Integer" structureRef="Integer"/>
   <bpmn2:itemDefinition id="_Float" structureRef="Float"/>
-  <bpmn2:process id="cobweb.m24.test_r_raster_two_process_string_return" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="test_r_raster_two_process_string_return" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.test.local_r_raster_two_process_string_return" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="local_r_raster_two_process_string_return" isExecutable="true" processType="Private">
     <bpmn2:property id="outputRasterUrl" itemSubjectRef="_String"/>
     <bpmn2:property id="outputRasterUrl2" itemSubjectRef="_String"/>
     <bpmn2:property id="outputPolygon" itemSubjectRef="ItemDefinition_2"/>
@@ -106,8 +106,8 @@
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_r_raster_two_process_string_return">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_raster_two_process_string_return">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_raster_two_process_string_return">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_raster_two_process_string_return">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
         <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
       </bpmndi:BPMNShape>
