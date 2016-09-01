@@ -399,14 +399,14 @@
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
-    <bpmn2:endEvent id="EndEvent_2" name="">
-      <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
-    </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" name="" sourceRef="Task_9" targetRef="EndEvent_2"/>
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="ParallelGateway_1"/>
+    <bpmn2:endEvent id="EndEvent_2" name="">
+      <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
+    </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="flickr_flood_detailed">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.flickr_flood_detailed">
@@ -447,7 +447,7 @@
         <dc:Bounds height="50.0" width="110.0" x="434.0" y="330.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
-        <dc:Bounds height="36.0" width="36.0" x="612.0" y="337.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="596.0" y="338.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="720.0" y="105.0"/>
@@ -511,9 +511,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_13" bpmnElement="SequenceFlow_13" sourceElement="BPMNShape_Task_9" targetElement="BPMNShape_EndEvent_2">
         <di:waypoint xsi:type="dc:Point" x="544.0" y="355.0"/>
-        <di:waypoint xsi:type="dc:Point" x="574.0" y="355.0"/>
-        <di:waypoint xsi:type="dc:Point" x="574.0" y="355.0"/>
-        <di:waypoint xsi:type="dc:Point" x="612.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="567.0" y="355.0"/>
+        <di:waypoint xsi:type="dc:Point" x="567.0" y="356.0"/>
+        <di:waypoint xsi:type="dc:Point" x="596.0" y="356.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

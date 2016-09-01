@@ -35,22 +35,7 @@ public class RSingleRasterProcessTest {
 				GenericWorkItemHandlerClient.class, eventType);
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
-
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Polygon",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Buffer",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 2 - Filter on Attribute",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Store results in WFS-T", new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"ConflationGeometryDistance", signallingTaskWrapper);
-
-		
+	
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnGeometry",
 				new GenericWorkItemHandlerClient());
@@ -58,24 +43,12 @@ public class RSingleRasterProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnInputSurfaceModel",
 				new GenericWorkItemHandlerClient());
-
-		
-/*
-		
-		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
-		String processDescription = "pillar.authoritativedata.PointInPolygon";
-
-		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=application/json";
-		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&application/json&srsName=EPSG:4236";
-
-*/
-		
 		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test_r_single_raster_process");
+		ksession.startProcess("cobweb.m24.local_r_single_raster_process");
 
 	}
 

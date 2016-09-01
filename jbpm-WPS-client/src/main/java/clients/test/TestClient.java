@@ -15,10 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -31,19 +28,8 @@ import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 import net.opengis.wps.x100.ProcessDescriptionType.DataInputs;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.xmlbeans.XmlOptions;
-import org.geotools.data.shapefile.ShapefileDataStore;
-import org.geotools.data.shapefile.ShapefileDataStoreFactory;
-import org.geotools.data.shapefile.shp.ShapefileWriter;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
-import org.geoviqua.gmd19157.DQDataQualityType;
-import org.geoviqua.qualityInformationModel.x40.GVQDataQualityType;
-import org.geoviqua.qualityInformationModel.x40.GVQDiscoveredIssueType;
-import org.geoviqua.qualityInformationModel.x40.GVQMetadataDocument;
-import org.geoviqua.qualityInformationModel.x40.GVQMetadataType;
-import org.jdom.Element;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
@@ -52,7 +38,6 @@ import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
-import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -428,8 +413,7 @@ public class TestClient {
                                 GTVectorDataBinding.class);
                         if(data == null  ){
                         	System.out.println("no results for result");
-                        	throw new RuntimeException();
-                         
+                        	throw new RuntimeException();                         
                         }
                         
                         Object data2 = null;
