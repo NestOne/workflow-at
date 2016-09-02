@@ -1,4 +1,4 @@
-package cobweb.m24;
+package cobweb.test;
 
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
@@ -9,7 +9,10 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.process.WorkItemHandler;
+
 import cobweb.m24.ExceptionServiceHandler;
+import cobweb.m24.GenericWorkItemHandlerClient;
+
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
 public class RSingleRasterProcessTest {
@@ -48,7 +51,7 @@ public class RSingleRasterProcessTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.local_r_single_raster_process");
+		ksession.startProcess("cobweb.m24.test.local_r_single_raster_process");
 
 	}
 

@@ -3,7 +3,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.local_r_single_raster_process" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="local_r_single_raster_process" isExecutable="true" processType="Private">
+  <bpmn2:process id="cobweb.m24.test.local_r_single_raster_process" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="local_r_single_raster_process" isExecutable="true" processType="Private">
     <bpmn2:property id="interimRaster" itemSubjectRef="ItemDefinition_4"/>
     <bpmn2:startEvent id="StartEvent_1" name="">
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
@@ -60,7 +60,7 @@
     </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_single_raster_process">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.local_r_single_raster_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_single_raster_process">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="70.0" y="27.0"/>
       </bpmndi:BPMNShape>
