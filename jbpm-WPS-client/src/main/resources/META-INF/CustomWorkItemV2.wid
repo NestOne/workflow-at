@@ -19,6 +19,69 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "category" : "GeoServer",
 ],
 
+
+
+[
+	"name" : "Pillar4ProximitySuitabilityPolygonScore",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"inputAuthData" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"AuthUUIDFieldName" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"AuthMeta" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"BufferSizeProx" :  new StringDataType(),
+		"sFUN" :  new StringDataType(),
+		"UsaThresh" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),   	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 4 - Proximity Suitability Polygon Score",
+"category" : "Pillar 4",
+],
+
+
+
+
+
+[
+	"name" : "Pillar4PointInPolygon",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"inputAuthoritativeData" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"AuthUUIDFieldName" :  new StringDataType(),
+		"AuthFieldName" :  new StringDataType(),
+		"AuthFieldNameValue" :  new StringDataType(),
+		"ThematicAgreement" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"ObsAttrType" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(),
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 4 - Point In Polygon",
+"category" : "Pillar 4",
+],
+
+	
+
+
+
 [
 	"name" : "rRocRasterCutoff",
     	"parameters" : [
@@ -33,7 +96,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 	],
      "icon" : "icons/world.png",
     "displayName" : "rRocRasterCutoff",
-    "category" : "Raster Conflation",
+    "category" : "Raster",
 ],
 
 
@@ -312,68 +375,6 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 
 
 
-
-[
-	"name" : "Pillar4ProximitySuitabilityPolygonScore",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputObservations" : new ObjectDataType(),
-		"inputModData" : new ObjectDataType(),
-		"UUIDFieldName" :  new StringDataType(),
-		"ModAttribFieldName" :  new StringDataType(),
-		"ModUUIDFieldName" :  new StringDataType(),
-		"Qual2QuantEncoding" :  new StringDataType(),
-		"ScopeLevel" :  new StringDataType(),
-		"ModMeta" :  new StringDataType(),
-		"ObsMeta" :  new StringDataType(),
-		"VolMeta" :  new StringDataType(),
-		"BufferSizeProx" :  new StringDataType(),
-		"sFUN" :  new StringDataType(),
-		"AttrQuanti" :  new StringDataType(),
-		"UsaThresh" :  new StringDataType(),
-   	],
-   	"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),   	
-   	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Pillar 4 - Proximity Suitability Polygon Score",
-"category" : "Pillar 4",
-],
-
-
-
-
-
-[
-	"name" : "Pillar4PointInPolygon",
-    	"parameters" : [
-		"wpsURL" : new StringDataType(),
-		"processDescription" : new StringDataType(),
-		"inputObservations" : new ObjectDataType(),
-		"inputAuthoritativeData" : new ObjectDataType(),
-		"UUIDFieldName" :  new StringDataType(),
-		"AuthUUIDFieldName" :  new StringDataType(),
-		"AuthFieldName" :  new StringDataType(),
-		"AuthFieldNameValue" :  new StringDataType(),
-		"ThematicAgreement" :  new StringDataType(),
-		"ScopeLevel" :  new StringDataType(),
-		"ObsMeta" :  new StringDataType(),
-		"VolMeta" :  new StringDataType(),
-		"ObsAttrType" :  new StringDataType(),
-   	],
-   	"results" : [
-   	"UpdatedObs" : new ObjectDataType(),
-   	],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "Pillar 4 - Point In Polygon",
-"category" : "Pillar 4",
-],
-
-	
 
 
 ]
