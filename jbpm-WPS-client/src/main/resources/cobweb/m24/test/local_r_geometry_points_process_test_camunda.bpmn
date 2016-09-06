@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="Camunda Modeler" exporterVersion="1.2.1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
+  <bpmn:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
+  <bpmn:itemDefinition id="_String" structureRef="String"/>
+  <bpmn:process id="cobweb.m24.test.local_r_geometry_points_process_test_camunda" tns:version="1" tns:packageName="cobweb.m24.test" tns:adHoc="false" name="local_r_geometry_points_process_test_camunda" isExecutable="true" processType="Private">
+    <bpmn:extensionElements>
+      <camunda:executionListener class="" event="start"/>
+    </bpmn:extensionElements>
+    <bpmn:property id="temporaryResult" itemSubjectRef="_String"/>
+    <bpmn:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
+      <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+      <bpmn:ioSpecification id="_InputOutputSpecification_8">
+        <bpmn:dataInput id="_DataInput_22" name="wpsURL"/>
+        <bpmn:dataInput id="_DataInput_23" name="processDescription"/>
+        <bpmn:dataInput id="_DataInput_24" itemSubjectRef="ItemDefinition_4" name="data"/>
+        <bpmn:dataInput id="_DataInput_25" name="attributename"/>
+        <bpmn:dataOutput id="_DataOutput_8" itemSubjectRef="ItemDefinition_4" name="out"/>
+        <bpmn:inputSet id="_InputSet_14"/>
+        <bpmn:inputSet id="_InputSet_15" name="New Input Set">
+          <bpmn:dataInputRefs>_DataInput_22</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_23</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_24</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_25</bpmn:dataInputRefs>
+        </bpmn:inputSet>
+        <bpmn:outputSet id="_OutputSet_14"/>
+        <bpmn:outputSet id="_OutputSet_15" name="New Output Set">
+          <bpmn:dataOutputRefs>_DataOutput_8</bpmn:dataOutputRefs>
+        </bpmn:outputSet>
+      </bpmn:ioSpecification>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_22">
+        <bpmn:targetRef>_DataInput_22</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_3">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_9">http://localhost:8010/wps/WebProcessingService?</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_7">_DataInput_22</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_23">
+        <bpmn:targetRef>_DataInput_23</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_1">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_3">org.n52.wps.server.r.test.return.geometry.points</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_1">_DataInput_23</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_24">
+        <bpmn:targetRef>_DataInput_24</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_5">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_15">http://localhost:8000/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString&amp;maxFeatures=50&amp;outputFormat=gml3</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_13">_DataInput_24</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_25">
+        <bpmn:targetRef>_DataInput_25</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_4">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_12">testattribname</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_10">_DataInput_25</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_3">
+        <bpmn:sourceRef>_DataOutput_8</bpmn:sourceRef>
+        <bpmn:targetRef>temporaryResult</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_3"/>
+    <bpmn:startEvent id="StartEvent_1" name="">
+      <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_2"/>
+    <bpmn:task id="Task_3" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat=""/>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+      <bpmn:ioSpecification id="_InputOutputSpecification_9">
+        <bpmn:dataInput id="_DataInput_26" name="wpsURL"/>
+        <bpmn:dataInput id="_DataInput_27" name="processDescription"/>
+        <bpmn:dataInput id="_DataInput_28" itemSubjectRef="ItemDefinition_4" name="data"/>
+        <bpmn:dataInput id="_DataInput_29" name="attributename"/>
+        <bpmn:dataOutput id="_DataOutput_9" itemSubjectRef="ItemDefinition_4" name="out"/>
+        <bpmn:inputSet id="_InputSet_16"/>
+        <bpmn:inputSet id="_InputSet_17" name="New Input Set">
+          <bpmn:dataInputRefs>_DataInput_26</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_27</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_28</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>_DataInput_29</bpmn:dataInputRefs>
+        </bpmn:inputSet>
+        <bpmn:outputSet id="_OutputSet_16"/>
+        <bpmn:outputSet id="_OutputSet_17" name="New Output Set">
+          <bpmn:dataOutputRefs>_DataOutput_9</bpmn:dataOutputRefs>
+        </bpmn:outputSet>
+      </bpmn:ioSpecification>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_26">
+        <bpmn:targetRef>_DataInput_26</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_7">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_21">http://localhost:8010/wps/WebProcessingService?</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_19">_DataInput_26</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_27">
+        <bpmn:targetRef>_DataInput_27</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_8">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_24">org.n52.wps.server.r.test.return.geometry.points</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_22">_DataInput_27</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_28">
+        <bpmn:sourceRef>temporaryResult</bpmn:sourceRef>
+        <bpmn:targetRef>_DataInput_28</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_29">
+        <bpmn:targetRef>_DataInput_29</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_9">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_27">test</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_25">_DataInput_29</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
+    <bpmn:endEvent id="EndEvent_1" name="">
+      <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_geometry_points_process_test_camunda">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="537.0" y="161.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1">
+          <dc:Bounds height="20.0" width="90.0" x="516.0" y="209.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
+        <dc:Bounds height="50.0" width="110.0" x="150.0" y="160.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
+        <dc:Bounds height="50.0" width="110.0" x="374.0" y="160.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
+        <di:waypoint xsi:type="dc:Point" x="78.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="150.0" y="185.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="484.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="537.0" y="185.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2">
+          <dc:Bounds height="20.0" width="90.0" x="465.5" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
+        <di:waypoint xsi:type="dc:Point" x="260.0" y="185.0"/>
+        <di:waypoint xsi:type="dc:Point" x="374.0" y="185.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
+          <dc:Bounds height="20.0" width="90.0" x="272.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

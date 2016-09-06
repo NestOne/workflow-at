@@ -3,6 +3,22 @@ import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 [
+
+[
+	"name" : "GSCollectGeometries",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSCollectGeometries",
+    "category" : "GeoServer",
+],
+
 [
 	"name" : "rRocRasterCutoff",
     	"parameters" : [
@@ -19,6 +35,32 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "displayName" : "rRocRasterCutoff",
     "category" : "Raster Conflation",
 ],
+
+
+
+[
+	"name" : "Pillar2LocationQuality",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"LBSmethod" :  new StringDataType(),
+		"DQlevel" :  new StringDataType(),
+		"PositionUncertainty" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(),
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 2 - Location Quality",
+	"category" : "Pillar 2",
+],
+
 
 [
 	"name" : "rTestReturnRaster",
@@ -118,9 +160,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 	"category" : "Raster",
 ],
 
-
-
-  [
+[
 	"name" : "rTestReturnGeometryPoints",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
@@ -136,30 +176,90 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 "category" : "Raster",
 ],
 
-
-
-
-
+[
+    "name" : "LaplacePhotoBlurCheck",
+    "parameters" : [
+    "wpsURL" : new StringDataType(),
+	"processDescription" : new StringDataType(),
+	"inputObservations" : new ObjectDataType(),
+	"urlFieldName" : new StringDataType(),
+	"urlPrefix" : new StringDataType(),
+	"threshold" : new StringDataType(),
+    ],
+	"results" : [
+   	"result" : new ObjectDataType(),
+   	"qual_result" : new ObjectDataType(),
+   	],
+    "displayName" : "Pillar 3 - Photo Quality",
+     "icon" : "icons/world.png",
+    "category" : "Pillar 3",
+],
 
 [
-	[
-	"name" : "Pillar 4 - Point In Polygon",
+    "name" : "GetLineOfSight",
+    "parameters" : [
+   	 "wpsURL" : new StringDataType(),
+	"processDescription" : new StringDataType(),
+	"inputObservations" : new ObjectDataType(),	
+	"inputSurfaceModel" :  new ObjectDataType(),
+	"inputBearingFieldName" :  new StringDataType(),
+	"inputTiltFieldName" :  new StringDataType(),
+	"inputUserHeight" : new StringDataType(),
+	"positionAccuracyFieldName" : new StringDataType()	
+    ],
+	"results" : [
+   	"result" : new StringDataType(),
+   	],
+    "displayName" : "Pillar 1 - GetLineOfSight",
+     "icon" : "icons/world.png",
+    "category" : "Pillar 1",
+],
+
+[
+    "name" : "AttributeRange",
+    "description" : "Attribute Range Check",
+    "version" : "1.0",
+    "parameters" : [
+    "wpsURL" : new StringDataType(),
+	"processDescription" : new StringDataType(),
+	"inputObservations" : new ObjectDataType(),
+	"attributeName" :  new StringDataType(),
+	"maxRange" :  new StringDataType(),
+	"minRange" :  new StringDataType(),
+    ],
+	"results" : [
+	   	"result" : new StringDataType(),
+	   	"qual_result" : new StringDataType(),
+   
+   	],
+    "displayName" : "Pillar 2 - Attribute Range Check",
+     "icon" : "icons/world.png",
+    "category" : "Pillar 2",
+    ]
+ ],
+
+[
+	"name" : "Pillar2UsabilityFilterOut",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
-    	"inputAuthoritativeData" : new ObjectDataType(),
 		"inputObservations" : new ObjectDataType(),
+		"fieldName" :  new StringDataType(),
+		"featureName" :  new StringDataType(),
+		"include" :  new StringDataType(),
    	],
    	"results" : [
    	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),
-   	
+   	"qual_result" : new ObjectDataType(),   	
    	],
      
      "icon" : "icons/world.png",
-    "displayName" : "Point in polygon"
+    "displayName" : "Pillar 2 - Usability Filter Out",
+	"category" : "Pillar 2",
 ],
-	[
+
+
+[
 	"name" : "Pillar 2 - Filter on Attribute",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
@@ -178,47 +278,102 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      "icon" : "icons/world.png",
     "displayName" : "Filter on Attribute"
 ],
+
+
+
 [
-	"name" : "Pillar 4 - Point In Buffer",
+	"name" : "Pillar5ProximitySuitabilityPolygonScore",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
-    	"inputAuthoritativeData" : new ObjectDataType(),
 		"inputObservations" : new ObjectDataType(),
-		"inputBufferDistance" : new StringDataType(),
+		"inputModData" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"ModAttribFieldName" :  new StringDataType(),
+		"ModUUIDFieldName" :  new StringDataType(),
+		"Qual2QuantEncoding" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ModMeta" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"BufferSizeProx" :  new StringDataType(),
+		"sFUN" :  new StringDataType(),
+		"AttrQuanti" :  new StringDataType(),
+		"UsaThresh" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(), 	
+   	],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 5 - Proximity Suitability Polygon Score",
+"category" : "Pillar 5",
+],
+
+
+
+
+[
+	"name" : "Pillar4ProximitySuitabilityPolygonScore",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"inputModData" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"ModAttribFieldName" :  new StringDataType(),
+		"ModUUIDFieldName" :  new StringDataType(),
+		"Qual2QuantEncoding" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ModMeta" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"BufferSizeProx" :  new StringDataType(),
+		"sFUN" :  new StringDataType(),
+		"AttrQuanti" :  new StringDataType(),
+		"UsaThresh" :  new StringDataType(),
    	],
    	"results" : [
    	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),
-   	
+   	"qual_result" : new ObjectDataType(),   	
    	],
      
      "icon" : "icons/world.png",
-    "displayName" : "Point in Buffer"
+    "displayName" : "Pillar 4 - Proximity Suitability Polygon Score",
+"category" : "Pillar 4",
 ],
-	
-	
 
-	
-	[
-	"name" : "ConflationGeometryDistance",
+
+
+
+
+[
+	"name" : "Pillar4PointInPolygon",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
 		"processDescription" : new StringDataType(),
-		"IN_REFERENCE" : new ObjectDataType(),
-		"IN_TARGET" : new ObjectDataType(),
-		"IN_THRESHOLD" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"inputAuthoritativeData" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"AuthUUIDFieldName" :  new StringDataType(),
+		"AuthFieldName" :  new StringDataType(),
+		"AuthFieldNameValue" :  new StringDataType(),
+		"ThematicAgreement" :  new StringDataType(),
+		"ScopeLevel" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"ObsAttrType" :  new StringDataType(),
    	],
-
-	"results" : [
-   		"OUT_TARGET" : new ObjectDataType(),
-   	
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(),
    	],
-   
-   	
      
      "icon" : "icons/world.png",
-    "displayName" : "Conflation - Geometry Distance"
+    "displayName" : "Pillar 4 - Point In Polygon",
+"category" : "Pillar 4",
 ],
+
+	
+
 
 ]

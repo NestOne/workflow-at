@@ -1,4 +1,4 @@
-package cobweb.m24;
+package cobweb.test;
 
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
@@ -9,10 +9,14 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.process.WorkItemHandler;
+
 import cobweb.m24.ExceptionServiceHandler;
+import cobweb.m24.GenericWorkItemHandlerClient;
+import cobweb.test.*;
+
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class RGeometryProcessTest {
+public class Local_RGeometryPointsProcessTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -34,21 +38,6 @@ public class RGeometryProcessTest {
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Polygon",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 4 - Point In Buffer",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Pillar 2 - Filter on Attribute",
-				new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"Store results in WFS-T", new GenericWorkItemHandlerClient());
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"ConflationGeometryDistance", signallingTaskWrapper);
-
-		
-		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnGeometry",
 				new GenericWorkItemHandlerClient());
 		
@@ -56,11 +45,11 @@ public class RGeometryProcessTest {
 				"rTestReturnGeometryPoints",
 				new GenericWorkItemHandlerClient());
 		
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"rTestReturnInputSurfaceModel",
-				new GenericWorkItemHandlerClient());		
-
-		ksession.startProcess("cobweb.m24.test_r_geometry_string");
+		/**
+		 * use this to start a defined process, this can be found in
+		 * /src/main/resources
+		 */
+		ksession.startProcess("cobweb.m24.test.local_r_geometry_points_process_test_camunda");
 	}
 
 }
