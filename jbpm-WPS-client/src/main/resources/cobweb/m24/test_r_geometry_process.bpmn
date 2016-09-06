@@ -3,22 +3,23 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" structureRef="String"/>
-  <bpmn2:process id="cobweb.m24.test_r_geometry_process_string_return" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="roc_analysis" isExecutable="true" processType="Private">
-    <bpmn2:extensionElements/>
-    <bpmn2:property id="temporaryResult" itemSubjectRef="ItemDefinition_1"/>
+  <bpmn2:process id="cobweb.m24.test_r_geometry_process" tns:version="1" tns:packageName="cobweb.m24" tns:adHoc="false" name="test_r_geometry_process" isExecutable="true" processType="Private">
+    <bpmn2:property id="temporaryResult" itemSubjectRef="ItemDefinition_4"/>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
     <bpmn2:startEvent id="StartEvent_1" name="">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_2"/>
-    <bpmn2:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="quantile-mapping">
+    <bpmn2:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_8">
         <bpmn2:dataInput id="_DataInput_22" name="wpsURL"/>
         <bpmn2:dataInput id="_DataInput_23" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_24" itemSubjectRef="ItemDefinition_1" name="data"/>
+        <bpmn2:dataInput id="_DataInput_24" itemSubjectRef="ItemDefinition_4" name="data"/>
         <bpmn2:dataInput id="_DataInput_25" name="attributename"/>
-        <bpmn2:dataOutput id="_DataOutput_8" itemSubjectRef="ItemDefinition_1" name="out"/>
+        <bpmn2:dataOutput id="_DataOutput_8" itemSubjectRef="ItemDefinition_4" name="out"/>
         <bpmn2:inputSet id="_InputSet_14"/>
         <bpmn2:inputSet id="_InputSet_15" name="New Input Set">
           <bpmn2:dataInputRefs>_DataInput_22</bpmn2:dataInputRefs>
@@ -64,14 +65,14 @@
         <bpmn2:targetRef>temporaryResult</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_2" targetRef="Task_3"/>
-    <bpmn2:task id="Task_3" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="ROC_Analysis">
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_2"/>
+    <bpmn2:task id="Task_3" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_9">
         <bpmn2:dataInput id="_DataInput_26" name="wpsURL"/>
         <bpmn2:dataInput id="_DataInput_27" name="processDescription"/>
-        <bpmn2:dataInput id="_DataInput_28" itemSubjectRef="ItemDefinition_1" name="data"/>
+        <bpmn2:dataInput id="_DataInput_28" itemSubjectRef="ItemDefinition_4" name="data"/>
         <bpmn2:dataInput id="_DataInput_29" name="attributename"/>
         <bpmn2:dataOutput id="_DataOutput_9" itemSubjectRef="ItemDefinition_4" name="out"/>
         <bpmn2:inputSet id="_InputSet_16"/>
@@ -112,41 +113,37 @@
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="Task_3" targetRef="EndEvent_1"/>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
-    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="Task_2" targetRef="Task_3"/>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="roc_analysis">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_geometry_process_string_return">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="test_r_geometry_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test_r_geometry_process">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="10.0" y="1.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="70.0" y="27.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="450.0" y="30.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="494.0" y="94.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
-        <dc:Bounds height="50.0" width="110.0" x="129.0" y="0.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="160.0" y="81.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="279.0" y="0.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="305.0" y="165.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
-        <di:waypoint xsi:type="dc:Point" x="58.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="89.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="89.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="129.0" y="25.0"/>
+        <di:waypoint xsi:type="dc:Point" x="94.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="94.0" y="106.0"/>
+        <di:waypoint xsi:type="dc:Point" x="160.0" y="106.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="389.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="474.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="474.0" y="30.0"/>
+        <di:waypoint xsi:type="dc:Point" x="415.0" y="190.0"/>
+        <di:waypoint xsi:type="dc:Point" x="518.0" y="190.0"/>
+        <di:waypoint xsi:type="dc:Point" x="518.0" y="142.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
-        <di:waypoint xsi:type="dc:Point" x="239.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="269.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="269.0" y="25.0"/>
-        <di:waypoint xsi:type="dc:Point" x="279.0" y="25.0"/>
+        <di:waypoint xsi:type="dc:Point" x="215.0" y="131.0"/>
+        <di:waypoint xsi:type="dc:Point" x="215.0" y="190.0"/>
+        <di:waypoint xsi:type="dc:Point" x="305.0" y="190.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

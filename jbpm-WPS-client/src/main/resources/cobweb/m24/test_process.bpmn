@@ -32,7 +32,7 @@
       <bpmn2:dataInputAssociation id="DataInputAssociation_2">
         <bpmn2:targetRef>Task_3_wpsURLInput</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_1">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">http://localhost:8010/wps/WebProcessingService?</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">http://geoprocessing.nottingham.ac.uk/wps/WebProcessingService?</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_2">Task_3_wpsURLInput</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>

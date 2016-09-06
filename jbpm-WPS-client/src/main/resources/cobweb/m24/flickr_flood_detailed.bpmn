@@ -13,6 +13,9 @@
     <bpmn2:property id="quantiledSlopeUrl" itemSubjectRef="_String"/>
     <bpmn2:property id="quantiledElevationWeightedUrl" itemSubjectRef="_String"/>
     <bpmn2:property id="quantiledSlopeWeightedUrl" itemSubjectRef="_String"/>
+    <bpmn2:startEvent id="_1" name="">
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+    </bpmn2:startEvent>
     <bpmn2:task id="Task_5" tns:taskName="CalculateWoEWeights" tns:displayName="Calculate WoE Weights" tns:icon="icons/world.png" name="CalculateWoEWeights">
       <bpmn2:incoming>SequenceFlow_19</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
@@ -68,6 +71,7 @@
       </bpmn2:dataOutputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" name="" sourceRef="Task_5" targetRef="Task_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="ParallelGateway_1"/>
     <bpmn2:parallelGateway id="ParallelGateway_1" name="" gatewayDirection="Diverging">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
@@ -394,7 +398,7 @@
       <bpmn2:dataInputAssociation id="DataInputAssociation_20">
         <bpmn2:targetRef>DataInput_20</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_34">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_70">http://geoprocessing.nottingham.ac.uk/wps/testData/lsatDosOtsuM.tif</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_70">http://geoprocessing.nottingham.ac.uk/wps/testData/lsat_DOSReflectance_b1-7_oxver2_mndwi_otsu_matlab.tif</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_68">DataInput_20</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -403,15 +407,11 @@
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" name="" sourceRef="Task_9" targetRef="EndEvent_2"/>
-    <bpmn2:startEvent id="_1" name="">
-      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="" sourceRef="_1" targetRef="ParallelGateway_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="flickr_flood_detailed">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.flickr_flood_detailed">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
-        <dc:Bounds height="36.0" width="36.0" x="39.0" y="45.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="734.0" y="181.0"/>
@@ -467,8 +467,8 @@
         <di:waypoint xsi:type="dc:Point" x="444.0" y="105.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_ParallelGateway_1">
-        <di:waypoint xsi:type="dc:Point" x="57.0" y="81.0"/>
-        <di:waypoint xsi:type="dc:Point" x="57.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="63.0" y="81.0"/>
+        <di:waypoint xsi:type="dc:Point" x="63.0" y="146.0"/>
         <di:waypoint xsi:type="dc:Point" x="80.0" y="146.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_1">

@@ -1,12 +1,10 @@
 # Quality Assurance Authoring Tool 
 
-This is the authoring tool for constructing geoprocessing workflows comprised of Open Geospatial Consortium Web Processing Services. 
+This is the authoring tool for constructing geoprocessing workflows comprised of Web Processing Services. 
 
 ## Description
 
-This repository contains the code for a tool to create compose workflows comprised of Web Processing Services, as might be found in the [QA_wps_processes](https://github.com/cobweb-eu/QA_wps_processes/) repository. The tool may also be used to execute standard WPS algorithms. [52NorthWPS](http://52north.org/communities/geoprocessing/wps/) Java, 52NorthWPS4R and [GeoServer WPS](http://geoserver.org/) implementations have been tested.
-
-The tool is based on a modified client of the JBOSS jBPM framework. The tool can be used to author BPMN documents using an Eclipse plugin or within a web-based envrionment. The BPMN documents define a workflow which is executed by the jBPM engine. 
+This repository contains the code for a tool to create compose workflows comprised of Web Processing Services, as might be found in the QA_wps_processes repository. This tool is based on a modified client of the JBOSS jBPM framework. The tool can be used to author BPMN documents using an Eclipse plugin or within a web-based envrionment. The BPMN documents define a workflow which is executed by the jBPM engine.
 
 [![Demo Workflow Japanese Knotweed](http://www.nottingham.ac.uk/~psxjr/images/jkw_screenshot.png)](https://drive.google.com/open?id=0Byw3xiwycSF3cksxSEF5Z0NnX2c)
 

@@ -85,8 +85,6 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 		 * 
 		 * 
 		 */
-		System.out.println("Finished client execution.");
-		
 		
 		manager.completeWorkItem(workItem.getId(), results);
 	}

@@ -50,6 +50,11 @@ public class NewProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"ConflationGeometryDistance", signallingTaskWrapper);
 
+		String wpsURL = "http://localhost:8010/wps/WebProcessingService?";
+		String processDescription = "pillar.authoritativedata.PointInPolygon";
+
+		String inputObservations = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:SampleData&maxFeatures=50&outputFormat=application/json";
+		String inputAuthoritativeData = "http://grasp.nottingham.ac.uk:8010/geoserver/CobwebTest/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CobwebTest:Biospheric_Reserves&maxFeatures=50&application/json&srsName=EPSG:4236";
 
 		/**
 		 * use this to start a defined process, this can be found in
