@@ -16,7 +16,7 @@ import cobweb.m24.ExceptionServiceHandler;
 
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
-public class Local_RProximitySuitabilityPolygonScoreTest {
+public class Local_RP5ProximitySuitabilityPolygonScoreTest {
 
 	public static void main(String args[]) {
 
