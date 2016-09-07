@@ -20,6 +20,30 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 ],
 
 
+[
+	"name" : "Pillar3AttributeRange",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"ObsAttribFieldName" :  new StringDataType(),
+		"RangeOfAttribute" :  new StringDataType(),
+		"UsabScore" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"QualQuant" :  new StringDataType(),
+   	],
+   	"results" : [
+   		"UpdatedObs" : new ObjectDataType(),
+   	],     
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 3 - Attribute Range",
+	"category" : "Pillar 3",
+],
+
+
 
 [
 	"name" : "Pillar5ReliabilityDistribution",

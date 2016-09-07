@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
-  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
-  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
-  <bpmn2:itemDefinition id="_String" structureRef="String"/>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.1.2.Final" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" isCollection="false" structureRef="ObjectDataType"/>
+  <bpmn2:itemDefinition id="_String" isCollection="false" structureRef="String"/>
   <bpmn2:process id="cobweb.m24.qaqc.local_qaqc_knotweed_los_locationquality_laplace_suitability" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="local_qaqc_knotweed_los_locationquality_laplace_suitability" isExecutable="true" processType="Private">
-    <bpmn2:property id="laplaceOutput" itemSubjectRef="_String"/>
-    <bpmn2:property id="locationQualityOutput" itemSubjectRef="_String"/>
-    <bpmn2:property id="losOutput" itemSubjectRef="_String"/>
+    <bpmn2:property id="laplaceOutput" itemSubjectRef="_String" name="laplaceOutput"/>
+    <bpmn2:property id="locationQualityOutput" itemSubjectRef="_String" name="locationQualityOutput"/>
+    <bpmn2:property id="losOutput" itemSubjectRef="_String" name="losOutput"/>
     <bpmn2:startEvent id="_1" name="">
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -177,16 +178,16 @@
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:ioSpecification id="InputOutputSpecification_1">
-        <bpmn2:dataInput id="DataInput_2" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_2" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="wpsURL"/>
         <bpmn2:dataInput id="DataInput_3" name="processDescription"/>
         <bpmn2:dataInput id="DataInput_4" itemSubjectRef="_String" name="inputObservations"/>
-        <bpmn2:dataInput id="DataInput_5" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="UUIDFieldName"/>
-        <bpmn2:dataInput id="DataInput_6" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="LBSmethod"/>
-        <bpmn2:dataInput id="DataInput_7" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="DQlevel"/>
-        <bpmn2:dataInput id="DataInput_8" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="PositionUncertainty"/>
-        <bpmn2:dataInput id="DataInput_9" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="ScopeLevel"/>
-        <bpmn2:dataInput id="DataInput_10" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="ObsMeta"/>
-        <bpmn2:dataInput id="DataInput_11" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="VolMeta"/>
+        <bpmn2:dataInput id="DataInput_5" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="UUIDFieldName"/>
+        <bpmn2:dataInput id="DataInput_6" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="LBSmethod"/>
+        <bpmn2:dataInput id="DataInput_7" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="DQlevel"/>
+        <bpmn2:dataInput id="DataInput_8" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="PositionUncertainty"/>
+        <bpmn2:dataInput id="DataInput_9" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="ScopeLevel"/>
+        <bpmn2:dataInput id="DataInput_10" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="ObsMeta"/>
+        <bpmn2:dataInput id="DataInput_11" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/local_QAQC_knotweed_locationquality.bpmn#ItemDefinition_1" name="VolMeta"/>
         <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="_String" name="UpdatedObs"/>
         <bpmn2:inputSet id="InputSet_1"/>
         <bpmn2:inputSet id="InputSet_2" name="New Input Set">
@@ -286,24 +287,24 @@
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:ioSpecification id="InputOutputSpecification_2">
-        <bpmn2:dataInput id="DataInput_12" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="wpsURL"/>
-        <bpmn2:dataInput id="DataInput_13" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="processDescription"/>
+        <bpmn2:dataInput id="DataInput_12" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_13" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="processDescription"/>
         <bpmn2:dataInput id="DataInput_14" itemSubjectRef="_String" name="inputObservations"/>
-        <bpmn2:dataInput id="DataInput_15" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="inputModData"/>
+        <bpmn2:dataInput id="DataInput_15" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="inputModData"/>
         <bpmn2:dataInput id="DataInput_16" name="UUIDFieldName"/>
-        <bpmn2:dataInput id="DataInput_17" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ModAttribFieldName"/>
+        <bpmn2:dataInput id="DataInput_17" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ModAttribFieldName"/>
         <bpmn2:dataInput id="DataInput_18" name="ModUUIDFieldName"/>
         <bpmn2:dataInput id="DataInput_19" name="Qual2QuantEncoding"/>
         <bpmn2:dataInput id="DataInput_20" name="ScopeLevel"/>
-        <bpmn2:dataInput id="DataInput_21" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ModMeta"/>
-        <bpmn2:dataInput id="DataInput_22" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ObsMeta"/>
+        <bpmn2:dataInput id="DataInput_21" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ModMeta"/>
+        <bpmn2:dataInput id="DataInput_22" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="ObsMeta"/>
         <bpmn2:dataInput id="DataInput_23" name="VolMeta"/>
         <bpmn2:dataInput id="DataInput_24" name="BufferSizeProx"/>
         <bpmn2:dataInput id="DataInput_25" name="sFUN"/>
-        <bpmn2:dataInput id="DataInput_26" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#_Boolean" name="AttrQuanti"/>
-        <bpmn2:dataInput id="DataInput_27" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="UsaThresh"/>
-        <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_2" name="result"/>
-        <bpmn2:dataOutput id="DataOutput_3" itemSubjectRef="platform:/resource/jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_2" name="qual_result"/>
+        <bpmn2:dataInput id="DataInput_26" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#_Boolean" name="AttrQuanti"/>
+        <bpmn2:dataInput id="DataInput_27" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_1" name="UsaThresh"/>
+        <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_2" name="result"/>
+        <bpmn2:dataOutput id="DataOutput_3" itemSubjectRef="../../../../../../../jbpm-example/src/main/resources/cobweb/m24/QAQC_knotweed_los_filter_laplace_suitability.bpmn#ItemDefinition_2" name="qual_result"/>
         <bpmn2:inputSet id="InputSet_3"/>
         <bpmn2:inputSet id="InputSet_4" name="New Input Set">
           <bpmn2:dataInputRefs>DataInput_12</bpmn2:dataInputRefs>
@@ -444,51 +445,63 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_qaqc_knotweed_los_locationquality_laplace_suitability">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.qaqc.local_qaqc_knotweed_los_locationquality_laplace_suitability">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
-        <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="40.0" y="53.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="560.0" y="320.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="30.0" y="157.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
-        <dc:Bounds height="50.0" width="110.0" x="110.0" y="38.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="130.0" y="46.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="15.0" width="83.0" x="143.0" y="63.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
         <dc:Bounds height="50.0" width="110.0" x="470.0" y="46.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="30.0" width="133.0" x="459.0" y="56.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="300.0" y="39.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="281.0" y="46.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="30.0" width="119.0" x="277.0" y="56.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="Task_4">
-        <dc:Bounds height="50.0" width="110.0" x="480.0" y="150.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="470.0" y="150.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="30.0" width="212.0" x="419.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
-        <di:waypoint xsi:type="dc:Point" x="81.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="94.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="94.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="110.0" y="63.0"/>
+        <di:waypoint xsi:type="dc:Point" x="76.0" y="71.0"/>
+        <di:waypoint xsi:type="dc:Point" x="103.0" y="71.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="71.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_3">
-        <di:waypoint xsi:type="dc:Point" x="220.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="256.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="256.0" y="64.0"/>
-        <di:waypoint xsi:type="dc:Point" x="300.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="240.0" y="71.0"/>
+        <di:waypoint xsi:type="dc:Point" x="281.0" y="71.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_Task_2">
-        <di:waypoint xsi:type="dc:Point" x="410.0" y="64.0"/>
-        <di:waypoint xsi:type="dc:Point" x="437.0" y="64.0"/>
-        <di:waypoint xsi:type="dc:Point" x="437.0" y="71.0"/>
+        <di:waypoint xsi:type="dc:Point" x="391.0" y="71.0"/>
         <di:waypoint xsi:type="dc:Point" x="470.0" y="71.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="535.0" y="200.0"/>
-        <di:waypoint xsi:type="dc:Point" x="535.0" y="338.0"/>
-        <di:waypoint xsi:type="dc:Point" x="560.0" y="338.0"/>
+        <di:waypoint xsi:type="dc:Point" x="470.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="66.0" y="175.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_4">
         <di:waypoint xsi:type="dc:Point" x="525.0" y="96.0"/>
-        <di:waypoint xsi:type="dc:Point" x="525.0" y="130.0"/>
-        <di:waypoint xsi:type="dc:Point" x="535.0" y="130.0"/>
-        <di:waypoint xsi:type="dc:Point" x="535.0" y="150.0"/>
+        <di:waypoint xsi:type="dc:Point" x="525.0" y="123.0"/>
+        <di:waypoint xsi:type="dc:Point" x="525.0" y="150.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
