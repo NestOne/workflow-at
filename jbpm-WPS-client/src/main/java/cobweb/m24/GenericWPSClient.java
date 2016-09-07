@@ -73,8 +73,8 @@ public class GenericWPSClient {
 	
 	final boolean DEBUG = false;
 	
-	//final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
-	final static String globalPreferredMimeType = "application/json";
+	final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
+	//final static String globalPreferredMimeType = "application/json";
 	
 	String wpsURL;
 	String wpsProcessID;

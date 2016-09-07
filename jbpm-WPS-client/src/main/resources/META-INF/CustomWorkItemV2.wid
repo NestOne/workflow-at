@@ -111,7 +111,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"UsaThresh" :  new StringDataType(),
    	],
    	"results" : [
-   	"UpdatedObs" : new ObjectDataType(),
+   		"UpdatedObs" : new ObjectDataType(),
    	],     
      "icon" : "icons/world.png",
     "displayName" : "Pillar 4 - Proximity Suitability Polygon Score",
