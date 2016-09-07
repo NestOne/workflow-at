@@ -19,6 +19,33 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "category" : "GeoServer",
 ],
 
+
+
+[
+	"name" : "Pillar5ReliabilityDistribution",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"SelfCheck" :  new StringDataType(),
+		"DQparam" :  new StringDataType(),
+		"SurveyQueryEndPoint" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"NarrowRange" :  new StringDataType(),
+   	],
+   	"results" : [
+   		"UpdatedObs" : new ObjectDataType(),
+   	],     
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 5 - Reliability Distribution",
+	"category" : "Pillar 5",
+],
+
+
+
 [
 	"name" : "Pillar2UsabilityFilterOut",
     	"parameters" : [
@@ -37,7 +64,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
      
      "icon" : "icons/world.png",
     "displayName" : "Pillar 2 - Usability Filter Out",
-"category" : "Pillar 2",
+	"category" : "Pillar 2",
 ],
 
 
