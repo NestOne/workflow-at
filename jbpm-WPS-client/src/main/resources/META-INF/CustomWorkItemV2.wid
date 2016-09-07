@@ -19,6 +19,27 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "category" : "GeoServer",
 ],
 
+[
+	"name" : "Pillar2UsabilityFilterOut",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"inputObservations" : new ObjectDataType(),
+		"UUIDFieldName" :  new StringDataType(),
+		"ObsMeta" :  new StringDataType(),
+		"VolMeta" :  new StringDataType(),
+		"UsabThresh" :  new StringDataType(),
+		"FilterOut" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"UpdatedObs" : new ObjectDataType(),
+   	],     
+     
+     "icon" : "icons/world.png",
+    "displayName" : "Pillar 2 - Usability Filter Out",
+"category" : "Pillar 2",
+],
+
 
 
 [
@@ -39,13 +60,11 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"UsaThresh" :  new StringDataType(),
    	],
    	"results" : [
-   	"result" : new ObjectDataType(),
-   	"qual_result" : new ObjectDataType(),   	
-   	],
-     
+   	"UpdatedObs" : new ObjectDataType(),
+   	],     
      "icon" : "icons/world.png",
     "displayName" : "Pillar 4 - Proximity Suitability Polygon Score",
-"category" : "Pillar 4",
+	"category" : "Pillar 4",
 ],
 
 
