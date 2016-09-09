@@ -19,6 +19,22 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
     "category" : "GeoServer",
 ],
 
+[
+	"name" : "ReadFromPCAPI",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"url" :  new StringDataType(),
+		"id" : new StringDataType(),
+		"jsonFileId" : new StringDataType(),
+   	],
+   	"results" : [
+   		"out" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "Read from PCAPI Rest",
+],
+
 
 [
 	"name" : "Pillar3AttributeRange",

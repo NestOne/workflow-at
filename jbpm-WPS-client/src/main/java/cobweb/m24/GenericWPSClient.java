@@ -73,8 +73,11 @@ public class GenericWPSClient {
 	
 	final boolean DEBUG = false;
 	
-	final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
-	//final static String globalPreferredMimeType = "application/json";
+	final static boolean globalSetAsReference = true;
+	//final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
+	final static String globalPreferredMimeType = "application/json";
+	//final static String globalPreferredMimeType = "application/WFS"; final static boolean globalSetAsReference = false;
+	
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -252,7 +255,7 @@ public class GenericWPSClient {
 					executeBuilder.setSchemaForOutput(mimeTypeAndSchema[1],outputName);
 				}			
 				
-				executeBuilder.setAsReference(outputName, true); //set the return output value as a reference									 
+				executeBuilder.setAsReference(outputName, globalSetAsReference); //set the return output value as a reference									 
 				
 			} else if (output.getLiteralOutput() != null) {
 				System.out.println("Warning: got literal output but not handling it!");
@@ -281,7 +284,7 @@ public class GenericWPSClient {
 		for (int index = 0; index < supportedFormats.sizeOfFormatArray(); index++) {
 			//System.out.println(supportedFormats.getFormatArray(index).getMimeType());
 			ComplexDataDescriptionType format = supportedFormats.getFormatArray(index);
-			if (format.getMimeType().equals(globalPreferredMimeType)) {
+			if (format.getMimeType().equalsIgnoreCase(globalPreferredMimeType)) {
 				mimeAndSchema[0] = format.getMimeType();
 				mimeAndSchema[1]= format.getSchema();
 			} 					
