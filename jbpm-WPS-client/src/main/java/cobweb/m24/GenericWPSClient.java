@@ -73,10 +73,11 @@ public class GenericWPSClient {
 	
 	final boolean DEBUG = false;
 	
-	final static boolean globalSetAsReference = true;
+	//final static boolean globalSetAsReference = true;
 	//final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
-	final static String globalPreferredMimeType = "application/json";
-	//final static String globalPreferredMimeType = "application/WFS"; final static boolean globalSetAsReference = false;
+	//final static String globalPreferredMimeType = "application/json";
+	//For pushing to WFS using the 52North WFS generator, the input data appears to need to be JSON for some reason!
+	final static String globalPreferredMimeType = "application/WFS"; final static boolean globalSetAsReference = true;
 	
 	
 	String wpsURL;
