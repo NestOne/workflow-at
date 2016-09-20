@@ -1,7 +1,5 @@
 package cobweb.m24.qaqc;
 
-import cobweb.m24.*;
-
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;

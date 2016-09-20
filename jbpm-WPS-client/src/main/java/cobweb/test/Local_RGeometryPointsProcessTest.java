@@ -3,18 +3,11 @@ package cobweb.test;
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
 
-import net.opengis.examples.packet.GMLPacketDocument;
-
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.process.WorkItemHandler;
-
 import cobweb.m24.ExceptionServiceHandler;
 import cobweb.m24.GenericWorkItemHandlerClient;
-import cobweb.test.*;
-
-import org.n52.wps.io.datahandler.parser.GML3BasicParser;
 
 public class Local_RGeometryPointsProcessTest {
 	/**

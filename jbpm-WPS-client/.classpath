@@ -25,7 +25,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/jbpm-installer_6-1/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-xml-1.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ezzjfr/Downloads/uncertml-bundle/uncertml.jar"/>
 	<classpathentry kind="lib" path="C:/jbpm-installer_6-1/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-algorithm-geotools-3.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/jbpm-installer_6-1/wildfly-8.1.0.Final/standalone/deployments/WEB-INF/lib/52n-wps-client-lib-3.3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>

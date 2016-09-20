@@ -1,6 +1,5 @@
 package cobweb.m24;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,17 +11,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ComplexDataCombinationType;
@@ -35,8 +27,6 @@ import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
-import org.drools.core.process.core.datatype.impl.type.StringDataType;
-import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.feature.FeatureCollection;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.ExecuteResponseAnalyser;
@@ -44,17 +34,6 @@ import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
-import org.n52.wps.io.data.GenericFileDataWithGT;
-import org.n52.wps.io.data.IData;
-import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
-import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
-import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
-import org.n52.wps.io.data.binding.complex.GeotiffBinding;
-import org.n52.wps.io.data.binding.literal.*;
-import org.n52.wps.io.data.binding.complex.PlainStringBinding;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 public class GenericWPSClient {
@@ -71,13 +50,22 @@ public class GenericWPSClient {
 	 */
 	
 	
-	final boolean DEBUG = false;
+	/* DEBUG OPTIONS */
+	final boolean DEBUG = true;
+	//String tempDir = "/tmp/tomcat7-tomcat7-tmp/"; // linux
+	String tempDir = "C:\\tmp\\"; // windows
+	final boolean DEBUG_DUMP_REQS_TO_FILE = true; //write out the exec reqs and responses to file	 
 	
-	//final static boolean globalSetAsReference = true;
-	//final static String globalPreferredMimeType = "text/xml; subtype=gml/3.1.1";
-	//final static String globalPreferredMimeType = "application/json";
+	
+	/* WPS OPTIONS */
+	final static boolean globalSetAsReference = true;
+	//final static String globalPreferredOutputMimeType = "text/xml; subtype=gml/3.1.1";
+	final static String globalPreferredOutputMimeType = "application/json";
+	
 	//For pushing to WFS using the 52North WFS generator, the input data appears to need to be JSON for some reason!
-	final static String globalPreferredMimeType = "application/WFS"; final static boolean globalSetAsReference = true;
+	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
+
+	
 	
 	
 	String wpsURL;
@@ -88,8 +76,6 @@ public class GenericWPSClient {
 	String catalogURL;
 	FeatureCollection featureCollection;
 	FeatureCollection inputFeatureCollection;
-
-	String tempDir;
 
 	public GenericWPSClient(String wpsURL, String wpsProcessID,
 			HashMap<String, Object> wpsInputs, String catalogURL) {
@@ -107,17 +93,13 @@ public class GenericWPSClient {
 		 */
 		// WPSConfig.getInstance("/usr/local/apache-tomcat-7.0.55/webapps/wps/config/wps_config_geotools.xml");
 		WPSConfig
-		.getInstance("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\wps\\config\\wps_config_geotools.xml"); // For
-
-		// tempDir = "/tmp/tomcat7-tomcat7-tmp/"; // linux
-		tempDir = "C:\\tmp\\"; // windows
-				
+		.getInstance("C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\wps\\config\\wps_config_geotools.xml"); // For win installation			
 
 		try {
 			CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL); //Doesn't appear to be used
 			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(wpsURL, wpsProcessID);
 
-			//outputs = executeProcess(wpsURL, wpsProcessID,	describeProcessDocument, wpsInputs); //old approach reading data inputs
+			//ExecuteProcessAsLinks replaced executeProcess Jan 2016
 			outputs = executeProcessAsLinks(wpsURL, wpsProcessID,	describeProcessDocument, wpsInputs);
 
 		} catch (WPSClientException e) {
@@ -137,7 +119,6 @@ public class GenericWPSClient {
 	 * @throws WPSClientException
 	 *             - a 52 North class to handle WPS exceptions
 	 */
-
 	public CapabilitiesDocument requestGetCapabilities(String url) throws WPSClientException {
 		System.out.println("Requesting get capabilities document..." + url);
 
@@ -164,11 +145,12 @@ public class GenericWPSClient {
 		if (DEBUG)System.out.println("Process description:");
 		if (DEBUG)System.out.println(processDescription);		
 		InputDescriptionType[] inputList = processDescription.getDataInputs().getInputArray();
+		/*
 		if (DEBUG) {
 			for (InputDescriptionType input : inputList) {
 				System.out.println("Describe process identifier: " + input.getIdentifier().getStringValue());
 			}
-		}
+		}*/
 		return processDescription;
 	}
 	
@@ -196,18 +178,17 @@ public class GenericWPSClient {
 				System.out.println("WPS URL " + wpsURL);
 				if (inputValue instanceof String) {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
-				}			
-			//Handle as ComplexData ie vectors, rasters
-			} else if (input.getComplexData() != null) {				
+				}		
 				
-				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");											
-				// System.out.println("Here 4 " + inputValue.toString());			
+			//Handle as ComplexData ie vectors, rasters
+			} else if (input.getComplexData() != null) {						
+				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");										
 				
 				if (inputValue instanceof String) {
 					System.out.println("instance of string. inputName: " + inputName);					
-					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
 					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
-					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0");
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0"); //Request gml3 from WFS
 				}
 			}
 			if (inputValue == null && input.getMinOccurs().intValue() > 0) {
@@ -285,7 +266,7 @@ public class GenericWPSClient {
 		for (int index = 0; index < supportedFormats.sizeOfFormatArray(); index++) {
 			//System.out.println(supportedFormats.getFormatArray(index).getMimeType());
 			ComplexDataDescriptionType format = supportedFormats.getFormatArray(index);
-			if (format.getMimeType().equalsIgnoreCase(globalPreferredMimeType)) {
+			if (format.getMimeType().equalsIgnoreCase(globalPreferredOutputMimeType)) {
 				mimeAndSchema[0] = format.getMimeType();
 				mimeAndSchema[1]= format.getSchema();
 			} 					
@@ -294,8 +275,7 @@ public class GenericWPSClient {
 		if (mimeAndSchema[0] == null){
 			mimeAndSchema[0] = defaultType.getFormat().getMimeType();
 			mimeAndSchema[1] = defaultType.getFormat().getSchema();
-		}			
-		
+		}		
 		return mimeAndSchema;		
 	}
 	
@@ -326,19 +306,15 @@ public class GenericWPSClient {
 		//Get the ExecuteDocument and get ready to execute
 		ExecuteDocument execute = executeBuilder.getExecute();	
 		
-		System.out.println("Execute Request: ");
-		System.out.println(execute.toString());		
-		dumpTextToFile(execute.toString(), processID);
+		if (DEBUG) System.out.println("Execute Request: ");
+		if (DEBUG) System.out.println(execute.toString());		
+		if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(execute.toString(), processID);
 		
-
 		execute.getExecute().setService("WPS");	
 		WPSClientSession wpsClient = WPSClientSession.getInstance();
 		Object responseObject;
 		try {
 			responseObject = wpsClient.execute(url, execute);
-			//System.out.println("printing execute request...");
-			//System.out.println(execute.toString());
-
 			if (responseObject instanceof ExecuteResponseDocument) {
 				System.out.println("Handling responseObject as instanceof ExecuteResponseDocument");
 				ExecuteResponseDocument response = (ExecuteResponseDocument) responseObject;
@@ -373,7 +349,7 @@ public class GenericWPSClient {
 								} else {									
 									System.out.println("Handling as a string link");
 									
-									dumpTextToFile(responseObject.toString(), processID + " vector response");							
+									if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(responseObject.toString(), processID + " vector response");							
 									//Handling vector as a string link, as might be returned by WPS execute request return by reference 
 									//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
 									//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
@@ -403,7 +379,7 @@ public class GenericWPSClient {
 			} else {
 				System.out.println("responseObject not an instanceof ExecuteResponseDocument");
 				System.out.println("Dumping responseObject to file...");
-				dumpTextToFile(responseObject.toString(), processID + " response");
+				if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(responseObject.toString(), processID + " response");
 			}
 		} catch (WPSClientException e1) {
 			System.out.println("error generating response object " + e1);
@@ -412,22 +388,17 @@ public class GenericWPSClient {
 
 		System.out.println("result collection size " + result.size());
 
-
 		System.out.println("Printing hashmap...");
 		Iterator iterator = result.keySet().iterator();		  
 		while (iterator.hasNext()) {
 			String key = iterator.next().toString();
 			String value = result.get(key).toString();
-
 			System.out.println("HASHMAP: " + key + " " + value);
 		}
-
 		return result;
 	}
 
 	
-	
-
 	//Write data to a file for debugging of requests and responses
 	private void dumpTextToFile(String textToDump, String outputName) {
 		try {	        
