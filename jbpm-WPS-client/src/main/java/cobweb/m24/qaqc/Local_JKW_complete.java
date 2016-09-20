@@ -38,8 +38,7 @@ public class Local_JKW_complete {
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"Pillar5ProximitySuitabilityPolygonScore",
-				new GenericWorkItemHandlerClient());
-		
+				new GenericWorkItemHandlerClient());		
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"Pillar3AttributeRange",
