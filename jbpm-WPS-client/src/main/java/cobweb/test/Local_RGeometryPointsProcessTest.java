@@ -30,9 +30,6 @@ public class Local_RGeometryPointsProcessTest {
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"rTestReturnGeometry",
-				new GenericWorkItemHandlerClient());
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnGeometryPoints",
