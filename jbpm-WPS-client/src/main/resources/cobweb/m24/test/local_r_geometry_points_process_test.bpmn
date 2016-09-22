@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="Camunda Modeler" exporterVersion="1.2.1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
-  <bpmn:itemDefinition id="ItemDefinition_4" structureRef="ObjectDataType"/>
-  <bpmn:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
-  <bpmn:itemDefinition id="_String" structureRef="String"/>
-  <bpmn:process id="cobweb.m24.test.local_r_geometry_points_process_test_camunda" tns:version="1" tns:packageName="cobweb.m24.test" tns:adHoc="false" name="local_r_geometry_points_process_test_camunda" isExecutable="true" processType="Private">
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.1.2.Final" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="ObjectDataType"/>
+  <bpmn:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
+  <bpmn:itemDefinition id="_String" isCollection="false" structureRef="String"/>
+  <bpmn:process id="cobweb.m24.test.local_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.m24.test" tns:adHoc="false" name="local_r_geometry_points_process_test" isExecutable="true" processType="Private">
     <bpmn:extensionElements>
-      <camunda:executionListener class="" event="start"/>
+      <camunda:executionListener class=""/>
     </bpmn:extensionElements>
-    <bpmn:property id="temporaryResult" itemSubjectRef="_String"/>
+    <bpmn:property id="temporaryResult" itemSubjectRef="_String" name="temporaryResult"/>
     <bpmn:task id="Task_2" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
@@ -69,7 +70,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="Task_2"/>
     <bpmn:task id="Task_3" tns:taskName="rTestReturnGeometryPoints" tns:displayName="R test returning Points" tns:icon="icons/world.png" name="rTestReturnGeometryPoints">
       <bpmn:extensionElements>
-        <camunda:executionListener event="start">
+        <camunda:executionListener>
           <camunda:script scriptFormat=""/>
         </camunda:executionListener>
       </bpmn:extensionElements>
@@ -125,9 +126,10 @@
     </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_geometry_points_process_test_camunda">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_r_geometry_points_process_test">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="537.0" y="161.0"/>
@@ -137,21 +139,28 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2">
         <dc:Bounds height="50.0" width="110.0" x="150.0" y="160.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="30.0" width="153.0" x="129.0" y="170.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3">
         <dc:Bounds height="50.0" width="110.0" x="374.0" y="160.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="30.0" width="153.0" x="353.0" y="170.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
         <di:waypoint xsi:type="dc:Point" x="78.0" y="185.0"/>
         <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
         <di:waypoint xsi:type="dc:Point" x="130.0" y="185.0"/>
         <di:waypoint xsi:type="dc:Point" x="150.0" y="185.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="484.0" y="185.0"/>
         <di:waypoint xsi:type="dc:Point" x="537.0" y="185.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_2">
-          <dc:Bounds height="20.0" width="90.0" x="465.5" y="160.0"/>
+          <dc:Bounds height="20.0" width="90.0" x="465.0" y="160.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_3">
