@@ -54,11 +54,11 @@ public class GenericWPSClient {
 	final boolean DEBUG = true;
 	//String tempDir = "/tmp/tomcat7-tomcat7-tmp/"; // linux
 	String tempDir = "C:\\tmp\\"; // windows
-	final boolean DEBUG_DUMP_REQS_TO_FILE = true; //write out the exec reqs and responses to file	 
+	final boolean DEBUG_DUMP_REQS_TO_FILE = true; //write out the exec reqs and responses to file in the tempDir	 
 	
 	
 	/* WPS OPTIONS */
-	final static boolean globalSetAsReference = true;
+	final static boolean globalSetAsReference = true; //Results are returned as url references (i.e pointing to temp dir on the WPS)  
 	//final static String globalPreferredOutputMimeType = "text/xml; subtype=gml/3.1.1";
 	final static String globalPreferredOutputMimeType = "application/json";
 	

@@ -36,6 +36,7 @@ public class Local_StoreToWFSTest{
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"Store results in WFS-T", new GenericWorkItemHandlerClient());
 
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources

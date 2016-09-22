@@ -50,7 +50,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_12">
         <bpmn2:targetRef>_DataInput_12</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_1">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8000/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:archsites&amp;outputFormat=gml2&amp;srsName=EPSG:27700&amp;maxfeatures=100</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8000/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:archsites&amp;outputFormat=gml2&amp;srsName=EPSG:4326&amp;maxfeatures=100</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_12</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -61,15 +61,15 @@
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_geoserver_wps">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="80.0" y="27.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="410.0" y="83.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
         <dc:Bounds height="50.0" width="110.0" x="200.0" y="83.0"/>
-        <bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
           <dc:Bounds height="30.0" width="120.0" x="195.0" y="93.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
@@ -77,14 +77,14 @@
         <di:waypoint xsi:type="dc:Point" x="104.0" y="75.0"/>
         <di:waypoint xsi:type="dc:Point" x="104.0" y="108.0"/>
         <di:waypoint xsi:type="dc:Point" x="200.0" y="108.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="310.0" y="108.0"/>
         <di:waypoint xsi:type="dc:Point" x="355.0" y="108.0"/>
         <di:waypoint xsi:type="dc:Point" x="355.0" y="107.0"/>
         <di:waypoint xsi:type="dc:Point" x="410.0" y="107.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
