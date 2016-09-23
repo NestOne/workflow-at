@@ -16,6 +16,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
+import org.jdom.filter.ElementFilter;
+import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ComplexDataCombinationType;
 import net.opengis.wps.x100.ComplexDataCombinationsType;
@@ -34,6 +43,8 @@ import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
+
+import com.metaworkflows.MetaWorkflow;
 
 
 public class GenericWPSClient {
@@ -65,6 +76,8 @@ public class GenericWPSClient {
 	//For pushing to WFS using the 52North WFS generator, the input data appears to need to be JSON for some reason!
 	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
+	
+	public static boolean useGeonetwork = true;
 	
 	
 	
@@ -209,6 +222,78 @@ public class GenericWPSClient {
 	
 	
 	
+	
+	/**
+	 * Adds in the WPS input details from a catalogue entry to an executeRequest 
+	 * 
+	 * @param executeBuilder - the execReq being built
+	 * @param inputs - hashmap of data and values for the process from the BPMN
+	 * @param processDescription - the processDescription details for this process  
+	 * @return ExecuteResquestBuilder 
+	 * @throws IOException
+	 */	
+	private ExecuteRequestBuilder inputSetterCatalogue(org.n52.wps.client.ExecuteRequestBuilder executeBuilder, HashMap<String, Object> inputs, ProcessDescriptionType processDescription) throws IOException {
+
+		//Loop over the inputs (data and params) and create the ExectuteRequest   
+		for (InputDescriptionType input : processDescription.getDataInputs().getInputArray()) {
+			String inputName = input.getIdentifier().getStringValue();
+			Object inputValue = inputs.get(inputName);
+			System.out.println("WPS URL " + wpsURL);
+			
+		
+			//Handle literal data
+			if (input.getLiteralData() != null) {
+				System.out.println("WPS URL " + wpsURL);
+				if (inputValue instanceof String) {
+					executeBuilder.addLiteralData(inputName, (String) inputValue);
+				}		
+				
+			//Handle as ComplexData ie vectors, rasters
+			} else if (input.getComplexData() != null) {						
+				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");										
+				
+				if (inputValue instanceof String) {
+					
+					System.out.println("GeoNetwork: using GeoNetwork to inputValue");
+					try {
+				    	MetaWorkflow metaWorkflow = new MetaWorkflow();
+						Element retrievedElement = metaWorkflow.GetMetadata("22341");
+			        
+						//get the location of the retrieved element
+				        Element Urllocation = metaWorkflow.getLocationElement(retrievedElement);  
+				        System.out.println("GeoNetwork: getLocationElement " + Urllocation.getText()); 
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					System.out.println("instance of string. inputName: " + inputName);					
+					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
+					
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
+					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0"); //Request gml3 from WFS
+				}
+			}
+			if (inputValue == null && input.getMinOccurs().intValue() > 0) {
+				System.out.println("Null inputValue for a mandatory field.");	
+				try {
+					throw new IOException("Property not set, but mandatory: "
+							+ inputName);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println("Finished constructing execute request inputs");
+		return executeBuilder;			
+	
+	}//eof
+	
+	
+	
+	
+	
 	/**
 	 * Adds in the WPS output details to an executeRequest 
 	 * 
@@ -247,6 +332,8 @@ public class GenericWPSClient {
 	} //eof
 	
 	
+	
+
 	/**
 	 * Takes an OutputDescriptionType and returns an array of mimeType [0]
 	 * and the schema [1] taking into account a preference for output format
@@ -297,9 +384,13 @@ public class GenericWPSClient {
 		System.out.println("Trying to execute process...");
 		HashMap<String, Object> result = new HashMap<String, Object>();				
 
-		//Set the input data types
-		executeBuilder = inputSetter(executeBuilder, inputs, processDescription);
-
+		//Set the input data types	
+		if (useGeonetwork) {
+			executeBuilder = inputSetterCatalogue(executeBuilder, inputs, processDescription);
+		} else {
+			executeBuilder = inputSetter(executeBuilder, inputs, processDescription);
+		}
+				
 		//Set the output data types
 		executeBuilder = outputSetter(executeBuilder, inputs, processDescription);
 		
@@ -364,7 +455,21 @@ public class GenericWPSClient {
 										result.put(outputName, outputValue);								
 									} else {
 										System.out.println("Getting vector file reference not successful");
-									} 									
+									} 		
+									
+									//GeoNetwork registration of result	
+									if (useGeonetwork) {
+										System.out.println("GeoNetwork: using GeoNetwork");
+										try {
+									    	MetaWorkflow metaWorkflow = new MetaWorkflow();
+											String insertedId = metaWorkflow.RegisterResult(processID, outputValue);
+											System.out.println("GeoNetwork: insertedId " + insertedId);
+										} catch (Exception e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									}
+									
 								}													
 			
 							}						
