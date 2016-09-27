@@ -11,8 +11,25 @@ The tool is based on a modified client of the JBOSS jBPM framework. The tool can
 [![Demo Workflow Japanese Knotweed](http://www.nottingham.ac.uk/~psxjr/images/jkw_screenshot.png)](https://drive.google.com/open?id=0Byw3xiwycSF3cksxSEF5Z0NnX2c)
 
 
-## Installation
-To do
+
+# Installation for development
+The quickest way to get a local installation running for development is to use the full jBPM installer. This will download and set up JBOSS and JBPM with all the necessary dependencies using an Ant script.
+
+## Pre-requisites for installation
+
+* [Java 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Apache Maven](http://maven.apache.org/) 
+* [Apache Ant] (http://ant.apache.org/)
+* [git](http://git-scm.com/)
+
+### Installation
+
+* Download the full jBPM installer: ```http://sourceforge.net/projects/jbpm/files/jBPM%206/jbpm-6.3.0.Final/jbpm-6.3.0.Final-installer-full.zip```
+* Unzip to a convenient location: ```C:/jbpm-installer```or ```/home/jbpm-installer```
+* CD to ```jbpm-installer``` and run the install demo (takes a while): ```ant install.demo```
+* Start JBPM/JBOSS: ```ant start.demo```
+* Wait a few minutes for Eclipse to boot
+* Can now pull and import the ```jbpm-WPS-client``` code of this repository into Eclipse.
 
 
 ## Troubleshooting
