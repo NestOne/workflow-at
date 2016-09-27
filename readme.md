@@ -12,7 +12,7 @@ The tool is based on a modified client of the JBOSS jBPM framework. The tool can
 
 
 
-# Installation for development
+# Installation
 The quickest way to get a local installation running for development is to use the full jBPM installer. This will download and set up JBOSS and JBPM with all the necessary dependencies using an Ant script.
 
 ## Pre-requisites for installation
@@ -22,7 +22,7 @@ The quickest way to get a local installation running for development is to use t
 * [Apache Ant] (http://ant.apache.org/)
 * [git](http://git-scm.com/)
 
-### Installation
+### Installation for local development (using Eclipse)
 
 * Download the full jBPM installer: ```http://sourceforge.net/projects/jbpm/files/jBPM%206/jbpm-6.3.0.Final/jbpm-6.3.0.Final-installer-full.zip```
 * Unzip to a convenient location: ```C:/jbpm-installer```or ```/home/jbpm-installer```
@@ -30,7 +30,6 @@ The quickest way to get a local installation running for development is to use t
 * Start JBPM/JBOSS: ```ant start.demo```
 * Wait a few minutes for Eclipse to boot
 * Can now pull and import the ```jbpm-WPS-client``` code of this repository into Eclipse.
-
 
 ## Troubleshooting
 
