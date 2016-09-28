@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import org.jdom.filter.ElementFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+
 
 
 import net.opengis.wps.x100.CapabilitiesDocument;
@@ -257,10 +259,12 @@ public class GenericWPSClient {
 					System.out.println("GeoNetwork: using GeoNetwork to inputValue");
 					try {
 				    	MetaWorkflow metaWorkflow = new MetaWorkflow();
-						Element retrievedElement = metaWorkflow.GetMetadata("22341");
+						//Element retrievedElement = metaWorkflow.GetMetadata("30078");
+				    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);
 			        
 						//get the location of the retrieved element
-				        Element Urllocation = metaWorkflow.getLocationElement(retrievedElement);  
+				        Element Urllocation = metaWorkflow.getLocationElement(retrievedElement);
+				        
 				        System.out.println("GeoNetwork: getLocationElement " + Urllocation.getText()); 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -468,10 +472,8 @@ public class GenericWPSClient {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
-									}
-									
-								}													
-			
+									}									
+								}												
 							}						
 
 					} catch (NullPointerException e) {
