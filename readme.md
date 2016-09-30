@@ -1,6 +1,6 @@
-# Quality Assurance Authoring Tool 
+# Quality Assurance workflow Authoring Tool (QAwAT)
 
-This is the authoring tool for constructing geoprocessing workflows comprised of Open Geospatial Consortium Web Processing Services. 
+QAwAT uses a workflow authoring tool for constructing geoprocessing workflows comprised of Open Geospatial Consortium Web Processing Services. For QAwAT the processes are quality controls (QC) and a workflows constitutes the QA whole process.
 
 ## Description
 
@@ -9,7 +9,6 @@ This repository contains the code for a tool to create compose workflows compris
 The tool is based on a modified client of the JBOSS jBPM framework. The tool can be used to author BPMN documents using an Eclipse plugin or within a web-based envrionment. The BPMN documents define a workflow which is executed by the jBPM engine. 
 
 [![Demo Workflow Japanese Knotweed](http://www.nottingham.ac.uk/~psxjr/images/jkw_screenshot.png)](https://drive.google.com/open?id=0Byw3xiwycSF3cksxSEF5Z0NnX2c)
-
 
 
 # Installation
