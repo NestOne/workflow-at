@@ -260,12 +260,10 @@ public class GenericWPSClient {
 					try {
 				    	MetaWorkflow metaWorkflow = new MetaWorkflow();
 						//Element retrievedElement = metaWorkflow.GetMetadata("30078");
-				    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);
-			        
+				    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);			        
 						//get the location of the retrieved element
-				        Element Urllocation = metaWorkflow.getLocationElement(retrievedElement);
-				        
-				        System.out.println("GeoNetwork: getLocationElement " + Urllocation.getText()); 
+				        String Urllocation = metaWorkflow.getLocationElement(retrievedElement).getText();				        
+				        System.out.println("GeoNetwork: UrlLocation for request " + Urllocation); 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
