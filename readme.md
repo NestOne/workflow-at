@@ -1,11 +1,11 @@
 # Workflow Authoring Tool (wAT) 
- This tool has been developed for the particular use case of quality assurance within the COBWEB project and represents the workflow composition and execution part of the Quality Assurance workflow Authoring Tool (QAwAT).
-
-wAT uses a workflow authoring tool for constructing geoprocessing workflows comprised of Open Geospatial Consortium Web Processing Services. For QAwAT the processes are quality controls (QC) and a workflows constitutes the QA whole process.
+This tool enables creation and execution of workflows defined using Business Process Modelling Notation (BPMN). The repository extends a Business Process Modelling platform (JBOSS jBPM) to enable construction of geoprocessing workflows comprised of Open Geospatial Consortium Web Processing Services. 
 
 ## Description
 
-This repository contains the code for a tool to create compose workflows comprised of Web Processing Services, as might be found in the [QA_wps_processes](https://github.com/cobweb-eu/QA_wps_processes/) repository. The tool may also be used to execute standard WPS algorithms. [52NorthWPS](http://52north.org/communities/geoprocessing/wps/) Java, 52NorthWPS4R and [GeoServer WPS](http://geoserver.org/) implementations have been tested.
+This repository contains the code for a tool to create compose workflows comprised of Web Processing Services, as might be found in the [QA_wps_processes](https://github.com/cobweb-eu/QA_wps_processes/) repository. For creating and executing Quality Assurance workflows the processes are quality controls (QC) and a workflow constitutes the QA whole process.
+
+The tool may also be used to execute standard WPS algorithms. [52NorthWPS](http://52north.org/communities/geoprocessing/wps/) Java, 52NorthWPS4R and [GeoServer WPS](http://geoserver.org/) implementations have been tested.
 
 The tool is based on a modified client of the JBOSS jBPM framework. The tool can be used to author BPMN documents using an Eclipse plugin or within a web-based envrionment. The BPMN documents define a workflow which is executed by the jBPM engine. 
 
