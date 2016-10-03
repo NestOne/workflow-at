@@ -1,20 +1,24 @@
-package cobweb.test;
+package metaworkflows.test;
+
+import cobweb.m24.*;
 
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
-
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import cobweb.m24.ExceptionServiceHandler;
-import cobweb.m24.GenericWorkItemHandlerClient;
 
-public class Local_RGeometryPointsProcessTest {
+import cobweb.m24.ExceptionServiceHandler;
+
+public class Local_Metaworkflows52NorthProcessChainTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
 	 * 
-	 *            Main class harness for testing R vector process passing
+	 *            This is a test class for the Eclipse plugin. Workflow
+	 *            processes can be setup programmatically and run outside of the
+	 *            console and run here. To use this class, make sure JBPM
+	 *            workflow plugins are installed using the Ant script.
 	 */
 
 	public static void main(String args[]) {
@@ -29,15 +33,17 @@ public class Local_RGeometryPointsProcessTest {
 				GenericWorkItemHandlerClient.class, eventType);
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
-
+		
+				
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"rTestReturnGeometryPoints",
 				new GenericWorkItemHandlerClient());		
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test.local_r_geometry_points_process_test");
+		ksession.startProcess("metaworkflows.test.local_metaworkflow_r_geometry_points_process_test");
 	}
 
 }

@@ -12,7 +12,7 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"features" :  new StringDataType(),
    	],
    	"results" : [
-   	"out" : new ObjectDataType(),
+   	"result" : new ObjectDataType(),
 	],
      "icon" : "icons/world.png",
     "displayName" : "GSCollectGeometries",

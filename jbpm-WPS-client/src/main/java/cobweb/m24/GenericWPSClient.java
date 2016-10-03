@@ -71,12 +71,12 @@ public class GenericWPSClient {
 	
 	
 	/* WPS OPTIONS */
-	final static boolean globalSetAsReference = true; //Results are returned as url references (i.e pointing to temp dir on the WPS)  
+	//final static boolean globalSetAsReference = true; //Results are returned as url references (i.e pointing to temp dir on the WPS)  
 	//final static String globalPreferredOutputMimeType = "text/xml; subtype=gml/3.1.1";
-	final static String globalPreferredOutputMimeType = "application/json";
+	//final static String globalPreferredOutputMimeType = "application/json";
 	
 	//For pushing to WFS using the 52North WFS generator, the input data appears to need to be JSON for some reason!
-	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
+	final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
 	public static boolean useGeonetwork = true;
@@ -145,11 +145,13 @@ public class GenericWPSClient {
 		
 		System.out.println("Number of capabilities " + processList.length);
 		//For debugging...
+		/*
 		if (DEBUG) { 
 			for (ProcessBriefType process : processList) {
 				System.out.println(process.getIdentifier().getStringValue());
 			}
 		}
+		*/
 		return capabilities;
 	}
 
@@ -259,11 +261,11 @@ public class GenericWPSClient {
 					System.out.println("GeoNetwork: using GeoNetwork to inputValue");
 					try {
 				    	MetaWorkflow metaWorkflow = new MetaWorkflow();
-						//Element retrievedElement = metaWorkflow.GetMetadata("30078");
 				    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);			        
 						//get the location of the retrieved element
 				        String Urllocation = metaWorkflow.getLocationElement(retrievedElement).getText();				        
 				        System.out.println("GeoNetwork: UrlLocation for request " + Urllocation); 
+				        inputValue = Urllocation;
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -450,27 +452,29 @@ public class GenericWPSClient {
 									Object outputValue2 = analyser.getComplexReferenceByIndex(outputCounter); 
 																		
 									String outputValue = (String) outputValue2;								
-									System.out.println("Vector Output, outputValue2: " + outputValue.toString());							
-									if (outputValue != null && outputValue instanceof String) {
-										System.out.println("Vector Output, string location resolved");
-										System.out.println("Vector Output, reference: " + analyser.getComplexReferenceByIndex(0));
-										result.put(outputName, outputValue);								
-									} else {
-										System.out.println("Getting vector file reference not successful");
-									} 		
-									
+									System.out.println("Vector Output, outputValue2: " + outputValue.toString());								
+									System.out.println("Vector Output, string location resolved");
+									System.out.println("Vector Output, reference: " + analyser.getComplexReferenceByIndex(0));
 									//GeoNetwork registration of result	
 									if (useGeonetwork) {
-										System.out.println("GeoNetwork: using GeoNetwork");
+										System.out.println("GeoNetwork: going to use GeoNetwork for registration");
 										try {
 									    	MetaWorkflow metaWorkflow = new MetaWorkflow();
-											String insertedId = metaWorkflow.RegisterResult(processID, outputValue);
-											System.out.println("GeoNetwork: insertedId " + insertedId);
+											String insertedIdUrlEndpoint = metaWorkflow.RegisterResult(processID, outputValue);
+											System.out.println("GeoNetwork: insertedIdUrlEndpoint " + insertedIdUrlEndpoint);
+											result.put(outputName, insertedIdUrlEndpoint); 
 										} catch (Exception e1) {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
-									}									
+									} else { //non-geonetwork
+										if (outputValue != null && outputValue instanceof String) {
+											//Add the result to the hashmap
+											result.put(outputName, outputValue); 								
+										} else {
+											System.out.println("Getting vector file reference not successful");
+										} 	
+									}
 								}												
 							}						
 
