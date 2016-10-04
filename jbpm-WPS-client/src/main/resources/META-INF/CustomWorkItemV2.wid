@@ -2,7 +2,51 @@ import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
 import org.drools.core.process.core.datatype.impl.type.StringDataType;
 import org.drools.core.process.core.datatype.impl.type.FloatDataType;
 import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
+
 [
+
+
+[
+	"name" : "GSImport",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+		"coverage" : new StringDataType(),
+		"workspace" : new StringDataType(),
+		"store" : new StringDataType(),
+		"name" : new StringDataType(),
+		"srs" : new StringDataType(),
+		"srsHandling" : new StringDataType(),     
+		"styleName" : new StringDataType(),		 
+   	],
+   	"results" : [
+   		"layerName" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSImport",
+    "category" : "GeoServer",
+],
+
+
+
+
+[
+	"name" : "GSBufferFeatureCollection",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+		"distance" : new StringDataType(), 
+   	],
+   	"results" : [
+   		"result" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSBufferFeatureCollection",
+    "category" : "GeoServer",
+],
+
 
 [
 	"name" : "GSCollectGeometries",

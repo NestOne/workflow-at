@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.1.2.Final" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="ObjectDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="_String" isCollection="false" structureRef="String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_7" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_8" isCollection="false" structureRef="java.lang.Object"/>
+  <bpmn2:process id="metaworkflows.test.local_metaworkflow_geoserver_import" tns:version="1" tns:packageName="metaworkflows.test" tns:adHoc="false" name="local_metaworkflow_geoserver_import" isExecutable="true" processType="Private">
+    <bpmn2:extensionElements/>
+    <bpmn2:property id="vectorStringProcessVar" itemSubjectRef="_String" name="vectorStringProcessVar"/>
+    <bpmn2:startEvent id="StartEvent_1" name="">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="EndEvent_1" name="">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:task id="Task_1" tns:taskName="GSImport" tns:displayName="GSImport" tns:icon="icons/world.png" name="GSImport">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_2">
+        <bpmn2:dataInput id="DataInput_4" itemSubjectRef="ItemDefinition_7" name="wpsURL"/>
+        <bpmn2:dataInput id="DataInput_5" itemSubjectRef="ItemDefinition_7" name="processDescription"/>
+        <bpmn2:dataInput id="DataInput_6" itemSubjectRef="ItemDefinition_7" name="features"/>
+        <bpmn2:dataInput id="DataInput_8" itemSubjectRef="ItemDefinition_7" name="coverage"/>
+        <bpmn2:dataInput id="DataInput_9" itemSubjectRef="ItemDefinition_7" name="workspace"/>
+        <bpmn2:dataInput id="DataInput_10" itemSubjectRef="ItemDefinition_7" name="store"/>
+        <bpmn2:dataInput id="DataInput_11" itemSubjectRef="ItemDefinition_7" name="name"/>
+        <bpmn2:dataInput id="DataInput_12" itemSubjectRef="ItemDefinition_7" name="srs"/>
+        <bpmn2:dataInput id="DataInput_13" itemSubjectRef="ItemDefinition_7" name="srsHandling"/>
+        <bpmn2:dataInput id="DataInput_14" itemSubjectRef="ItemDefinition_7" name="styleName"/>
+        <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="_String" name="layerName"/>
+        <bpmn2:inputSet id="_InputSet_11">
+          <bpmn2:dataInputRefs>DataInput_4</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_5</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_6</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_8</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_9</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_10</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_11</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_12</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_13</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_14</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_11">
+          <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_23">
+        <bpmn2:targetRef>DataInput_4</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_25">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_52">http://localhost:8000/geoserver/ows</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_50">DataInput_4</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_24">
+        <bpmn2:targetRef>DataInput_5</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_13">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_27">gs:Import</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_25">DataInput_5</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_25">
+        <bpmn2:targetRef>DataInput_6</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_34">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_71">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=36680</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_69">DataInput_6</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_26">
+        <bpmn2:targetRef>DataInput_8</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_27">
+        <bpmn2:targetRef>DataInput_9</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_35">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_74">testimportws</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_72">DataInput_9</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_28">
+        <bpmn2:targetRef>DataInput_10</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_36">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_77">testimportdatasource</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_75">DataInput_10</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_29">
+        <bpmn2:targetRef>DataInput_11</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_40">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_89">testroads4</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_87">DataInput_11</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_30">
+        <bpmn2:targetRef>DataInput_12</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_38">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_83">EPSG:26713</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_81">DataInput_12</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_31">
+        <bpmn2:targetRef>DataInput_13</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_39">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_86">FORCE_DECLARED</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_84">DataInput_13</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_32">
+        <bpmn2:targetRef>DataInput_14</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_41">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_92">line</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_90">DataInput_14</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
+        <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
+        <bpmn2:targetRef>vectorStringProcessVar</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="Task_1" targetRef="EndEvent_1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_geoserver_wps">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.test.local_metaworkflow_geoserver_import">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="40.0" y="84.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="360.0" y="90.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
+        <dc:Bounds height="50.0" width="110.0" x="140.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
+          <dc:Bounds height="15.0" width="52.0" x="169.0" y="97.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="88.0" y="108.0"/>
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="108.0"/>
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="150.0"/>
+        <di:waypoint xsi:type="dc:Point" x="195.0" y="150.0"/>
+        <di:waypoint xsi:type="dc:Point" x="195.0" y="130.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="250.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="340.0" y="105.0"/>
+        <di:waypoint xsi:type="dc:Point" x="340.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="90.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

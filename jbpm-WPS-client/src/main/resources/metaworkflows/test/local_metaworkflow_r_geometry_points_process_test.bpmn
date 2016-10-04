@@ -4,7 +4,7 @@
   <bpmn:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="ObjectDataType"/>
   <bpmn:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
   <bpmn:itemDefinition id="_String" isCollection="false" structureRef="String"/>
-  <bpmn:process id="cobweb.m24.test.local_metaworkflow_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.m24.test" tns:adHoc="false" name="local_metaworkflow_r_geometry_points_process_test" isExecutable="true" processType="Private">
+  <bpmn:process id="metaworkflows.test.local_metaworkflow_r_geometry_points_process_test" tns:version="1" tns:packageName="metaworkflows.test" tns:adHoc="false" name="local_metaworkflow_r_geometry_points_process_test" isExecutable="true" processType="Private">
     <bpmn:extensionElements>
       <camunda:executionListener class=""/>
     </bpmn:extensionElements>
@@ -47,7 +47,7 @@
       <bpmn:dataInputAssociation id="_DataInputAssociation_24">
         <bpmn:targetRef>_DataInput_24</bpmn:targetRef>
         <bpmn:assignment id="Assignment_5">
-          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_15">http://localhost:8000/geoserver/CobwebTest/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=CobwebTest:SnowdoniaNationalParkJapaneseKnotweedSurvey_IdAsString&amp;maxFeatures=50&amp;outputFormat=gml3</bpmn:from>
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_15">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=36680</bpmn:from>
           <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_13">_DataInput_24</bpmn:to>
         </bpmn:assignment>
       </bpmn:dataInputAssociation>
@@ -126,7 +126,7 @@
     </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.m24.test.local_metaworkflow_r_geometry_points_process_test">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.test.local_metaworkflow_r_geometry_points_process_test">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="30.0" y="161.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1"/>

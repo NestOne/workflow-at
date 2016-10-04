@@ -71,12 +71,12 @@ public class GenericWPSClient {
 	
 	
 	/* WPS OPTIONS */
-	//final static boolean globalSetAsReference = true; //Results are returned as url references (i.e pointing to temp dir on the WPS)  
-	//final static String globalPreferredOutputMimeType = "text/xml; subtype=gml/3.1.1";
+	final static boolean globalSetAsReference = true; //Results are returned as url references (i.e pointing to temp dir on the WPS)  
+	final static String globalPreferredOutputMimeType = "text/xml; subtype=gml/3.1.1";
 	//final static String globalPreferredOutputMimeType = "application/json";
 	
 	//For pushing to WFS using the 52North WFS generator, the input data appears to need to be JSON for some reason!
-	final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
+	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
 	public static boolean useGeonetwork = true;
