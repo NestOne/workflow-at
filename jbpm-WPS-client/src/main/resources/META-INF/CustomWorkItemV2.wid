@@ -7,6 +7,41 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 
 
 [
+	"name" : "GSGMQuery",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+		"filter" : new StringDataType(),		
+   	],
+   	"results" : [
+   		"result" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSGMQuery",
+    "category" : "GeoServer",
+],
+
+
+
+[
+	"name" : "GSGMSampling",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" :  new StringDataType(),
+		"samplePercent" : new StringDataType(),		
+   	],
+   	"results" : [
+   		"result" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSGMSampling",
+    "category" : "GeoServer",
+],
+
+
+[
 	"name" : "GSImport",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),

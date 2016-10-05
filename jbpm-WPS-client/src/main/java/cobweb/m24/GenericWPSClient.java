@@ -79,7 +79,7 @@ public class GenericWPSClient {
 	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
-	public static boolean useGeonetwork = true;
+	public static boolean useGeonetwork = false;
 	
 	
 	
@@ -150,8 +150,8 @@ public class GenericWPSClient {
 			for (ProcessBriefType process : processList) {
 				System.out.println(process.getIdentifier().getStringValue());
 			}
-		}
-		*/
+		}*/
+		
 		return capabilities;
 	}
 
