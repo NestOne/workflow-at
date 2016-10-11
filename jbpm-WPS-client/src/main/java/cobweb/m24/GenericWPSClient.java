@@ -27,6 +27,8 @@ import org.jdom.output.XMLOutputter;
 
 
 
+
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ComplexDataCombinationType;
 import net.opengis.wps.x100.ComplexDataCombinationsType;
@@ -80,9 +82,7 @@ public class GenericWPSClient {
 
 	
 	public static boolean useGeonetwork = false;
-	
-	
-	
+		
 	String wpsURL;
 	String wpsProcessID;
 	HashMap<String, Object> wpsInputs;
@@ -185,6 +185,7 @@ public class GenericWPSClient {
 
 		//Loop over the inputs (data and params) and create the ExectuteRequest   
 		for (InputDescriptionType input : processDescription.getDataInputs().getInputArray()) {
+
 			String inputName = input.getIdentifier().getStringValue();
 			Object inputValue = inputs.get(inputName);
 			System.out.println("WPS URL " + wpsURL);
@@ -192,10 +193,18 @@ public class GenericWPSClient {
 		
 			//Handle literal data
 			if (input.getLiteralData() != null) {
-				System.out.println("WPS URL " + wpsURL);
+				System.out.println("Handling as literal data for " + inputName);
 				if (inputValue instanceof String) {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
-				}		
+				}						
+			} else if (inputName.equals("outputBBOX"))  {
+				System.out.println("Generic WPS Client Get bbox data" + input.getBoundingBoxData().toString().toString());
+				String hardcodedBbox = "<Data><BoundingBoxData crs='EPSG:4326' dimensions='2'><ns:LowerCorner>-179.983 -85.6221</ns:LowerCorner><ns:UpperCorner>180.0 85.0</ns:UpperCorner></BoundingBoxData></Data>";
+				System.out.println("hardcodedBbox: "+ hardcodedBbox.toString());
+				//executeBuilder.(inputName,(String) hardcodedBbox);
+				//executeBuilder.addComplexDataReference(inputName,(String) hardcodedBbox, null, null,null);
+				//executeBuilder.addComplexDataReference(inputName,hardcodedBbox, null, null, null);
+
 				
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {						
@@ -313,9 +322,9 @@ public class GenericWPSClient {
 		for (OutputDescriptionType output : processDescription.getProcessOutputs().getOutputArray()) {
 			System.out.println("Looping over output types to hardcode schema");	
 			String outputName = output.getIdentifier().getStringValue();
-			
+			System.out.println("Current output id: " + output.getIdentifier().getStringValue());	
 			if (output.getComplexOutput() != null) {			
-				System.out.println("Setting schema for output: " + outputName);		
+				System.out.println("Setting mimetype and schema for complex output: " + outputName);		
 			
 				String[] mimeTypeAndSchema = determineMimeTypeAndSchema(output);				
 				System.out.println("Mime type and scehma " + mimeTypeAndSchema[0] + " " + mimeTypeAndSchema[1]);	
@@ -329,7 +338,9 @@ public class GenericWPSClient {
 				executeBuilder.setAsReference(outputName, globalSetAsReference); //set the return output value as a reference									 
 				
 			} else if (output.getLiteralOutput() != null) {
-				System.out.println("Warning: got literal output but not handling it!");
+				System.out.println("Literal type for output ");				
+				executeBuilder.setResponseDocument(outputName, null, null, null);				
+				executeBuilder.setAsReference(outputName, globalSetAsReference); //set the return output value as a reference				
 			}
 		}
 		return executeBuilder;
@@ -337,7 +348,6 @@ public class GenericWPSClient {
 	
 	
 	
-
 	/**
 	 * Takes an OutputDescriptionType and returns an array of mimeType [0]
 	 * and the schema [1] taking into account a preference for output format

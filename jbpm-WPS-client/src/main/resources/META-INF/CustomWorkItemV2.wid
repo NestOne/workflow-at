@@ -7,6 +7,44 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 
 
 [
+	"name" : "rTestReturnGeometryPointsWrapper",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" : new StringDataType(),
+		"attributename" :  new StringDataType(),
+   	],
+   	"results" : [
+   	"out" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "rTestReturnGeometryPointsWrapper",
+	"category" : "Raster",
+],
+
+
+
+[
+	"name" : "GSHeatmap",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" :  new StringDataType(),
+		"radiusPixels" : new StringDataType(),		
+		"outputBBOX" : new StringDataType(),		
+		"outputWidth" : new StringDataType(),
+		"outputHeight" : new StringDataType(),	
+   	],
+   	"results" : [
+   		"result" : new ObjectDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSHeatmap",
+    "category" : "GeoServer",
+],
+
+
+[
 	"name" : "GSGMQuery",
     	"parameters" : [
 		"wpsURL" : new StringDataType(),
