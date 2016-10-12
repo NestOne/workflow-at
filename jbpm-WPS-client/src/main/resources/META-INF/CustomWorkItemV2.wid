@@ -6,6 +6,25 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 [
 
 
+
+[
+	"name" : "GSBufferFeatureCollectionWrapper",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+		"distance" : new StringDataType(), 
+   	],
+   	"results" : [
+   		"result" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSBufferFeatureCollectionWrapper",
+    "category" : "GeoServer",
+],
+
+
+
 [
 	"name" : "rTestReturnGeometryPointsWrapper",
     	"parameters" : [

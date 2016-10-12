@@ -29,6 +29,8 @@ import org.jdom.output.XMLOutputter;
 
 
 
+
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ComplexDataCombinationType;
 import net.opengis.wps.x100.ComplexDataCombinationsType;
@@ -47,6 +49,8 @@ import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
+import org.n52.wps.io.data.IData;
+import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 
 import com.metaworkflows.MetaWorkflow;
 
@@ -446,21 +450,22 @@ public class GenericWPSClient {
 							if (outputName.equals("sessionInfo") || outputName.equals("warnings")) {
 								System.out.println("skipping R outputs");			
 							} else {
-								System.out.println("checking for literal or vector string link");
+								System.out.println("checking for literal or vector string link as output");
+								if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(responseObject.toString(), processID + " vector response");								
+								
 								if (output.getLiteralOutput() != null) {
-									System.out.println("Assumming literalOutput");
-									Object literalOutput = output.getLiteralOutput();
-									result.put(outputName, literalOutput);
+									System.out.println("Handling literal output in process as string");
+									//Round about way to get a literal value using 52n client lib: 
+									String literalStr = response.getExecuteResponse().getProcessOutputs().getOutputArray(outputCounter).getData().getLiteralData().getStringValue();
+									System.out.print("Literal output: " + literalStr);
+									result.put(outputName, literalStr);	
 								} else {									
-									System.out.println("Handling as a string link");
-									
-									if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(responseObject.toString(), processID + " vector response");							
+									System.out.println("Handling as a string link");					
 									//Handling vector as a string link, as might be returned by WPS execute request return by reference 
 									//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
 									//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
 									//Object outputValue2 = analyser.getComplexReferenceByIndex(0); 
-									Object outputValue2 = analyser.getComplexReferenceByIndex(outputCounter); 
-																		
+									Object outputValue2 = analyser.getComplexReferenceByIndex(outputCounter); 																		
 									String outputValue = (String) outputValue2;								
 									System.out.println("Vector Output, outputValue2: " + outputValue.toString());								
 									System.out.println("Vector Output, string location resolved");
