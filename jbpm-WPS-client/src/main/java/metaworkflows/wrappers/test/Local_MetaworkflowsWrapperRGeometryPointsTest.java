@@ -1,15 +1,16 @@
-package metaworkflows.test;
+package metaworkflows.wrappers.test;
 
 import cobweb.m24.*;
+
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
-
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
 import cobweb.m24.ExceptionServiceHandler;
 
-public class Local_MetaworkflowsWrapperGeoServerBufferTest {
+public class Local_MetaworkflowsWrapperRGeometryPointsTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -32,16 +33,16 @@ public class Local_MetaworkflowsWrapperGeoServerBufferTest {
 				GenericWorkItemHandlerClient.class, eventType);
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
-		
+						
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GSBufferFeatureCollectionWrapper",
-				new GenericWorkItemHandlerClient());
+				"rTestReturnGeometryPointsWrapper",
+				new GenericWorkItemHandlerClient());		
 		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("metaworkflows.test.local_metaworkflow_wrapper_geoserver_buffer");
+		ksession.startProcess("metaworkflows.wrappers.test.local_metaworkflow_wrapper_r_geometry_points_process_test");
 	}
 
 }

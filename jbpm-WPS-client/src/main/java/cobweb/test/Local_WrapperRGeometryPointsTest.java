@@ -1,4 +1,4 @@
-package metaworkflows.test;
+package cobweb.test;
 
 import cobweb.m24.*;
 
@@ -10,7 +10,7 @@ import org.kie.api.runtime.KieSession;
 
 import cobweb.m24.ExceptionServiceHandler;
 
-public class Local_MetaworkflowsWrapperChainTest {
+public class Local_WrapperRGeometryPointsTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -42,7 +42,7 @@ public class Local_MetaworkflowsWrapperChainTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("metaworkflows.test.local_metaworkflow_wrapper_r_geometry_points_process_test");
+		ksession.startProcess("cobweb.test.local_wrapper_r_geometry_points_process_test");
 	}
 
 }

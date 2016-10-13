@@ -75,8 +75,10 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 		 * The results HashMap returns the WPS result(s) 
 		 * 
 		 */
-		
+		//boolean useGeonetwork = false;
+		//GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, variables, null,useGeonetwork);
 		GenericWPSClient wpsClient = new GenericWPSClient(wpsURL, wpsProcessID, variables, null);
+		
 		
 		HashMap<String, Object> results = wpsClient.getOutputs();
 		

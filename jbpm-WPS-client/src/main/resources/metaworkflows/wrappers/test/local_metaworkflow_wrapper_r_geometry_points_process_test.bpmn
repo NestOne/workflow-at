@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.1.2.Final" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="ObjectDataType"/>
+  <bpmn:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
+  <bpmn:itemDefinition id="_String" isCollection="false" structureRef="String"/>
+  <bpmn:itemDefinition id="ItemDefinition_2" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn:process id="metaworkflows.wrappers.test.local_metaworkflow_wrapper_r_geometry_points_process_test" tns:version="1" tns:packageName="metaworkflows.wrappers.test" tns:adHoc="false" name="local_metaworkflow_wrapper_r_geometry_points_process_test" isExecutable="true" processType="Private">
+    <bpmn:extensionElements>
+      <camunda:executionListener class=""/>
+    </bpmn:extensionElements>
+    <bpmn:property id="temporaryResult" itemSubjectRef="_String" name="temporaryResult"/>
+    <bpmn:startEvent id="StartEvent_1" name="">
+      <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1" name="">
+      <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_1" tns:taskName="rTestReturnGeometryPointsWrapper" tns:displayName="rTestReturnGeometryPointsWrapper" tns:icon="icons/world.png" name="rTestReturnGeometryPointsWrapper">
+      <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+      <bpmn:ioSpecification id="InputOutputSpecification_1">
+        <bpmn:dataInput id="DataInput_1" itemSubjectRef="ItemDefinition_2" name="wpsURL"/>
+        <bpmn:dataInput id="DataInput_2" itemSubjectRef="ItemDefinition_2" name="processDescription"/>
+        <bpmn:dataInput id="DataInput_3" itemSubjectRef="ItemDefinition_2" name="data"/>
+        <bpmn:dataInput id="DataInput_4" itemSubjectRef="ItemDefinition_2" name="attributename"/>
+        <bpmn:dataOutput id="DataOutput_1" itemSubjectRef="_String" name="out"/>
+        <bpmn:inputSet id="_InputSet_2">
+          <bpmn:dataInputRefs>DataInput_1</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>DataInput_2</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>DataInput_3</bpmn:dataInputRefs>
+          <bpmn:dataInputRefs>DataInput_4</bpmn:dataInputRefs>
+        </bpmn:inputSet>
+        <bpmn:outputSet id="_OutputSet_2">
+          <bpmn:dataOutputRefs>DataOutput_1</bpmn:dataOutputRefs>
+        </bpmn:outputSet>
+      </bpmn:ioSpecification>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_2">
+        <bpmn:targetRef>DataInput_1</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_11">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_25">http://localhost:8010/wps/WebProcessingService?</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_23">DataInput_1</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_3">
+        <bpmn:targetRef>DataInput_2</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_9">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_19">org.n52.wps.extension.ReturnGeometryPointsWrapper</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_17">DataInput_2</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_4">
+        <bpmn:targetRef>DataInput_3</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_10">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_22">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=39836</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_20">DataInput_3</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="_DataInputAssociation_5">
+        <bpmn:targetRef>DataInput_4</bpmn:targetRef>
+        <bpmn:assignment id="Assignment_14">
+          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_32">FirstJBPMTestAttrib</bpmn:from>
+          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_30">DataInput_4</bpmn:to>
+        </bpmn:assignment>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_4">
+        <bpmn:sourceRef>DataOutput_1</bpmn:sourceRef>
+        <bpmn:targetRef>temporaryResult</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_1"/>
+    <bpmn:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="Task_1" targetRef="EndEvent_1"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.wrappers.test.local_metaworkflow_wrapper_r_geometry_points_process_test">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="100.0" y="69.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="48.0" width="48.0" x="640.0" y="99.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
+        <dc:Bounds height="50.0" width="110.0" x="270.0" y="95.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2">
+          <dc:Bounds height="30.0" width="200.0" x="225.0" y="105.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="148.0" y="93.0"/>
+        <di:waypoint xsi:type="dc:Point" x="209.0" y="93.0"/>
+        <di:waypoint xsi:type="dc:Point" x="209.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="270.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="380.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="123.0"/>
+        <di:waypoint xsi:type="dc:Point" x="640.0" y="123.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

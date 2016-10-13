@@ -5,7 +5,7 @@
   <bpmn:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
   <bpmn:itemDefinition id="_String" isCollection="false" structureRef="String"/>
   <bpmn:itemDefinition id="ItemDefinition_2" isCollection="false" structureRef="java.lang.String"/>
-  <bpmn:process id="metaworkflows.test.local_metaworkflow_wrapper_r_geometry_points_process_test" tns:version="1" tns:packageName="metaworkflows.test" tns:adHoc="false" name="local_metaworkflow_wrapper_r_geometry_points_process_test" isExecutable="true" processType="Private">
+  <bpmn:process id="cobweb.test.local_wrapper_r_geometry_points_process_test" tns:version="1" tns:packageName="cobweb.test" tns:adHoc="false" name="local_wrapper_r_geometry_points_process_test" isExecutable="true" processType="Private">
     <bpmn:extensionElements>
       <camunda:executionListener class=""/>
     </bpmn:extensionElements>
@@ -14,11 +14,11 @@
       <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:endEvent id="EndEvent_1" name="">
-      <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:task id="Task_1" tns:taskName="rTestReturnGeometryPointsWrapper" tns:displayName="rTestReturnGeometryPointsWrapper" tns:icon="icons/world.png" name="rTestReturnGeometryPointsWrapper">
       <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
       <bpmn:ioSpecification id="InputOutputSpecification_1">
         <bpmn:dataInput id="DataInput_1" itemSubjectRef="ItemDefinition_2" name="wpsURL"/>
         <bpmn:dataInput id="DataInput_2" itemSubjectRef="ItemDefinition_2" name="processDescription"/>
@@ -69,56 +69,10 @@
       </bpmn:dataOutputAssociation>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="Task_1"/>
-    <bpmn:task id="Task_3" tns:taskName="rTestReturnGeometryPointsWrapper" tns:displayName="rTestReturnGeometryPointsWrapper" tns:icon="icons/world.png" name="rTestReturnGeometryPointsWrapper">
-      <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
-      <bpmn:ioSpecification id="InputOutputSpecification_3">
-        <bpmn:dataInput id="DataInput_9" itemSubjectRef="ItemDefinition_2" name="wpsURL"/>
-        <bpmn:dataInput id="DataInput_10" itemSubjectRef="ItemDefinition_2" name="processDescription"/>
-        <bpmn:dataInput id="DataInput_11" itemSubjectRef="_String" name="data"/>
-        <bpmn:dataInput id="DataInput_12" itemSubjectRef="ItemDefinition_2" name="attributename"/>
-        <bpmn:dataOutput id="DataOutput_3" itemSubjectRef="ItemDefinition_2" name="out"/>
-        <bpmn:inputSet id="InputSet_3" name="Input Set 2">
-          <bpmn:dataInputRefs>DataInput_9</bpmn:dataInputRefs>
-          <bpmn:dataInputRefs>DataInput_10</bpmn:dataInputRefs>
-          <bpmn:dataInputRefs>DataInput_11</bpmn:dataInputRefs>
-          <bpmn:dataInputRefs>DataInput_12</bpmn:dataInputRefs>
-        </bpmn:inputSet>
-        <bpmn:outputSet id="OutputSet_3" name="Output Set 2">
-          <bpmn:dataOutputRefs>DataOutput_3</bpmn:dataOutputRefs>
-        </bpmn:outputSet>
-      </bpmn:ioSpecification>
-      <bpmn:dataInputAssociation id="DataInputAssociation_5">
-        <bpmn:targetRef>DataInput_9</bpmn:targetRef>
-        <bpmn:assignment id="Assignment_20">
-          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_44">http://localhost:8010/wps/WebProcessingService?</bpmn:from>
-          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_45">DataInput_1</bpmn:to>
-        </bpmn:assignment>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataInputAssociation id="DataInputAssociation_6">
-        <bpmn:targetRef>DataInput_10</bpmn:targetRef>
-        <bpmn:assignment id="Assignment_21">
-          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_46">org.n52.wps.extension.ReturnGeometryPointsWrapper</bpmn:from>
-          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_47">DataInput_2</bpmn:to>
-        </bpmn:assignment>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataInputAssociation id="DataInputAssociation_7">
-        <bpmn:sourceRef>temporaryResult</bpmn:sourceRef>
-        <bpmn:targetRef>DataInput_11</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataInputAssociation id="DataInputAssociation_8">
-        <bpmn:targetRef>DataInput_12</bpmn:targetRef>
-        <bpmn:assignment id="Assignment_23">
-          <bpmn:from xsi:type="bpmn:tFormalExpression" id="FormalExpression_50">SecondJBPMTestAttribute</bpmn:from>
-          <bpmn:to xsi:type="bpmn:tFormalExpression" id="FormalExpression_51">DataInput_4</bpmn:to>
-        </bpmn:assignment>
-      </bpmn:dataInputAssociation>
-    </bpmn:task>
-    <bpmn:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="Task_1" targetRef="Task_3"/>
-    <bpmn:sequenceFlow id="SequenceFlow_4" tns:priority="1" sourceRef="Task_3" targetRef="EndEvent_1"/>
+    <bpmn:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="Task_1" targetRef="EndEvent_1"/>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_r_geometry_points_process_test_camunda">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.test.local_metaworkflow_wrapper_r_geometry_points_process_test">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cobweb.test.local_wrapper_r_geometry_points_process_test">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="100.0" y="69.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1"/>
@@ -129,14 +83,8 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
         <dc:Bounds height="50.0" width="110.0" x="270.0" y="95.0"/>
-        <bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel id="BPMNLabel_2">
           <dc:Bounds height="30.0" width="200.0" x="225.0" y="105.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_3">
-        <dc:Bounds height="50.0" width="110.0" x="480.0" y="68.0"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="30.0" width="200.0" x="435.0" y="78.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
@@ -144,21 +92,14 @@
         <di:waypoint xsi:type="dc:Point" x="209.0" y="93.0"/>
         <di:waypoint xsi:type="dc:Point" x="209.0" y="120.0"/>
         <di:waypoint xsi:type="dc:Point" x="270.0" y="120.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_2">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="380.0" y="120.0"/>
-        <di:waypoint xsi:type="dc:Point" x="430.0" y="120.0"/>
-        <di:waypoint xsi:type="dc:Point" x="430.0" y="93.0"/>
-        <di:waypoint xsi:type="dc:Point" x="480.0" y="93.0"/>
-        <bpmndi:BPMNLabel/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="590.0" y="93.0"/>
-        <di:waypoint xsi:type="dc:Point" x="615.0" y="93.0"/>
-        <di:waypoint xsi:type="dc:Point" x="615.0" y="123.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="123.0"/>
         <di:waypoint xsi:type="dc:Point" x="640.0" y="123.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

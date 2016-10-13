@@ -85,8 +85,9 @@ public class GenericWPSClient {
 	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
-	public static boolean useGeonetwork = false;
-		
+	private boolean readFromGeonetwork = false; //TRUE for bpmn catalogue profile
+	private boolean writeOutputToGeonetwork = true;
+	
 	String wpsURL;
 	String wpsProcessID;
 	HashMap<String, Object> wpsInputs;
@@ -103,6 +104,7 @@ public class GenericWPSClient {
 		this.wpsProcessID = wpsProcessID;
 		this.wpsInputs = wpsInputs;
 		this.catalogURL = catalogURL;
+		//this.useGeonetwork = useGeoNetwork;
 
 		System.out.println("WPS URL " + wpsURL);
 		System.out.println("WPS Process ID " + wpsProcessID);
@@ -207,9 +209,7 @@ public class GenericWPSClient {
 				System.out.println("hardcodedBbox: "+ hardcodedBbox.toString());
 				//executeBuilder.(inputName,(String) hardcodedBbox);
 				//executeBuilder.addComplexDataReference(inputName,(String) hardcodedBbox, null, null,null);
-				//executeBuilder.addComplexDataReference(inputName,hardcodedBbox, null, null, null);
-
-				
+				//executeBuilder.addComplexDataReference(inputName,hardcodedBbox, null, null, null);				
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {						
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");										
@@ -403,7 +403,8 @@ public class GenericWPSClient {
 		HashMap<String, Object> result = new HashMap<String, Object>();				
 
 		//Set the input data types	
-		if (useGeonetwork) {
+		if (readFromGeonetwork) {
+			System.out.println("GeoNetwork: using GeoNetwork for input values");
 			executeBuilder = inputSetterCatalogue(executeBuilder, inputs, processDescription);
 		} else {
 			executeBuilder = inputSetter(executeBuilder, inputs, processDescription);
@@ -471,7 +472,7 @@ public class GenericWPSClient {
 									System.out.println("Vector Output, string location resolved");
 									System.out.println("Vector Output, reference: " + analyser.getComplexReferenceByIndex(0));
 									//GeoNetwork registration of result	
-									if (useGeonetwork) {
+									if (writeOutputToGeonetwork) {
 										System.out.println("GeoNetwork: going to use GeoNetwork for registration");
 										try {
 									    	MetaWorkflow metaWorkflow = new MetaWorkflow();
