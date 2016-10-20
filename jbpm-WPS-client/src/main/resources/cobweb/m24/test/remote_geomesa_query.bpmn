@@ -51,14 +51,14 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_4">
         <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_20">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_44">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/geomesa/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geomesa:eventGdelt26Aug2016NEW&amp;maxFeatures=50</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_44">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/geomesa/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geomesa:eventGdelt26Aug2016NEW&amp;maxFeatures=500</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_42">DataInput_3</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="_DataInputAssociation_5">
         <bpmn2:targetRef>DataInput_4</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_21">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">EventRootCode=13</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">http://www.nottingham.ac.uk/~psxjr/stuff/ogc_filter.txt</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">DataInput_4</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -73,12 +73,12 @@
         <bpmndi:BPMNLabel id="BPMNLabel_1"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="48.0" width="48.0" x="410.0" y="83.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="360.0" y="105.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_2"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
         <dc:Bounds height="50.0" width="110.0" x="165.0" y="105.0"/>
-        <bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
           <dc:Bounds height="15.0" width="67.0" x="186.0" y="122.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
@@ -86,14 +86,14 @@
         <di:waypoint xsi:type="dc:Point" x="104.0" y="75.0"/>
         <di:waypoint xsi:type="dc:Point" x="104.0" y="130.0"/>
         <di:waypoint xsi:type="dc:Point" x="165.0" y="130.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
         <di:waypoint xsi:type="dc:Point" x="220.0" y="105.0"/>
         <di:waypoint xsi:type="dc:Point" x="220.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="434.0" y="63.0"/>
-        <di:waypoint xsi:type="dc:Point" x="434.0" y="83.0"/>
-        <bpmndi:BPMNLabel/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="63.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="105.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

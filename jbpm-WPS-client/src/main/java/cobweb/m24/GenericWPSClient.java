@@ -1,5 +1,6 @@
 package cobweb.m24;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,18 +33,33 @@ import org.jdom.output.XMLOutputter;
 
 
 
+
+
+
+
+
+
+
+
+
+
+import net.opengis.ows.x11.BoundingBoxType;
+import net.opengis.ows.x11.CodeType;
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ComplexDataCombinationType;
 import net.opengis.wps.x100.ComplexDataCombinationsType;
 import net.opengis.wps.x100.ComplexDataDescriptionType;
+import net.opengis.wps.x100.DataInputsType;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
 import net.opengis.wps.x100.InputDescriptionType;
+import net.opengis.wps.x100.InputType;
 import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessBriefType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 
 import org.geotools.feature.FeatureCollection;
+import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
@@ -51,6 +68,17 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
+import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
+import org.n52.wps.io.data.binding.complex.PlainStringBinding;
+import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
+
+
+
+
+
+
+
+
 
 import com.metaworkflows.MetaWorkflow;
 
@@ -85,8 +113,8 @@ public class GenericWPSClient {
 	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
-	private boolean readFromGeonetwork = false; //TRUE for bpmn catalogue profile
-	private boolean writeOutputToGeonetwork = true;
+	private boolean readFromGeonetwork = true; //Set as TRUE for bpmn catalogue profile execution
+	private boolean writeOutputToGeonetwork = true; //Set as TRUE for both BPMN and WPS Wrapper profile execution
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -205,12 +233,32 @@ public class GenericWPSClient {
 				}						
 			} else if (inputName.equals("outputBBOX"))  {
 				System.out.println("Generic WPS Client Get bbox data" + input.getBoundingBoxData().toString().toString());
+				/*
 				String hardcodedBbox = "<Data><BoundingBoxData crs='EPSG:4326' dimensions='2'><ns:LowerCorner>-179.983 -85.6221</ns:LowerCorner><ns:UpperCorner>180.0 85.0</ns:UpperCorner></BoundingBoxData></Data>";
 				System.out.println("hardcodedBbox: "+ hardcodedBbox.toString());
-				//executeBuilder.(inputName,(String) hardcodedBbox);
-				//executeBuilder.addComplexDataReference(inputName,(String) hardcodedBbox, null, null,null);
-				//executeBuilder.addComplexDataReference(inputName,hardcodedBbox, null, null, null);				
-			//Handle as ComplexData ie vectors, rasters
+				*/				
+				//Manually add in the bbox to the request  
+				DataInputsType diType = executeBuilder.getExecute().getExecute().getDataInputs();		
+				InputType ide2 = diType.addNewInput();
+				ide2.addNewIdentifier().setStringValue("outputBBOX");
+				BoundingBoxType bb =ide2.addNewData().addNewBoundingBoxData();
+				bb.setCrs("EPSG:4326");
+				ArrayList ll = new ArrayList<Double>();
+				ll.add(-179.983);
+				ll.add(-85.6221);
+				bb.setLowerCorner(ll);
+				ArrayList ur = new ArrayList<Double>();
+				ur.add(180.0);//{180.0, 85.01}; 
+				ur.add(85.01);
+				bb.setUpperCorner(ur);
+				System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
+				
+				/*
+			} else if (inputName.equals("filter"))  { // This is a hack really
+				System.out.println("Filter for CQL");
+				//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/plain; subtype=cql");
+				executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/plain; subtype=cql");
+				*/				
 			} else if (input.getComplexData() != null) {						
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");										
 				
@@ -263,7 +311,29 @@ public class GenericWPSClient {
 				System.out.println("WPS URL " + wpsURL);
 				if (inputValue instanceof String) {
 					executeBuilder.addLiteralData(inputName, (String) inputValue);
-				}		
+				}	
+				
+			} else if (inputName.equals("outputBBOX"))  {
+				System.out.println("Generic WPS Client Get bbox data" + input.getBoundingBoxData().toString().toString());
+				/*
+				String hardcodedBbox = "<Data><BoundingBoxData crs='EPSG:4326' dimensions='2'><ns:LowerCorner>-179.983 -85.6221</ns:LowerCorner><ns:UpperCorner>180.0 85.0</ns:UpperCorner></BoundingBoxData></Data>";
+				System.out.println("hardcodedBbox: "+ hardcodedBbox.toString());
+				*/				
+				//Manually add in the bbox to the request  
+				DataInputsType diType = executeBuilder.getExecute().getExecute().getDataInputs();		
+				InputType ide2 = diType.addNewInput();
+				ide2.addNewIdentifier().setStringValue("outputBBOX");
+				BoundingBoxType bb =ide2.addNewData().addNewBoundingBoxData();
+				bb.setCrs("EPSG:4326");
+				ArrayList ll = new ArrayList<Double>();
+				ll.add(-179.983);
+				ll.add(-85.6221);
+				bb.setLowerCorner(ll);
+				ArrayList ur = new ArrayList<Double>();
+				ur.add(180.0);//{180.0, 85.01}; 
+				ur.add(85.01);
+				bb.setUpperCorner(ur);
+				System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
 				
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {						

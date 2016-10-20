@@ -1,4 +1,4 @@
-package cobweb.test;
+package metaworkflows.test;
 
 import cobweb.m24.*;
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
@@ -9,7 +9,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import cobweb.m24.ExceptionServiceHandler;
 
-public class Remote_GeoMesaQueryProcessTest {
+public class Local_MetaworkflowsGeoServerHeatmapTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -22,7 +22,6 @@ public class Remote_GeoMesaQueryProcessTest {
 
 	public static void main(String args[]) {
 
-		
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
 		KieBase kbase = kContainer.getKieBase("kbase");
@@ -35,14 +34,14 @@ public class Remote_GeoMesaQueryProcessTest {
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GSGMQuery",
+				"GSHeatmap",
 				new GenericWorkItemHandlerClient());
-				
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test.remote_geomesa_query");
-	} 
+		ksession.startProcess("metaworkflows.test.local_metaworkflow_geoserver_heatmap");
+	}
 
 }

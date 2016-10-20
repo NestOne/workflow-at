@@ -37,8 +37,7 @@ public class Remote_GeoServerHeatmapProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"GSHeatmap",
 				new GenericWorkItemHandlerClient());
-		
-		
+				
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources

@@ -5,6 +5,21 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 
 [
 
+[
+	"name" : "GSStoreCoverage",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"coverage" :  new StringDataType(),
+   	],
+   	"results" : [
+   		"coverageLocation" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSStoreCoverage",
+    "category" : "GeoServer",
+],
+
 
 
 [

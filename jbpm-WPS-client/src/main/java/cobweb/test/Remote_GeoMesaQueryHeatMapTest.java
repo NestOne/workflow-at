@@ -9,7 +9,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import cobweb.m24.ExceptionServiceHandler;
 
-public class Remote_GeoMesaQueryProcessTest {
+public class Remote_GeoMesaQueryHeatMapTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -37,12 +37,16 @@ public class Remote_GeoMesaQueryProcessTest {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"GSGMQuery",
 				new GenericWorkItemHandlerClient());
-				
+		
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"GSHeatmap",
+				new GenericWorkItemHandlerClient());
+						
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("cobweb.m24.test.remote_geomesa_query");
+		ksession.startProcess("cobweb.m24.test.remote_geomesa_query_heatmap");
 	} 
 
 }

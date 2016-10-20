@@ -43,7 +43,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_2">
         <bpmn2:targetRef>DataInput_1</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_22">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">http://localhost:8000/geoserver/wps</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/wps</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_43">DataInput_1</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -57,7 +57,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_4">
         <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_29">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_61">http://localhost:8000/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:archsites&amp;outputFormat=gml2&amp;srsName=EPSG:4326&amp;maxfeatures=100</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_61">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/sf/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=sf:archsites&amp;maxFeatures=5000</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_59">DataInput_3</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -104,23 +104,23 @@
         <bpmndi:BPMNLabel id="BPMNLabel_2"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
-        <dc:Bounds height="50.0" width="110.0" x="175.0" y="115.0"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="15.0" width="68.0" x="196.0" y="132.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="180.0" y="150.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
+          <dc:Bounds height="15.0" width="68.0" x="201.0" y="167.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
         <di:waypoint xsi:type="dc:Point" x="104.0" y="75.0"/>
-        <di:waypoint xsi:type="dc:Point" x="104.0" y="140.0"/>
-        <di:waypoint xsi:type="dc:Point" x="175.0" y="140.0"/>
-        <bpmndi:BPMNLabel/>
+        <di:waypoint xsi:type="dc:Point" x="104.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="180.0" y="175.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="285.0" y="140.0"/>
-        <di:waypoint xsi:type="dc:Point" x="347.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="347.0" y="175.0"/>
         <di:waypoint xsi:type="dc:Point" x="347.0" y="107.0"/>
         <di:waypoint xsi:type="dc:Point" x="410.0" y="107.0"/>
-        <bpmndi:BPMNLabel/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
