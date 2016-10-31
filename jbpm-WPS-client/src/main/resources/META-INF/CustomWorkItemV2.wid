@@ -87,13 +87,12 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 		"filter" : new StringDataType(),		
    	],
    	"results" : [
-   		"result" : new ObjectDataType(),
+   		"result" : new StringDataType(),
 	],
      "icon" : "icons/world.png",
     "displayName" : "GSGMQuery",
     "category" : "GeoServer",
 ],
-
 
 
 [

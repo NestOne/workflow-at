@@ -41,7 +41,7 @@ public class Local_WrapperGeoServerBufferChainTest {
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("metaworkflows.wrappers.test.local_metaworkflow_wrapper_geoserver_buffer_chain");
+		ksession.startProcess("cobweb.test.local_wrapper_geoserver_buffer_chain");
 	}
 
 }

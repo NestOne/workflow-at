@@ -27,7 +27,8 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 	 */
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {				
-		System.out.println("GenericWorkItemHandler: executing work item");		
+		System.out.println("GenericWorkItemHandler: executing work item");
+		System.out.println("System.currentTimeMillis(): " + System.currentTimeMillis());
 		Map<String, Object> inputs = new HashMap<String, Object>();
 		
 		inputs = workItem.getParameters();
@@ -88,7 +89,7 @@ public class GenericWorkItemHandlerClient implements WorkItemHandler {
 		 * 
 		 */
 		System.out.println("Finished client execution.");
-		
+		System.out.println("System.currentTimeMillis(): " + System.currentTimeMillis());
 		
 		manager.completeWorkItem(workItem.getId(), results);
 	}

@@ -304,8 +304,7 @@ public class GenericWPSClient {
 			String inputName = input.getIdentifier().getStringValue();
 			Object inputValue = inputs.get(inputName);
 			System.out.println("WPS URL " + wpsURL);
-			
-		
+					
 			//Handle literal data
 			if (input.getLiteralData() != null) {
 				System.out.println("WPS URL " + wpsURL);
