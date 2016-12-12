@@ -113,8 +113,8 @@ public class GenericWPSClient {
 	//final static String globalPreferredOutputMimeType = "application/WFS"; 	final static boolean globalSetAsReference = true;
 
 	
-	private boolean readFromGeonetwork = true; //Set as TRUE for bpmn catalogue profile execution
-	private boolean writeOutputToGeonetwork = true; //Set as TRUE for both BPMN and WPS Wrapper profile execution
+	private boolean readFromGeonetwork = false; //Set as TRUE for bpmn catalogue profile execution
+	private boolean writeOutputToGeonetwork = false; //Set as TRUE for both BPMN and WPS Wrapper profile execution
 	
 	String wpsURL;
 	String wpsProcessID;

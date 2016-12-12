@@ -5,6 +5,48 @@ import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
 
 [
 
+
+
+[
+	"name" : "GSHeatmapWrapper",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"data" :  new StringDataType(),
+		"radiusPixels" : new StringDataType(), 
+		"outputBBOX" : new StringDataType(), 
+		"outputWidth" : new StringDataType(), 
+		"outputHeight" : new StringDataType(), 								
+   	],
+   	"results" : [
+   		"result" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSHeatmapWrapper",
+    "category" : "GeoServer",
+],
+
+
+
+[
+	"name" : "GSGMQueryWrapper",
+    	"parameters" : [
+		"wpsURL" : new StringDataType(),
+		"processDescription" : new StringDataType(),
+		"features" :  new StringDataType(),
+		"filter" : new StringDataType(), 
+   	],
+   	"results" : [
+   		"result" : new StringDataType(),
+	],
+     "icon" : "icons/world.png",
+    "displayName" : "GSGMQueryWrappe",
+    "category" : "GeoServer",
+],
+
+
+
+
 [
 	"name" : "GSStoreCoverage",
     	"parameters" : [
