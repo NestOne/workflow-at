@@ -6,10 +6,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,22 +28,6 @@ import org.jdom.filter.ElementFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import net.opengis.ows.x11.BoundingBoxType;
 import net.opengis.ows.x11.CodeType;
@@ -68,9 +54,15 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
+import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.complex.PlainStringBinding;
 import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
+
+
+
+
+
 
 
 
@@ -115,6 +107,8 @@ public class GenericWPSClient {
 	
 	private boolean readFromGeonetwork = false; //Set as TRUE for bpmn catalogue profile execution
 	private boolean writeOutputToGeonetwork = false; //Set as TRUE for both BPMN and WPS Wrapper profile execution
+	
+	private boolean downloadResponseData = true; 
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -251,7 +245,7 @@ public class GenericWPSClient {
 				ur.add(180.0);//{180.0, 85.01}; 
 				ur.add(85.01);
 				bb.setUpperCorner(ur);
-				System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
+				//System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
 				
 				/*
 			} else if (inputName.equals("filter"))  { // This is a hack really
@@ -263,9 +257,43 @@ public class GenericWPSClient {
 				System.out.println("Generic WPS Client HERE 3 " + inputName	+ " " + inputValue + " ");										
 				
 				if (inputValue instanceof String) {
-					System.out.println("instance of string. inputName: " + inputName);					
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
-					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
+					System.out.println("instance of string. inputName: " + inputName);
+					System.out.println("this.wpsProcessID " + wpsProcessID );
+					
+					
+					if (downloadResponseData && wpsProcessID.equals("gs:Heatmap")) {
+						System.out.println("add in file data");
+						//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
+												
+							
+						String tempData = readFile("C:\\tmp\\temporary.xml");
+						try {
+							executeBuilder.addComplexData(inputName, tempData, null, null, null);
+						} catch (WPSClientException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.out.println("added file data to exec");
+						/*
+						//Manually add in the bbox to the request  
+						DataInputsType diType = executeBuilder.getExecute().getExecute().getDataInputs();		
+						InputType ide2 = diType.addNewInput();
+						ide2.addNewIdentifier().setStringValue("outputBBOX");
+						BoundingBoxType bb =ide2.addNewData().addNewBoundingBoxData();
+						bb.setCrs("EPSG:4326");
+						ArrayList ll = new ArrayList<Double>();
+						ll.add(-179.983);
+						ll.add(-85.6221);
+						bb.setLowerCorner(ll);
+						ArrayList ur = new ArrayList<Double>();
+						ur.add(180.0);//{180.0, 85.01}; 
+						ur.add(85.01);
+						*/
+						
+					} else {						
+						executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
+					}	
+					//executeBuilder.addComplexDataReference((String) inputName,(String) inputValue,null,null, "application/json");					
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0"); //Request gml3 from WFS
 				}
 			}
@@ -286,6 +314,23 @@ public class GenericWPSClient {
 	}//eof
 	
 	
+	
+	String readFile(String fileName) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(fileName));
+	    try {
+	        StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append("\n");
+	            line = br.readLine();
+	        }
+	        return sb.toString();
+	    } finally {
+	        br.close();
+	    }
+	}
 	
 	
 	/**
@@ -332,7 +377,7 @@ public class GenericWPSClient {
 				ur.add(180.0);//{180.0, 85.01}; 
 				ur.add(85.01);
 				bb.setUpperCorner(ur);
-				System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
+				//System.out.println("executeBuilder.getExecute()" + executeBuilder.getExecute().toString());
 				
 			//Handle as ComplexData ie vectors, rasters
 			} else if (input.getComplexData() != null) {						
@@ -486,7 +531,7 @@ public class GenericWPSClient {
 		ExecuteDocument execute = executeBuilder.getExecute();	
 		
 		if (DEBUG) System.out.println("Execute Request: ");
-		if (DEBUG) System.out.println(execute.toString());		
+		//if (DEBUG) System.out.println(execute.toString());		
 		if (DEBUG_DUMP_REQS_TO_FILE) dumpTextToFile(execute.toString(), processID);
 		
 		execute.getExecute().setService("WPS");	
@@ -534,12 +579,34 @@ public class GenericWPSClient {
 									//Handling vector as a string link, as might be returned by WPS execute request return by reference 
 									//Note, a "only whitespace content allowed" compilation error indicates problems with the definition of data types
 									//between the input / output variables e.g. as defined in CustomWorkItem work item doc.
-									//Object outputValue2 = analyser.getComplexReferenceByIndex(0); 
+									//Object outputValue2 = analyser.getComplexReferenceByIndex(0);
+									
+									if (downloadResponseData) {
+										System.out.println("Attempt to download response data for ...  " + outputName);
+										System.out.println("download start: " + System.currentTimeMillis());
+										
+										//Object tempValue = analyser.getComplexData(outputName, GenericFileDataBinding.class);
+										Object tempValue  = analyser.getComplexReferenceByIndex(outputCounter);
+										String tempValue2 = (String) tempValue;
+										//URL myURL = new URL(tempValue2);
+										InputStream input = new URL(tempValue2).openStream();											
+										
+										dumpTextToFile(getStringFromInputStream(input), processID + " temporary");
+				
+										//String tempResultDownload= getStringFromInputStream(input);									
+										//System.out.println(tempResultDownload);
+										System.out.println("download finish " + System.currentTimeMillis());
+										
+										System.out.println("downloaded data...");
+									}
+									
 									Object outputValue2 = analyser.getComplexReferenceByIndex(outputCounter); 																		
 									String outputValue = (String) outputValue2;								
 									System.out.println("Vector Output, outputValue2: " + outputValue.toString());								
 									System.out.println("Vector Output, string location resolved");
 									System.out.println("Vector Output, reference: " + analyser.getComplexReferenceByIndex(0));
+									
+
 									//GeoNetwork registration of result	
 									if (writeOutputToGeonetwork) {
 										System.out.println("GeoNetwork: going to use GeoNetwork for registration");
@@ -592,6 +659,37 @@ public class GenericWPSClient {
 		return result;
 	}
 
+	
+	// convert InputStream to String
+	private static String getStringFromInputStream(InputStream is) {
+
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+
+		String line;
+		try {
+
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return sb.toString();
+
+	}
+	
 	
 	//Write data to a file for debugging of requests and responses
 	private void dumpTextToFile(String textToDump, String outputName) {

@@ -39,9 +39,12 @@ public class Remote_WrapperGeoMesaQueryHeatMapTest {
 				new GenericWorkItemHandlerClient());
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GSHeatmap",
+				"GSHeatmapWrapper",
 				new GenericWorkItemHandlerClient());
 						
+		
+		
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources

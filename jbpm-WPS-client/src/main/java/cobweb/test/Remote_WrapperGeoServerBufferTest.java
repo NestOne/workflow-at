@@ -1,15 +1,16 @@
-package metaworkflows.wrappers.test;
+package cobweb.test;
 
 import cobweb.m24.*;
+
 import org.jbpm.bpmn2.handler.SignallingTaskHandlerDecorator;
 import org.kie.api.KieBase;
-
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
 import cobweb.m24.ExceptionServiceHandler;
 
-public class Remote_MetaworkflowsWrapperGeoMesaQueryHeatMapTest {
+public class Remote_WrapperGeoServerBufferTest {
 	/**
 	 * @author Julian Rosser
 	 * @param args
@@ -20,8 +21,8 @@ public class Remote_MetaworkflowsWrapperGeoMesaQueryHeatMapTest {
 	 *            workflow plugins are installed using the Ant script.
 	 */
 
-	
 	public static void main(String args[]) {
+
 		
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
@@ -35,19 +36,16 @@ public class Remote_MetaworkflowsWrapperGeoMesaQueryHeatMapTest {
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 		
 		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GSGMQueryWrapper",
+				"GSBufferFeatureCollectionWrapper",
 				new GenericWorkItemHandlerClient());
 		
-		ksession.getWorkItemManager().registerWorkItemHandler(
-				"GSHeatmapWrapper",
-				new GenericWorkItemHandlerClient());
 						
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources
 		 */
-		ksession.startProcess("metaworkflows.wrappers.test.remote_metaworkflow_wrapper_geomesa_query_heatmap");
-		
+		ksession.startProcess("cobweb.m24.test.remote_wrapper_geoserver_buffer");
 	} 
 
 }

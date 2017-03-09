@@ -58,7 +58,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_5">
         <bpmn2:targetRef>DataInput_4</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_21">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">http://www.nottingham.ac.uk/~ezzjfr/stuff/ogc_filter.txt</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">http://www.nottingham.ac.uk/~ezzjfr/stuff/ogc_protest_filter_28th_june.txt</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">DataInput_4</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
