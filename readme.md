@@ -44,6 +44,8 @@ The quickest way to get a local installation running for development is to use t
 * Start JBPM/JBOSS: ```ant start.demo```
 * Wait a few minutes for Eclipse to boot
 * Can now pull and import the ```jbpm-WPS-client``` code of this repository into Eclipse.
+* Try running the test WPS processes in src/main/java/cobweb/test You will need to edit them to point to your own WPS installation.
+* Modification of src/main/java/cobweb/m24/GenericWPSClient.java may also be required to fit the operating system and local file paths. See log file and WPS.config variables.
 
 ## Troubleshooting
 
