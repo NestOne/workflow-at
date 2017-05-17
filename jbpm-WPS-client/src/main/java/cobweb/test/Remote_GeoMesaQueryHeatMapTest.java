@@ -21,7 +21,6 @@ public class Remote_GeoMesaQueryHeatMapTest {
 	 */
 
 	public static void main(String args[]) {
-
 		
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
@@ -34,6 +33,7 @@ public class Remote_GeoMesaQueryHeatMapTest {
 		signallingTaskWrapper
 		.setWorkItemExceptionParameterName(ExceptionServiceHandler.exceptionParameterName);
 		
+		
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"GSGMQuery",
 				new GenericWorkItemHandlerClient());
@@ -42,6 +42,8 @@ public class Remote_GeoMesaQueryHeatMapTest {
 				"GSHeatmap",
 				new GenericWorkItemHandlerClient());
 						
+		
+		
 		/**
 		 * use this to start a defined process, this can be found in
 		 * /src/main/resources

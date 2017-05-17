@@ -50,7 +50,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_17">
         <bpmn2:targetRef>DataInput_6</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_16">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_34">gs:Heatmap</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_34">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=53671</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_32">DataInput_6</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>

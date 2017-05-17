@@ -72,6 +72,8 @@ import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
 
 
 
+
+
 import com.metaworkflows.MetaWorkflow;
 
 
@@ -106,9 +108,10 @@ public class GenericWPSClient {
 
 	
 	private boolean readFromGeonetwork = false; //Set as TRUE for bpmn catalogue profile execution
-	private boolean writeOutputToGeonetwork = false; //Set as TRUE for both BPMN and WPS Wrapper profile execution
+	private boolean readProcessFromGeonetwork = false;
+	private boolean writeOutputToGeonetwork = true; //Set as TRUE for both BPMN and WPS Wrapper profile execution
 	
-	private boolean downloadResponseData = true; 
+	private boolean downloadResponseData = false; // downloads data after execution
 	
 	String wpsURL;
 	String wpsProcessID;
@@ -125,7 +128,7 @@ public class GenericWPSClient {
 		this.wpsURL = wpsURL;
 		this.wpsProcessID = wpsProcessID;
 		this.wpsInputs = wpsInputs;
-		this.catalogURL = catalogURL;
+		this.catalogURL = catalogURL; //deprecated
 		//this.useGeonetwork = useGeoNetwork;
 
 		System.out.println("WPS URL " + wpsURL);
@@ -140,6 +143,22 @@ public class GenericWPSClient {
 
 		try {
 			CapabilitiesDocument capabilitiesDocument = requestGetCapabilities(wpsURL); //Doesn't appear to be used
+			
+			//if using the geonetwork catalogue
+			if (readProcessFromGeonetwork == true) {
+				System.out.println("Requesting describe process document via catalogue...");	
+		    	MetaWorkflow metaWorkflow = new MetaWorkflow();
+		    	Element retrievedProcessElement = metaWorkflow.GetMetadata((String)wpsProcessID);			        
+				//get the location of the retrieved element
+	    		String metadataElementURL = metaWorkflow.getLocationElement(retrievedProcessElement).getText();
+	            String metadataElementProcessID = metaWorkflow.getTitleElement(retrievedProcessElement).getText();
+	            System.out.println("GeoNetwork: Urllocation: " + metadataElementURL);	
+	            System.out.println("GeoNetwork: processID: " + metadataElementProcessID);	
+	            wpsProcessID = metadataElementProcessID;
+	            wpsURL = metadataElementURL;
+			} 
+				
+			
 			ProcessDescriptionType describeProcessDocument = requestDescribeProcess(wpsURL, wpsProcessID);
 
 			//ExecuteProcessAsLinks replaced executeProcess Jan 2016
@@ -183,9 +202,13 @@ public class GenericWPSClient {
 		return capabilities;
 	}
 
-	public ProcessDescriptionType requestDescribeProcess(String url,String processID) throws IOException {
+	public ProcessDescriptionType requestDescribeProcess(String url,String processID) throws Exception {
+		
+
+		
 		System.out.println("Requesting describe process document...");		
-		WPSClientSession wpsClient = WPSClientSession.getInstance();
+		WPSClientSession wpsClient = WPSClientSession.getInstance();			
+		
 		ProcessDescriptionType processDescription = wpsClient.getProcessDescription(url, processID);
 		if (DEBUG)System.out.println("Process description:");
 		if (DEBUG)System.out.println(processDescription);		
@@ -195,7 +218,8 @@ public class GenericWPSClient {
 			for (InputDescriptionType input : inputList) {
 				System.out.println("Describe process identifier: " + input.getIdentifier().getStringValue());
 			}
-		}*/
+		}*/	
+
 		return processDescription;
 	}
 	
@@ -385,22 +409,33 @@ public class GenericWPSClient {
 				
 				if (inputValue instanceof String) {
 					
-					System.out.println("GeoNetwork: using GeoNetwork to inputValue");
-					try {
-				    	MetaWorkflow metaWorkflow = new MetaWorkflow();
-				    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);			        
-						//get the location of the retrieved element
-				        String Urllocation = metaWorkflow.getLocationElement(retrievedElement).getText();				        
-				        System.out.println("GeoNetwork: UrlLocation for request " + Urllocation); 
-				        inputValue = Urllocation;
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					if (inputName.equals("filter")) {
+							System.out.println("Hardcoding filter: " + inputName);	
+							executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);
+										
+					} else {
+					
+						System.out.println("GeoNetwork: using GeoNetwork to inputValue");
+						try {
+					    	MetaWorkflow metaWorkflow = new MetaWorkflow();
+					    	Element retrievedElement = metaWorkflow.GetMetadata((String)inputValue);			        
+							//get the location of the retrieved element
+					        String Urllocation = metaWorkflow.getLocationElement(retrievedElement).getText();				        
+					        System.out.println("GeoNetwork: UrlLocation for request " + Urllocation); 
+					        //inputValue = Urllocation;
+			
+					        inputValue = Urllocation;
+		
+							System.out.println("instance of string. inputName: " + inputName);					
+							executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
+								
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+		
 					}
-					
-					System.out.println("instance of string. inputName: " + inputName);					
-					executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,null);	//Use the default of the input data
-					
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"application/json"); //Request json from WFS
 					//executeBuilder.addComplexDataReference(inputName,(String) inputValue, null, null,"text/xml; subtype=gml/3.1.0"); //Request gml3 from WFS
 				}

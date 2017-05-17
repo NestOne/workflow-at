@@ -23,14 +23,12 @@
         <bpmn2:dataInput id="DataInput_2" itemSubjectRef="ItemDefinition_2" name="processDescription"/>
         <bpmn2:dataInput id="DataInput_3" itemSubjectRef="ItemDefinition_2" name="features"/>
         <bpmn2:dataInput id="DataInput_4" itemSubjectRef="ItemDefinition_2" name="filter"/>
-        <bpmn2:dataInput id="DataInput_12" name="input1"/>
         <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="_String" name="result"/>
         <bpmn2:inputSet id="_InputSet_2">
           <bpmn2:dataInputRefs>DataInput_1</bpmn2:dataInputRefs>
           <bpmn2:dataInputRefs>DataInput_2</bpmn2:dataInputRefs>
           <bpmn2:dataInputRefs>DataInput_3</bpmn2:dataInputRefs>
           <bpmn2:dataInputRefs>DataInput_4</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_12</bpmn2:dataInputRefs>
         </bpmn2:inputSet>
         <bpmn2:outputSet id="_OutputSet_2">
           <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
@@ -53,7 +51,7 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_4">
         <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_20">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_44">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/geomesa/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geomesa:brext_event&amp;CQL_FILTER=EventRootCode=14</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_44">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/geomesa/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geomesa:gdelt_1day_brexit_subset_event</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_42">DataInput_3</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -63,9 +61,6 @@
           <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_47">http://www.nottingham.ac.uk/~ezzjfr/stuff/ogc_protest_filter_21st_june.txt</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_45">DataInput_4</bpmn2:to>
         </bpmn2:assignment>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
-        <bpmn2:targetRef>DataInput_12</bpmn2:targetRef>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
         <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
@@ -172,6 +167,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_1">
         <di:waypoint xsi:type="dc:Point" x="128.0" y="165.0"/>
+        <di:waypoint xsi:type="dc:Point" x="149.0" y="165.0"/>
         <di:waypoint xsi:type="dc:Point" x="170.0" y="165.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_4"/>
       </bpmndi:BPMNEdge>

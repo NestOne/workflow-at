@@ -4,7 +4,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="ObjectDataType"/>
   <bpmn2:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="StringDataType"/>
   <bpmn2:itemDefinition id="_String" isCollection="false" structureRef="String"/>
-  <bpmn2:process id="metaworkflows.test.remote_metaworkflow_geoserver_wps" tns:version="1" tns:packageName="metaworkflows.test" tns:adHoc="false" name="remote_metaworkflow_geoserver_wps" isExecutable="true" processType="Private">
+  <bpmn2:process id="metaworkflows.test.local_metaworkflow_geoserver_collect_geometries_wps" tns:version="1" tns:packageName="metaworkflows.test" tns:adHoc="false" name="local_metaworkflow_geoserver_collect_geometries_wps" isExecutable="true" processType="Private">
     <bpmn2:extensionElements/>
     <bpmn2:property id="vectorStringProcessVar" itemSubjectRef="_String" name="vectorStringProcessVar"/>
     <bpmn2:startEvent id="StartEvent_1" name="">
@@ -36,21 +36,21 @@
       <bpmn2:dataInputAssociation id="_DataInputAssociation_10">
         <bpmn2:targetRef>_DataInput_10</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_4">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">http://geoprocessing.westus.cloudapp.azure.com:8082/geoserver/ows</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">http://localhost:8000/geoserver/ows</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">_DataInput_10</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="_DataInputAssociation_11">
         <bpmn2:targetRef>_DataInput_11</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_2">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=53566</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=51202</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4">_DataInput_11</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
       <bpmn2:dataInputAssociation id="_DataInputAssociation_12">
         <bpmn2:targetRef>_DataInput_12</bpmn2:targetRef>
         <bpmn2:assignment id="Assignment_1">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=48757</bpmn2:from>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">http://localhost:8005/geonetwork/srv/eng/xml.metadata.get?id=36680</bpmn2:from>
           <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">_DataInput_12</bpmn2:to>
         </bpmn2:assignment>
       </bpmn2:dataInputAssociation>
@@ -58,7 +58,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="" sourceRef="Task_1" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="local_geoserver_wps">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.test.remote_metaworkflow_geoserver_wps">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="metaworkflows.test.local_metaworkflow_geoserver_collect_geometries_wps">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
         <dc:Bounds height="48.0" width="48.0" x="80.0" y="27.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1"/>
