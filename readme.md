@@ -21,9 +21,11 @@ See below some refererences related to QAwAT within COBWEB:
 
 Meek, S. Jackson, M. and Leibovici, DG. (2016) A BPMN solution for chaining OGC services to quality assure location-based crowdsourced data. Computers & Geosciences, 87: 76–83
 
-Higgins, CI. Williams, J. Leibovici, DG. Simonis,I. Davis, MJ. Muldoon, C. and O’Grady, M. (2016) Citizen OBservatory WEB (COBWEB): A Generic Infrastructure Platform to Facilitate the Collection of Citizen Science data for Environmental Monitoring. IJSDIR,  2016, Vol.11, 20-48, DOI: 10.2902/1725-0463.2016.11.art3
+Rosser, J.F., Jackson, M.J. Leibovici, DG. (2018) Full Metadata Object Profiling for flexible geoprocessing workflows. Transactions in GIS.
 
-Rosser, J. Pourabdolllah, A. Brackin, R. Jackson, M.J. Leibovici, DG. (2016) Full Meta Objects for Flexible Geoprocessing Workflows: profiling WPS or BPMN? 19th AGILE, 14-17 June 2016, Helsinki, Finland.(BEST PAPER SESSION)
+Rosser, J.F., Pourabdolllah, A. Brackin, R. Jackson, M.J. Leibovici, DG. (2016) Full Meta Objects for Flexible Geoprocessing Workflows: profiling WPS or BPMN? 19th AGILE, 14-17 June 2016, Helsinki, Finland.(BEST PAPER SESSION)
+
+Higgins, CI. Williams, J. Leibovici, DG. Simonis,I. Davis, MJ. Muldoon, C. and O’Grady, M. (2016) Citizen OBservatory WEB (COBWEB): A Generic Infrastructure Platform to Facilitate the Collection of Citizen Science data for Environmental Monitoring. IJSDIR,  2016, Vol.11, 20-48, DOI: 10.2902/1725-0463.2016.11.art3
 
 Leibovici, DG Williams, J Rosser, JF Hodges, C Scott, D Chapman, C Higgins,  C and Jackson, MJ  ( 2016) Earth Observation for Citizen Science validation, or, Citizen Science for Earth Observation validation? Role of the Quality Assurance of Volunteered Observations. Remote Sensing, special issue ‘ Citizen Science and Earth Observation’, (in R1)
 
